@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Speedy-splat accelerates rendering speed by over six times through precisely localizing and pruning Gaussians.">
+    <meta name="keywords"
+        content="Speedy-Splat, speedysplat, Speedy Splat, speedy splat, speedy-splat, Gaussian Splatting, Gaussian">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Speedy-Splat: Fast 3D Gaussian Splatting with Sparse
+        Pixels and Sparse Primitives</title>
+    <!-- Google tag (gtag.js) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-KJBVZNV6J3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-KJBVZNV6J3');
+    </script> -->
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link rel="icon" href="./static/images/favicon.ico">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/index.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+
+<body>
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h1 class="title is-1 publication-title">Speedy-Splat: Fast 3D Gaussian Splatting with Sparse
+                            Pixels and Sparse Primitives</h1>
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">
+                                <a href="https://www.cs.umd.edu/~hanson/">Alex Hanson</a>,</span>
+                            <span class="author-block">
+                                <a href="https://tuallen.github.io">Allen Tu</a>,</span>
+                            <span class="author-block">
+                                <a href="https://www.cs.umd.edu/people/geng">Geng Lin</a>,
+                            </span>
+                            <span class="author-block">
+                                <a href="https://vasusingla.github.io/">Vasu Singla</a>,
+                            </span>
+
+                            <span class="author-block">
+                                <a href="https://www.cs.umd.edu/~zwicker/">Matthias Zwicker</a>,
+                            </span>
+                            <span class="author-block">
+                                <a href="https://www.cs.umd.edu/~tomg/">Tom Goldstein</a>
+                            </span>
+                        </div>
+
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">University of Maryland</span>
+                        </div>
+
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <!-- PDF Link. -->
+                                <span class="link-block">
+                                    <a href=""
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </span>
+                                        <span>Paper</span>
+                                    </a>
+                                </span>
+                                <span class="link-block">
+                                    <a href=""
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="ai ai-arxiv"></i>
+                                        </span>
+                                        <span>arXiv</span>
+                                    </a>
+                                </span>
+                                <!-- Code Link. -->
+                                <span class="link-block">
+                                    <a href=""
+                                        class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fab fa-github"></i>
+                                        </span>
+                                        <span>Code</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero teaser">
+        <div class="container is-max-desktop">
+          <div class="hero-body">
+            <video id="teaser" autoplay muted loop playsinline width="300%">
+              <source src="./static/videos/teaser.mp4"
+                      type="video/mp4">
+            </video>
+            <!-- <h2 class="subtitle has-text-centered">
+              <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+              free-viewpoint
+              portraits.
+            </h2> -->
+          </div>
+        </div>
+      </section>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">Abstract</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            3D Gaussian Splatting (3D-GS) is a recent 3D scene reconstruction technique that enables
+                            real-time rendering of novel views by modeling scenes as parametric point clouds of
+                            differentiable 3D Gaussians.
+                            However, its rendering speed and model size still present bottlenecks, especially in
+                            resource-constrained settings.
+                        </p>
+                        <p>
+                            In this paper, we identify and address two key inefficiencies in 3D-GS, achieving
+                            substantial improvements in rendering speed, model size, and training time.
+                            First, we optimize the rendering pipeline to precisely localize Gaussians in the scene,
+                            boosting rendering speed without altering visual fidelity.
+                            Second, we introduce a novel pruning technique and integrate it into the training pipeline,
+                            significantly reducing model size and training time while further raising rendering speed.
+                        </p>
+                        <p>
+                            Our Speedy-Splat approach combines these techniques to accelerate average rendering speed by
+                            a drastic 6.71× across scenes from the Mip-NeRF 360, Tanks & Temples, and Deep Blending
+                            datasets with 10.6× fewer primitives than 3D-GS.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">Method</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            Work in progress!
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop content has-text-centered">
+                <h2 class="title is-3">Results</h2>
+            </div>
+
+            <div class="container is-centered">
+                <div id="results-carousel" class="carousel results-carousel">
+                    <div class="item item-bonsai">
+                        <video poster="" id="bonsai" autoplay controls muted loop playsinline height="100%">
+                            <source src="static/videos/bonsai.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="item item-counter">
+                        <video poster="" id="counter" autoplay controls muted loop playsinline height="100%">
+                            <source src="static/videos/counter.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="item item-garden">
+                        <video poster="" id="garden" autoplay controls muted loop playsinline height="100%">
+                            <source src="static/videos/garden.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="item item-kitchen">
+                        <video poster="" id="kitchen" autoplay controls muted loop playsinline height="100%">
+                            <source src="static/videos/kitchen.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="item item-room">
+                        <video poster="" id="room" autoplay controls muted loop playsinline height="100%">
+                            <source src="static/videos/room.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- <section class="section" id="BibTeX">
+        <div class="container is-max-desktop content">
+            <h2 class="title">BibTeX</h2>
+            <pre><code>WIP</code></pre>
+        </div>
+    </section> -->
+
+    <footer class="footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                <a class="icon-link" href="">
+                    <i class="fas fa-file-pdf"></i>
+                </a>
+                <a class="icon-link" href=""
+                    class="external-link" disabled>
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+            <div class="columns is-centered">
+                <div class="column is-8">
+                    <div class="content">
+                        <p>
+                            This research is based upon work supported by the Office of the Director of National
+                            Intelligence (ODNI), Intelligence Advanced Research Projects Activity (IARPA), via IARPA
+                            R\&D Contract No. 140D0423C0076. The views and conclusions contained herein are those of the
+                            authors and should not be interpreted as necessarily representing the official policies or
+                            endorsements, either expressed or implied, of the ODNI, IARPA, or the U.S. Government. The
+                            U.S. Government is authorized to reproduce and distribute reprints for Governmental purposes
+                            notwithstanding any copyright annotation thereon. Additional support was provided by ONR
+                            MURI program and the AFOSR MURI program. Commercial support was provided by Capital One
+                            Bank, the Amazon Research Award program, and Open Philanthropy. Zwicker was additionally
+                            supported by the National Science Foundation (IIS-2126407). Goldstein was additionally
+                            supported by the National Science Foundation (IIS-2212182) and by the NSF TRAILS Institute
+                            (2229885).
+                        </p>
+                    </div>
+                    <div class="content has-text-centered">
+                        <p>
+                            We thank the authors of <a rel="nerfies"
+                                href="https://github.com/nerfies/nerfies.github.io/tree/main">Nerfies</a>
+                            for generously open-sourcing the templates used in this website.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
