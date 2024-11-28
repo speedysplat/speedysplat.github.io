@@ -156,21 +156,78 @@
         </div>
     </section>
 
-    <!-- <section class="section">
+     <section class="section">
         <div class="container is-max-desktop">
             <div class="columns is-centered has-text-centered">
                 <div class="column is-four-fifths">
                     <h2 class="title is-3">Method</h2>
                     <div class="content has-text-justified">
                         <p>
-                            Work in progress!
+                        Two aspects primarily determine the rendering speed of 3D Gaussian Splatting: the <strong>number of Gaussians allocated to each pixel</strong> and the <strong>total number of Gaussians</strong> in the scene. Speedy-Splat introduces methods to addresses both.
                         </p>
+                        <h3 class="title is-4">Gaussians per Pixel</h2>
+                                            <!-- Figure Section -->
+                    <div class="columns is-centered">
+                        <div class="column is-one-third">
+                            <figure class="figure-one-third">
+                                <img src="./static/images/3dgs_tile_intersect.png" alt="Figure 1" class="figure-image">
+                                <figcaption>(a) 3D Gaussian Splatting </figcaption>
+                            </figure>
+                        </div>
+                        <div class="column is-one-third">
+                            <figure class="figure-one-third">
+                                <img src="./static/images/bbox_tile_intersect.png" alt="Figure 2" class="figure-image">
+                                <figcaption>(b) SnugBox</figcaption>
+                            </figure>
+                        </div>
+                        <div class="column is-one-third">
+                            <figure class="figure-one-third">
+                                <img src="./static/images/ellipse_tile_intersect.png" alt="Figure 3" class="figure-image">
+                                <figcaption>(c) AccuTile</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                        <p>
+                        Gaussian splatting is a tile-based renderer allocating Gaussians to tiles of pixels by computing Gaussian-tile intersections. Current Gaussian-tile intersection is overly conservative and we provide two methods to to make this localization exact.
+                        </p>
+                        <h4 class="title is-5">SnugBox</h2>
+                        <p>
+                        A threshold on \( \alpha_i(p) = \sigma_i g_i(p) \) determines Gaussian \( \mathcal{G}_i \)'s extent, where \( \sigma_i \) is \( \mathcal{G}_i \)'s opacity and \( g_i(p) \) is \( \mathcal{G}_i \)'s value at pixel \( p \) when projected to the image plane. This gives the exact extent as an ellipse. We generate the tight bounding box for this ellipse -- the SnugBox -- by computing the 4 points where the first derivative of the ellipse is zero. By dividing by tile size, rounding, and clipping to the image boundary we obtain the rectangular tile extent in constant time.
+                        </p>
+                        <h4 class="title is-5">AccuTile</h2>
+                        <p>
+                        Extending SnugBox, we compute exact tile intersection by loop over rows or columns of the SnugBox tile extent -- whichever is smallest -- and identifying the exact tile extent in that row or column. This is done by finding the maximum and minimum points of the ellipse in the row or column; all tiles between these points intersect the ellipse. Our insight is that this can be computed efficiently, requiring only two points to be computed per row or column.
+                        </p>
+                        <h3 class="title is-4">Total Number of Gaussians</h2>
+                        <p>
+                        Recent post-hoc pruning technique PUP 3D-GS shows that roughly 90% of Gaussians can be pruned from trained scenes while maintaining high visual fidelity. We identify a reparameterization of the PUP 3D-GS pruning score that makes it 36x more memory efficient, allowing us to integrate this pruning into the training pipeline.
+                        </p>
+                        <p>
+                        PUP 3D-GS computes a pruning score \( U_i \) per Gaussian \( \mathcal{G}_i \) as the log determinant of the second order approximation of the reconstruction error  with respect to that \( \mathcal{G}_i \)'s mean \( \mu_i \) and scaling \( s_i \) parameters:
+\[
+U_i = \log \left| \nabla_{\mu_i,s_i}^2 L_2 \right| = \log \left| \sum_{\phi \in \mathcal{P}_{gt}} \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi) \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)^T \right|,
+\]
+where \( \mathcal{P}_{gt} \) are all training camera poses and \( I_{\mathcal{G}}(\phi) \) is the rendered view for pose \( \phi \). This second order approximation is shown to be exact when the \(L_1 \) error over \( \mathcal{P}_{gt} \) is zero.
+                        </p>
+                        <p>
+                        We update this score by computing it with respect to the projected Gaussian values \( g_i \) instead of \( \mu_i \) and \( s_i \):
+\[
+\tilde{U}_i = \log \left| \sum_{\phi \in \mathcal{P}_{gt}} \nabla_{g_i} I_{\mathcal{G}}(\phi) \nabla_{g_i} I_{\mathcal{G}}(\phi)^T \right|.
+\]
+Because \( g_i \) is a scalar at each pixel and \( \log \) is monotonically increasing, we can simplify the score to:
+
+\[
+\tilde{U}_i = \sum_{\phi \in \mathcal{P}_{gt}} \nabla_{g_i} I_{\mathcal{G}}(\phi)^2.
+\]
+                        Empirically we observe that the \( L_1 \) loss converges quickly during training, thus allowing us to deploy this pruning during the densification stage of training -- what we call <strong>Soft Pruning</strong> -- and after the densification stage of training -- what we call <strong>Hard Pruning</strong>.
+                        </p>
+
 
                     </div>
                 </div>
             </div>
         </div>
-    </section> -->
+    </section>
 
     <section class="hero">
         <div class="hero-body">

@@ -347,3 +347,31 @@ body {
   left: 50%;
   margin-left: -1.5px;
 }
+
+
+.figure-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    /*border: 1px solid #ccc;*/
+    border-radius: 8px;
+}
+
+.column.is-one-third {
+    flex: 0 0 33%; /* Allow each column to take up more space */
+    max-width: 33%; /* Ensures three images stay on one row */
+    padding: 0;
+    justify-content: center;
+}
+
+figcaption {
+    font-size: 0.9rem;
+    color: #555;
+    text-align: center;
+    margin-top: 8px;
+}
+
+.figure-one-third {
+    margin: 0 !important;
+}
