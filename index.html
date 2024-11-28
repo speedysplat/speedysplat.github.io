@@ -229,7 +229,7 @@
                                     </p>
                                     <h3 class="title is-4">Total Number of Gaussians</h2>
                                         <p>
-                                            Recent post-hoc pruning technique PUP 3D-GS [1] finds that approximately 90%
+                                            Recent post-hoc pruning technique <a href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] finds that approximately 90%
                                             of Gaussians can be pruned from pretrained scenes while retaining high
                                             visual fidelity. Our <strong>efficient pruning score</strong> identifies a
                                             reparameterization of their sensitivity pruning score that improves its
@@ -239,7 +239,7 @@
                                         </p>
                                         <h4 class="title is-5">Efficient Pruning Score</h2>
                                             <p>
-                                                PUP 3D-GS [1] computes a sensitivity pruning score \( U_i \) for each
+                                                <a href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] computes a sensitivity pruning score \( U_i \) for each
                                                 Gaussian \(
                                                 \mathcal{G}_i
                                                 \) as the log determinant of the second order approximation of the
@@ -276,7 +276,7 @@
                                                 \]
 
                                                 Our <strong>efficient pruning score</strong> reduces the storage
-                                                requirement of PUP 3D-GS's score by 36× and allows us to integrate pruning into the 3D-GS training pipeline.
+                                                requirement of the sensitivity pruning score by 36× and allows us to integrate it into the 3D-GS training pipeline.
 
                                             <h4 class="title is-5">Soft Pruning and Hard Pruning</h2>
                                                 <p>We empirically observe that the \( L_1 \) loss converges quickly
@@ -381,6 +381,8 @@
                             supported by the National Science Foundation (IIS-2212182) and by the NSF TRAILS Institute
                             (2229885).
                         </p>
+
+                        <p>[1] A. Hanson, A. Tu, V. Singla, M. Jayawardhana, M. Zwicker, and T. Goldstein, "PUP 3D-GS: Principled Uncertainty Pruning for 3D Gaussian Splatting", arXiv, 2024.</p>
                     </div>
                     <div class="content has-text-centered">
                         <p>
