@@ -375,3 +375,32 @@ figcaption {
 .figure-one-third {
     margin: 0 !important;
 }
+
+.algorithm-container {
+    text-align: left;
+}
+
+.algorithm-container p {
+    margin: 0;
+    padding: 0;
+}
+
+.algorithm-container mjx-container {
+    text-align: left !important;
+    display: block !important;
+}
+
+.highlight-purple {
+    background-color: #DFA6DC; /* Light purple */
+    padding: 4px 6px;
+}
+
+.highlight-blue {
+    background-color: #84D8FF; /* Light blue */
+    padding: 4px 6px;
+}
+
+.highlight-yellow {
+    background-color: #F0EDC7; /* Light yellow */
+    padding: 4px 6px;
+}

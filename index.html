@@ -214,95 +214,155 @@
                                     by calculating the four points where its first derivative is zero.
                                     After dividing these points by tile size, rounding, and clipping to the image
                                     boundary, we obtain the rectangular tile extent of the Gaussian in constant time.
-                                <h4 class="title is-5">AccuTile</h2>
-                                    <p>
-                                        Extending our SnugBox algorithm, we then compute the exact tile intersection of
-                                        Gaussian \(\mathcal{G}_i \) by
-                                        iterating over the shorter side of the SnugBox tile extent. In each row or
-                                        column, we identify the exact tile extent by finding the minimum and maximum
-                                        points of the ellipse inside it — all tiles between these points intersect the
-                                        ellipse. The insight of our <strong>AccuTile</strong> algorithm, illustrated by
-                                        Figure (c), is that
-                                        exact Gaussian-tile intersections can be computed efficiently such that only two
-                                        points
-                                        need to be computed per row or column of the SnugBox.
+                                </p>
+                            <h4 class="title is-5">AccuTile</h2>
+                                <p>
+                                    Extending our SnugBox algorithm, we then compute the exact tile intersection of
+                                    Gaussian \(\mathcal{G}_i \) by
+                                    iterating over the shorter side of the SnugBox tile extent. In each row or
+                                    column, we identify the exact tile extent by finding the minimum and maximum
+                                    points of the ellipse inside it — all tiles between these points intersect the
+                                    ellipse. The insight of our <strong>AccuTile</strong> algorithm, illustrated by
+                                    Figure (c), is that
+                                    exact Gaussian-tile intersections can be computed efficiently such that only two
+                                    points
+                                    need to be computed per row or column of the SnugBox.
+                                </p>
+                                <div>
+                                <p>
+                                  <b>The AccuTile Algorithm</b>
+                                  For simplicity, the algorithm outlined here is applied to the rows of the SnugBox tile extent
+                                  bounding box, matching the example in Figure (c). In practice, it is applied along the smaller
+                                  side of the tile extent. The subscripts \(t\), \(b\), \(l\), and \(r\) represent the <em>top</em>,
+                                  <em>bottom</em>, <em>left</em>, and <em>right</em> sides, respectively.
+                                </p>
+                                <div class="algorithm-container">
+                                  <p>
+                                      \[
+                                      \textbf{Input:}
+                                      \]
+                                      \[
+                                      \begin{aligned}
+                                        &\text{Ellipse } \class{highlight-purple}{\mathbf{E}} \\
+                                        &\text{Bounding Box } \class{highlight-blue}{\mathbf{B}} \\
+                                        &\text{Tile Extent Rectangle } \class{highlight-yellow}{\mathbf{R}}
+                                      \end{aligned}
+                                      \]
+                                      \[
+                                      \textbf{Procedure:}
+                                      \]
+                                      \[
+                                      \begin{aligned}
+                                      &\text{Tile count } \class{highlight-yellow}{\mathbf{C}} \gets 0 \\
+                                      &\class{highlight-yellow}{\text{line}_{\min}} \gets \class{highlight-yellow}{\mathbf{R}_b} \\
+                                      &\textbf{if } \class{highlight-yellow}{\text{line}_{\min}} \geq \class{highlight-blue}{\mathbf{B}_b} \textbf{ then } \\
+                                      &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets \text{Intersections}(
+                                            \class{highlight-yellow}{\text{line}_{\min}}, \class{highlight-purple}{\mathbf{E}}) \\
+
+                                      &\textbf{for row } \class{highlight-yellow}{r} \textbf{ in } \class{highlight-yellow}{\mathbf{R}} \textbf{ do } \\
+                                      &\quad \class{highlight-yellow}{\text{line}_{\max}} \gets \class{highlight-yellow}{r_t} \\
+                                      &\quad \textbf{if } \class{highlight-yellow}{\text{line}_{\max}} \leq \class{highlight-blue}{\mathbf{B}_t} \textbf{ then } \\
+                                      &\quad \quad \class{highlight-purple}{\mathbf{i}_{\max}} \gets \text{Intersections}(
+                                            \class{highlight-yellow}{\text{line}_{\max}}, \class{highlight-purple}{\mathbf{E}}) \\
+
+                                      &\quad \class{highlight-purple}{e_{\min}} \gets
+                                        \begin{cases}
+                                          \class{highlight-blue}{\mathbf{B}_l} & \text{if } \class{highlight-blue}{\mathbf{B}_l}
+                                                  \text{ in }\class{highlight-yellow}{r} \\
+                                          \min(\class{highlight-purple}{\mathbf{i}_{\min}}, \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
+                                        \end{cases} \\
+                                      &\quad \class{highlight-purple}{e_{\max}} \gets
+                                        \begin{cases}
+                                          \class{highlight-blue}{\mathbf{B}_r} & \text{if } \class{highlight-blue}{\mathbf{B}_r}
+                                                  \text{ in }\class{highlight-yellow}{r} \\
+                                          \max(\class{highlight-purple}{\mathbf{i}_{\min}}, \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
+                                        \end{cases} \\
+
+                                      &\quad \class{highlight-yellow}{\text{tile}_{\min}}, \class{highlight-yellow}{\text{tile}_{\max}} \gets
+                                             \text{Convert}(\class{highlight-purple}{e_{\min}}, \class{highlight-purple}{e_{\max}}) \\
+                                      &\quad \class{highlight-yellow}{\mathbf{C}} \gets \class{highlight-yellow}{\mathbf{C}} +
+                                              (\class{highlight-yellow}{\text{tile}_{\max}} - \class{highlight-yellow}{\text{tile}_{\min}}) \\
+
+                                      &\quad \text{Process}(\class{highlight-yellow}{\text{tile}_{\min}}, \class{highlight-yellow}{\text{tile}_{\max}}) \\
+                                      &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets \class{highlight-purple}{\mathbf{i}_{\max}} \\
+                                      &\textbf{return } \class{highlight-yellow}{\mathbf{C}}
+                                      \end{aligned}
+                                      \]
+                                  </p>
+                                </div>
+                        <h3 class="title is-4">Total Number of Gaussians</h2>
+                            <p>
+                                Recent post-hoc pruning technique <a href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] finds that approximately 90%
+                                of Gaussians can be pruned from pretrained scenes while retaining high
+                                visual fidelity. Our <strong>efficient pruning score</strong> identifies a
+                                reparameterization of their sensitivity pruning score that improves its
+                                memory efficiency by 36×, allowing us to integrate it into the 3D-GS
+                                training pipeline via two distinct modalities: <strong>Soft Pruning</strong>
+                                and <strong>Hard Pruning</strong>.
+                            </p>
+                            <h4 class="title is-5">Efficient Pruning Score</h2>
+                                <p>
+                                    <a href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] computes a sensitivity pruning score \( U_i \) for each
+                                    Gaussian \(
+                                    \mathcal{G}_i
+                                    \) as the log determinant of the second order approximation of the
+                                    reconstruction error with respect to its mean and scaling parameters \(
+                                    \mu_i \) and \( s_i \) :
+                                    \[
+                                    U_i = \log \left| \nabla_{\mu_i,s_i}^2 L_2 \right| = \log \left|
+                                    \sum_{\phi
+                                    \in \mathcal{P}_{gt}} \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)
+                                    \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)^T \right|,
+                                    \]
+                                    where \( \mathcal{P}_{gt} \) is the set of all training camera poses and
+                                    \(
+                                    I_{\mathcal{G}}(\phi) \) is the rendered view for pose \( \phi \). This
+                                    second order approximation is shown to be exact when the \(L_1 \) error
+                                    over
+                                    \( \mathcal{P}_{gt} \) is zero.
+                                </p>
+                                <p>
+                                    We update this score by computing it with respect to the projected
+                                    Gaussian
+                                    values \( g_i \) instead:
+                                    \[
+                                    \tilde{U}_i = \log \left| \sum_{\phi \in \mathcal{P}_{gt}} \nabla_{g_i}
+                                    I_{\mathcal{G}}(\phi) \nabla_{g_i} I_{\mathcal{G}}(\phi)^T \right|.
+                                    \]
+                                    Because \( g_i \) is a scalar at each pixel and \( \log \) is
+                                    monotonically
+                                    increasing, we can simplify the score to:
+
+                                    \[
+                                    \tilde{U}_i = \sum_{\phi \in \mathcal{P}_{gt}} \nabla_{g_i}
+                                    I_{\mathcal{G}}(\phi)^2.
+                                    \]
+
+                                    Our <strong>efficient pruning score</strong> reduces the storage
+                                    requirement of the sensitivity pruning score by 36× and allows us to integrate it into the 3D-GS training pipeline.
+
+                                <h4 class="title is-5">Soft Pruning and Hard Pruning</h2>
+                                    <p>We empirically observe that the \( L_1 \) loss converges quickly
+                                        during
+                                        training and deploy our efficient pruning score via two modalities:
                                     </p>
-                                    <h3 class="title is-4">Total Number of Gaussians</h2>
-                                        <p>
-                                            Recent post-hoc pruning technique <a href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] finds that approximately 90%
-                                            of Gaussians can be pruned from pretrained scenes while retaining high
-                                            visual fidelity. Our <strong>efficient pruning score</strong> identifies a
-                                            reparameterization of their sensitivity pruning score that improves its
-                                            memory efficiency by 36×, allowing us to integrate it into the 3D-GS
-                                            training pipeline via two distinct modalities: <strong>Soft Pruning</strong>
-                                            and <strong>Hard Pruning</strong>.
-                                        </p>
-                                        <h4 class="title is-5">Efficient Pruning Score</h2>
-                                            <p>
-                                                <a href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] computes a sensitivity pruning score \( U_i \) for each
-                                                Gaussian \(
-                                                \mathcal{G}_i
-                                                \) as the log determinant of the second order approximation of the
-                                                reconstruction error with respect to its mean and scaling parameters \(
-                                                \mu_i \) and \( s_i \) :
-                                                \[
-                                                U_i = \log \left| \nabla_{\mu_i,s_i}^2 L_2 \right| = \log \left|
-                                                \sum_{\phi
-                                                \in \mathcal{P}_{gt}} \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)
-                                                \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)^T \right|,
-                                                \]
-                                                where \( \mathcal{P}_{gt} \) is the set of all training camera poses and
-                                                \(
-                                                I_{\mathcal{G}}(\phi) \) is the rendered view for pose \( \phi \). This
-                                                second order approximation is shown to be exact when the \(L_1 \) error
-                                                over
-                                                \( \mathcal{P}_{gt} \) is zero.
-                                            </p>
-                                            <p>
-                                                We update this score by computing it with respect to the projected
-                                                Gaussian
-                                                values \( g_i \) instead:
-                                                \[
-                                                \tilde{U}_i = \log \left| \sum_{\phi \in \mathcal{P}_{gt}} \nabla_{g_i}
-                                                I_{\mathcal{G}}(\phi) \nabla_{g_i} I_{\mathcal{G}}(\phi)^T \right|.
-                                                \]
-                                                Because \( g_i \) is a scalar at each pixel and \( \log \) is
-                                                monotonically
-                                                increasing, we can simplify the score to:
 
-                                                \[
-                                                \tilde{U}_i = \sum_{\phi \in \mathcal{P}_{gt}} \nabla_{g_i}
-                                                I_{\mathcal{G}}(\phi)^2.
-                                                \]
-
-                                                Our <strong>efficient pruning score</strong> reduces the storage
-                                                requirement of the sensitivity pruning score by 36× and allows us to integrate it into the 3D-GS training pipeline.
-
-                                            <h4 class="title is-5">Soft Pruning and Hard Pruning</h2>
-                                                <p>We empirically observe that the \( L_1 \) loss converges quickly
-                                                    during
-                                                    training and deploy our efficient pruning score via two modalities:
-                                                </p>
-
-                                                <ol>
-                                                    <li>
-                                                        <strong>Soft Pruning</strong>, performed during the
-                                                        densification
-                                                        stage, and
-                                                    </li>
-                                                    <li>
-                                                        <strong>Hard Pruning</strong>, performed after the
-                                                        densification stage.
-                                                    </li>
-                                                </ol>
-
-
-                                                <p>
-                                                    Together, they reduce the number of Gaussians in the model by
-                                                    approximately 90%, increasing rendering and training speed while
-                                                    maintaining image quality.
-                                                </p>
-
+                                    <ol>
+                                        <li>
+                                            <strong>Soft Pruning</strong>, performed during the
+                                            densification
+                                            stage, and
+                                        </li>
+                                        <li>
+                                            <strong>Hard Pruning</strong>, performed after the
+                                            densification stage.
+                                        </li>
+                                    </ol>
+                                    <p>
+                                        Together, they reduce the number of Gaussians in the model by
+                                        approximately 90%, increasing rendering and training speed while
+                                        maintaining image quality.
+                                    </p>
 
                     </div>
                 </div>
