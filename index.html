@@ -160,13 +160,13 @@
                     <h2 class="title is-3">Method</h2>
                     <div class="content has-text-justified">
                         <p>
-                            The rendering speed of 3D Gaussian Splatting (3D-GS) is determined by two primary factors:
+                            The rendering speed of 3D Gaussian Splatting (3D-GS) is primarily determined by two factors:
                         </p>
                         <ol>
                             <li>The <strong>number of Gaussians allocated to each pixel</strong>, and</li>
                             <li>The <strong>total number of Gaussians</strong> in the scene.</li>
                         </ol>
-                        <p>Speedy-Splat introduces methods to address each aspect.</p>
+                        <p>Speedy-Splat introduces methods to address each of these.</p>
                         <h3 class="title is-4">Number of Gaussians Allocated to Each Pixel</h2>
                             <p>
                                 Gaussian splatting is a tile-based renderer that assigns Gaussians to tiles of pixels
@@ -223,7 +223,7 @@
                                     1b — around this ellipse
                                     by calculating the four points where its first derivative is zero.
                                     After dividing these points by tile size, rounding, and clipping to the image
-                                    boundary, we obtain the rectangular tile extent of the Gaussian in constant time.
+                                    boundary, we obtain the rectangular tile extent of \(\mathcal{G}_i \) in constant time.
                                 </p>
                             <h4 class="title is-5">AccuTile</h2>
                                 <p>
@@ -231,9 +231,9 @@
                                     Gaussian \(\mathcal{G}_i \) by
                                     iterating over the shorter side of the SnugBox tile extent. In each row or
                                     column, we identify the exact tile extent by finding the minimum and maximum
-                                    points of the ellipse inside it — all tiles between these points intersect the
+                                    points of the ellipse inside it --— all tiles between these points intersect the
                                     ellipse. The insight of our <strong>AccuTile</strong> algorithm, illustrated by
-                                    Figure 1c and provided below, is that
+                                    Figure 1c and provided below, is that these
                                     exact Gaussian-to-tile intersections can be computed efficiently such that only two
                                     points need to be computed per row or column of the SnugBox.
                                 </p>
