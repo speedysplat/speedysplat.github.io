@@ -195,17 +195,18 @@
                             <p>
                             <strong>Figure 1: Gaussian tile allocation by method.</strong>
 
-                            (a) 3D Gaussian Splatting allocates a Gaussian to a tile when that tile \(\class{highlight-yellow}{\textbf{intersects}}\) the
-                            \(\class{highlight-blue}{\textbf{square}}\) inscribing the \(\class{highlight-purple}{\textbf{circle}}\) with radius
+                            (a) 3D Gaussian Splatting allocates a Gaussian to a tile when that tile
+                            <span class="highlight-yellow"><strong>intersects</strong></span> the <span class="highlight-blue"><strong>square</strong></span>
+                            inscribing the <span class="highlight-purple"><strong>circle</strong></span> with radius
                             \(\left\lceil 3 \sqrt{\lambda_{\max}} \right\rceil\) defined by the maximum eigenvalue of the projected 2D covariance.
 
-                            (b) Our SnugBox method allocates a Gaussian to a tile when that tile \(\class{highlight-yellow}{\textbf{intersects}}\) the tight
-                            \(\class{highlight-blue}{\textbf{bounding box}}\) defined by the axis-aligned minima and maxima of the
-                            \(\class{highlight-purple}{\textbf{ellipse}}\).
+                            (b) Our SnugBox method allocates a Gaussian to a tile when that tile <span class="highlight-yellow"><strong>intersects</strong></span>
+                            the tight <span class="highlight-blue"><strong>bounding box</strong></span> defined by the axis-aligned minima and maxima of the
+                            <span class="highlight-purple"><strong>ellipse</strong></span>.
 
-                            (c) Our AccuTile method allocates a Gaussian to a tile only if that tile \(\class{highlight-yellow}{\textbf{intersects}}\) the
-                            \(\class{highlight-purple}{\textbf{ellipse}}\) via the AccuTile Algorithm below, which computes the minimum and maximum tiles
-                            by iterating over the shorter side of the rectangular tile extent given by SnugBox. In this example, our AccuTile algorithm
+                            (c) Our AccuTile method allocates a Gaussian to a tile only if that tile <span class="highlight-yellow"><strong>intersects</strong></span>
+                            the <span class="highlight-purple"><strong>ellipse</strong></span> via the AccuTile Algorithm below, which computes the minimum and maximum
+                            tiles by iterating over the shorter side of the rectangular tile extent given by SnugBox. In this example, our AccuTile algorithm
                             iterates over the tile rows; the only points that are processed are \(\textbf{$x_{min}$}\), \(\textbf{$x_{max}$}\),
                             <strong>A</strong>, <strong>B</strong>, <strong>C</strong>, and <strong>D</strong>.
                             </p>

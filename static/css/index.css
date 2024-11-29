@@ -392,15 +392,19 @@ figcaption {
 
 .highlight-purple {
     background-color: #DFA6DC; /* Light purple */
-    padding: 4px 6px;
+    padding: 0px 2px;
 }
 
 .highlight-blue {
     background-color: #84D8FF; /* Light blue */
-    padding: 4px 6px;
+    padding: 0px 2px;
 }
 
 .highlight-yellow {
     background-color: #F0EDC7; /* Light yellow */
+    padding: 0px 2px;
+}
+
+.algorithm-container .highlight-yellow, .algorithm-container .highlight-purple, .algorithm-container .highlight-blue {
     padding: 4px 6px;
 }
