@@ -168,6 +168,14 @@
                         </ol>
                         <p>Speedy-Splat introduces methods to address each aspect.</p>
                         <h3 class="title is-4">Number of Gaussians Allocated to Each Pixel</h2>
+                            <p>
+                                Gaussian splatting is a tile-based renderer that assigns Gaussians to tiles of pixels
+                                by calculating their intersections.
+                                As shown in Figure 1a, the current algorithm for computing Gaussian-to-tile intersections
+                                is overly conservative in estimating the tile extent of Gaussians.
+                                We propose two algorithms to increase rendering speed by making exact
+                                localizations: <strong>SnugBox</strong> and <strong>AccuTile</strong>.
+                            </p>
                             <!-- Figure Section -->
                             <div class="columns is-centered">
                                 <div class="column is-one-third">
@@ -186,7 +194,7 @@
                                 </div>
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third">
-                                        <img src="./static/images/ellipse_tile_intersect.png" alt="Accutile tile intersection"
+                                        <img src="./static/images/ellipse_tile_intersect.png" alt="AccuTile tile intersection"
                                             class="figure-image">
                                         <figcaption>(c) AccuTile</figcaption>
                                     </figure>
@@ -195,119 +203,41 @@
                             <p>
                             <strong>Figure 1: Gaussian tile allocation by method.</strong>
 
-                            (a) 3D Gaussian Splatting allocates a Gaussian to a tile when that tile
-                            <span class="highlight-yellow"><strong>intersects</strong></span> the <span class="highlight-blue"><strong>square</strong></span>
-                            inscribing the <span class="highlight-purple"><strong>circle</strong></span> with radius
-                            \(\left\lceil 3 \sqrt{\lambda_{\max}} \right\rceil\) defined by the maximum eigenvalue of the projected 2D covariance.
+                            (a) 3D Gaussian Splatting overestimates the Gaussian-to-tile intersections by relying solely on the maximum
+                            eigenvalue \(\lambda_{\max}\) of the projected 2D covariance for its computation.
 
-                            (b) Our SnugBox method allocates a Gaussian to a tile when that tile <span class="highlight-yellow"><strong>intersects</strong></span>
-                            the tight <span class="highlight-blue"><strong>bounding box</strong></span> defined by the axis-aligned minima and maxima of the
-                            <span class="highlight-purple"><strong>ellipse</strong></span>.
+                            (b) Our SnugBox method finds the axis aligned tight bounding box of the Gaussian and corresponding rectangular
+                            tile extent in constant time.
 
-                            (c) Our AccuTile method allocates a Gaussian to a tile only if that tile <span class="highlight-yellow"><strong>intersects</strong></span>
-                            the <span class="highlight-purple"><strong>ellipse</strong></span> via the AccuTile Algorithm below, which computes the minimum and maximum
-                            tiles by iterating over the shorter side of the rectangular tile extent given by SnugBox. In this example, our AccuTile algorithm
-                            iterates over the tile rows; the only points that are processed are \(\textbf{$x_{min}$}\), \(\textbf{$x_{max}$}\),
-                            <strong>A</strong>, <strong>B</strong>, <strong>C</strong>, and <strong>D</strong>.
-                            </p>
-                            <p>
-                                Gaussian splatting is a tile-based renderer that assigns Gaussians to tiles of pixels
-                                by calculating their intersections.
-                                As shown in Figure 1.a, the current algorithm for computing Gaussian-tile intersections
-                                is overly conservative
-                                in that it overestimates the tile extent of Gaussians.
-                                We propose two algorithms to increase rendering speed by making exact
-                                localizations: <strong>SnugBox</strong> and <strong>AccuTile</strong>.
+                            (c) Our AccuTile method extends SnugBox to quickly compute exact Gaussian-to-tile intersections.
+
                             </p>
                             <h4 class="title is-5">SnugBox</h2>
                                 <p>
                                     A threshold on \( \alpha_i(p) = \sigma_i g_i(p) \), where \( \sigma_i \) is the
-                                    opacity of \(
+                                    opacity of Gaussian \(
                                     \mathcal{G}_i \) and \( g_i(p) \) is its value at pixel \( p
                                     \) when it is projected to the image plane, determines the exact pixel exent of
-                                    Gaussian
                                     \(\mathcal{G}_i \) as an ellipse.
                                     We compute a tight bounding box — the <strong>SnugBox</strong> presented in Figure
-                                    1.b — around this ellipse
+                                    1b — around this ellipse
                                     by calculating the four points where its first derivative is zero.
                                     After dividing these points by tile size, rounding, and clipping to the image
                                     boundary, we obtain the rectangular tile extent of the Gaussian in constant time.
                                 </p>
                             <h4 class="title is-5">AccuTile</h2>
                                 <p>
-                                    Extending our SnugBox algorithm, we then compute the exact tile intersection of
+                                    Extending our SnugBox algorithm, we compute the exact tile intersection of
                                     Gaussian \(\mathcal{G}_i \) by
                                     iterating over the shorter side of the SnugBox tile extent. In each row or
                                     column, we identify the exact tile extent by finding the minimum and maximum
                                     points of the ellipse inside it — all tiles between these points intersect the
                                     ellipse. The insight of our <strong>AccuTile</strong> algorithm, illustrated by
-                                    Figure 1.c and provided below, is that
-                                    exact Gaussian-tile intersections can be computed efficiently such that only two
-                                    points
-                                    need to be computed per row or column of the SnugBox.
+                                    Figure 1c and provided below, is that
+                                    exact Gaussian-to-tile intersections can be computed efficiently such that only two
+                                    points need to be computed per row or column of the SnugBox.
                                 </p>
                                 <div>
-                                <p>
-                                  <b>The AccuTile Algorithm</b>
-                                  For simplicity, the algorithm outlined here is applied to the rows of the SnugBox tile extent
-                                  bounding box, matching the example in Figure 1.c. In practice, it is applied along the smaller
-                                  side of the tile extent. The subscripts \(t\), \(b\), \(l\), and \(r\) represent the <em>top</em>,
-                                  <em>bottom</em>, <em>left</em>, and <em>right</em> sides, respectively.
-                                </p>
-                                <div class="algorithm-container">
-                                  <p>
-                                      \[
-                                      \textbf{Input:}
-                                      \]
-                                      \[
-                                      \begin{aligned}
-                                        &\text{Ellipse } \class{highlight-purple}{\mathbf{E}} \\
-                                        &\text{Bounding Box } \class{highlight-blue}{\mathbf{B}} \\
-                                        &\text{Tile Extent Rectangle } \class{highlight-yellow}{\mathbf{R}}
-                                      \end{aligned}
-                                      \]
-                                      \[
-                                      \textbf{Procedure:}
-                                      \]
-                                      \[
-                                      \begin{aligned}
-                                      &\text{Tile count } \class{highlight-yellow}{\mathbf{C}} \gets 0 \\
-                                      &\class{highlight-yellow}{\text{line}_{\min}} \gets \class{highlight-yellow}{\mathbf{R}_b} \\
-                                      &\textbf{if } \class{highlight-yellow}{\text{line}_{\min}} \geq \class{highlight-blue}{\mathbf{B}_b} \textbf{ then } \\
-                                      &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets \text{Intersections}(
-                                            \class{highlight-yellow}{\text{line}_{\min}}, \class{highlight-purple}{\mathbf{E}}) \\
-
-                                      &\textbf{for row } \class{highlight-yellow}{r} \textbf{ in } \class{highlight-yellow}{\mathbf{R}} \textbf{ do } \\
-                                      &\quad \class{highlight-yellow}{\text{line}_{\max}} \gets \class{highlight-yellow}{r_t} \\
-                                      &\quad \textbf{if } \class{highlight-yellow}{\text{line}_{\max}} \leq \class{highlight-blue}{\mathbf{B}_t} \textbf{ then } \\
-                                      &\quad \quad \class{highlight-purple}{\mathbf{i}_{\max}} \gets \text{Intersections}(
-                                            \class{highlight-yellow}{\text{line}_{\max}}, \class{highlight-purple}{\mathbf{E}}) \\
-
-                                      &\quad \class{highlight-purple}{e_{\min}} \gets
-                                        \begin{cases}
-                                          \class{highlight-blue}{\mathbf{B}_l} & \text{if } \class{highlight-blue}{\mathbf{B}_l}
-                                                  \text{ in }\class{highlight-yellow}{r} \\
-                                          \min(\class{highlight-purple}{\mathbf{i}_{\min}}, \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
-                                        \end{cases} \\
-                                      &\quad \class{highlight-purple}{e_{\max}} \gets
-                                        \begin{cases}
-                                          \class{highlight-blue}{\mathbf{B}_r} & \text{if } \class{highlight-blue}{\mathbf{B}_r}
-                                                  \text{ in }\class{highlight-yellow}{r} \\
-                                          \max(\class{highlight-purple}{\mathbf{i}_{\min}}, \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
-                                        \end{cases} \\
-
-                                      &\quad \class{highlight-yellow}{\text{tile}_{\min}}, \class{highlight-yellow}{\text{tile}_{\max}} \gets
-                                             \text{Convert}(\class{highlight-purple}{e_{\min}}, \class{highlight-purple}{e_{\max}}) \\
-                                      &\quad \class{highlight-yellow}{\mathbf{C}} \gets \class{highlight-yellow}{\mathbf{C}} +
-                                              (\class{highlight-yellow}{\text{tile}_{\max}} - \class{highlight-yellow}{\text{tile}_{\min}}) \\
-
-                                      &\quad \text{Process}(\class{highlight-yellow}{\text{tile}_{\min}}, \class{highlight-yellow}{\text{tile}_{\max}}) \\
-                                      &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets \class{highlight-purple}{\mathbf{i}_{\max}} \\
-                                      &\textbf{return } \class{highlight-yellow}{\mathbf{C}}
-                                      \end{aligned}
-                                      \]
-                                  </p>
-                                </div>
                         <h3 class="title is-4">Total Number of Gaussians</h2>
                             <p>
                                 Recent post-hoc pruning technique <a href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] finds that approximately 90%
@@ -423,6 +353,102 @@
                     </div>
                 </div>
             </div>
+    </section>
+    <section>
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">The AccuTile Algorithm</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                          For simplicity, the algorithm outlined here is applied to the rows of the SnugBox tile extent
+                          bounding box, matching the example in Figure 1c. In practice, it is applied along the smaller
+                          side of the tile extent. The subscripts \(t\), \(b\), \(l\), and \(r\) represent the <em>top</em>,
+                          <em>bottom</em>, <em>left</em>, and <em>right</em> sides, respectively.
+                        </p>
+                        <div class="algorithm-container">
+                          <p>
+                              \[
+                              \textbf{Input:}
+                              \]
+                              \[
+                              \begin{aligned}
+                                &\text{Gaussian Ellipse Boundary } \class{highlight-purple}{\mathbf{E}} \\
+                                &\text{SnugBox Bounding Box } \class{highlight-blue}{\mathbf{B}} \\
+                                &\text{SnugBox Tile Extent Rectangle } \class{highlight-yellow}{\mathbf{R}}
+                              \end{aligned}
+                              \]
+                              \[
+                              \textbf{Procedure:}
+                              \]
+                              \[
+                              \begin{aligned}
+                              &\text{Tile count } \class{highlight-yellow}{\mathbf{C}} \gets 0 \\
+                              &\class{highlight-yellow}{\text{line}_{\min}} \gets \class{highlight-yellow}{\mathbf{R}_b} \\
+                              &\textbf{if } \class{highlight-yellow}{\text{line}_{\min}} \geq \class{highlight-blue}{\mathbf{B}_b} \textbf{ then } \\
+                              &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets \text{Intersections}(
+                                    \class{highlight-yellow}{\text{line}_{\min}}, \class{highlight-purple}{\mathbf{E}}) \\
+
+                              &\textbf{for row } \class{highlight-yellow}{r} \textbf{ in } \class{highlight-yellow}{\mathbf{R}} \textbf{ do } \\
+                              &\quad \class{highlight-yellow}{\text{line}_{\max}} \gets \class{highlight-yellow}{r_t} \\
+                              &\quad \textbf{if } \class{highlight-yellow}{\text{line}_{\max}} \leq \class{highlight-blue}{\mathbf{B}_t} \textbf{ then } \\
+                              &\quad \quad \class{highlight-purple}{\mathbf{i}_{\max}} \gets \text{Intersections}(
+                                    \class{highlight-yellow}{\text{line}_{\max}}, \class{highlight-purple}{\mathbf{E}}) \\
+
+                              &\quad \class{highlight-purple}{e_{\min}} \gets
+                                \begin{cases}
+                                  \class{highlight-blue}{\mathbf{B}_l} & \text{if } \class{highlight-blue}{\mathbf{B}_l}
+                                          \text{ in }\class{highlight-yellow}{r} \\
+                                  \min(\class{highlight-purple}{\mathbf{i}_{\min}}, \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
+                                \end{cases} \\
+                              &\quad \class{highlight-purple}{e_{\max}} \gets
+                                \begin{cases}
+                                  \class{highlight-blue}{\mathbf{B}_r} & \text{if } \class{highlight-blue}{\mathbf{B}_r}
+                                          \text{ in }\class{highlight-yellow}{r} \\
+                                  \max(\class{highlight-purple}{\mathbf{i}_{\min}}, \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
+                                \end{cases} \\
+
+                              &\quad \class{highlight-yellow}{\text{tile}_{\min}}, \class{highlight-yellow}{\text{tile}_{\max}} \gets
+                                     \text{Convert}(\class{highlight-purple}{e_{\min}}, \class{highlight-purple}{e_{\max}}) \\
+                              &\quad \class{highlight-yellow}{\mathbf{C}} \gets \class{highlight-yellow}{\mathbf{C}} +
+                                      (\class{highlight-yellow}{\text{tile}_{\max}} - \class{highlight-yellow}{\text{tile}_{\min}}) \\
+
+                              &\quad \text{Process}(\class{highlight-yellow}{\text{tile}_{\min}}, \class{highlight-yellow}{\text{tile}_{\max}}) \\
+                              &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets \class{highlight-purple}{\mathbf{i}_{\max}} \\
+                              &\textbf{return } \class{highlight-yellow}{\mathbf{C}}
+                              \end{aligned}
+                              \]
+                          </p>
+                        </div>
+                        <p>
+                        We provide a walkthrough of the AccuTile Algorithm processing the SnugBox output from Figure 1b and illustrates in Figure 1c.
+                        </p>
+                        <p>
+                        The <span class="highlight-yellow">tile extent rows</span> from Snugbox, shown in Figure 1b, are processed starting
+                        from the bottom. The <span class="highlight-yellow">lower tile row boundary</span> falls below the
+                        <span class="highlight-blue">bounding box</span>, so no initial intersection is computed. The
+                        <span class="highlight-yellow">upper boundary</span> lies below the top of the <span class="highlight-blue">bounding box</span>,
+                        so intersection points <span class="highlight-purple">\(A\)</span> and <span class="highlight-purple">\(B\)</span> are calculated.
+                        <span class="highlight-blue">\(x_{\min}\)</span> is assigned as this row's minimum ellipse extent
+                        <span class="highlight-purple">\(e_{\min}\)</span> because it lies within the row, and <span class="highlight-purple">\(B\)</span>
+                        is assigned as its maximum ellipse extent <span class="highlight-purple">\(e_{\max}\)</span> because it is the maximal point.
+                        Consequently, this row's <span class="highlight-yellow">tile extent</span> is from the tile containing
+                        <span class="highlight-blue">\(x_{\min}\)</span> to the tile containing <span class="highlight-purple">\(B\)</span>.
+                        For the next row, we keep points <span class="highlight-purple">\(A\)</span> and <span class="highlight-purple">\(B\)</span> and
+                        compute <span class="highlight-yellow">upper boundary</span> points <span class="highlight-purple">\(C\)</span> and
+                        <span class="highlight-purple">\(D\)</span>. <span class="highlight-purple">\(A\)</span> and
+                        <span class="highlight-blue">\(x_{\max}\)</span> are assigned as the row's <span class="highlight-purple">\(e_{\min}\)</span> and
+                        <span class="highlight-purple">\(e_{\max}\)</span>, and the tiles containing them are its
+                        <span class="highlight-yellow">tile extent</span>. Finally, for the last row, <span class="highlight-purple">\(C\)</span> and
+                        <span class="highlight-purple">\(D\)</span> are kept; no additional points are computed because the row's
+                        <span class="highlight-yellow">upper boundary</span> is above the <span class="highlight-blue">bounding box</span>. Giving the
+                        <span class="highlight-yellow">tile extent</span> of this row to be between <span class="highlight-purple">\(C\)</span> and
+                        <span class="highlight-purple">\(D\)</span>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- <section class="section" id="BibTeX">
