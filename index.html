@@ -172,30 +172,47 @@
                             <div class="columns is-centered">
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third">
-                                        <img src="./static/images/3dgs_tile_intersect.png" alt="Figure 1"
+                                        <img src="./static/images/3dgs_tile_intersect.png" alt="3DGS tile intersection"
                                             class="figure-image">
                                         <figcaption>(a) 3D Gaussian Splatting </figcaption>
                                     </figure>
                                 </div>
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third">
-                                        <img src="./static/images/bbox_tile_intersect.png" alt="Figure 2"
+                                        <img src="./static/images/bbox_tile_intersect.png" alt="SnugBox tile intersection"
                                             class="figure-image">
                                         <figcaption>(b) SnugBox</figcaption>
                                     </figure>
                                 </div>
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third">
-                                        <img src="./static/images/ellipse_tile_intersect.png" alt="Figure 3"
+                                        <img src="./static/images/ellipse_tile_intersect.png" alt="Accutile tile intersection"
                                             class="figure-image">
                                         <figcaption>(c) AccuTile</figcaption>
                                     </figure>
                                 </div>
                             </div>
                             <p>
+                            <strong>Figure 1: Gaussian tile allocation by method.</strong>
+
+                            (a) 3D Gaussian Splatting allocates a Gaussian to a tile when that tile \(\class{highlight-yellow}{\textbf{intersects}}\) the
+                            \(\class{highlight-blue}{\textbf{square}}\) inscribing the \(\class{highlight-purple}{\textbf{circle}}\) with radius
+                            \(\left\lceil 3 \sqrt{\lambda_{\max}} \right\rceil\) defined by the maximum eigenvalue of the projected 2D covariance.
+
+                            (b) Our SnugBox method allocates a Gaussian to a tile when that tile \(\class{highlight-yellow}{\textbf{intersects}}\) the tight
+                            \(\class{highlight-blue}{\textbf{bounding box}}\) defined by the axis-aligned minima and maxima of the
+                            \(\class{highlight-purple}{\textbf{ellipse}}\).
+
+                            (c) Our AccuTile method allocates a Gaussian to a tile only if that tile \(\class{highlight-yellow}{\textbf{intersects}}\) the
+                            \(\class{highlight-purple}{\textbf{ellipse}}\) via the AccuTile Algorithm below, which computes the minimum and maximum tiles
+                            by iterating over the shorter side of the rectangular tile extent given by SnugBox. In this example, our AccuTile algorithm
+                            iterates over the tile rows; the only points that are processed are \(\textbf{$x_{min}$}\), \(\textbf{$x_{max}$}\),
+                            <strong>A</strong>, <strong>B</strong>, <strong>C</strong>, and <strong>D</strong>.
+                            </p>
+                            <p>
                                 Gaussian splatting is a tile-based renderer that assigns Gaussians to tiles of pixels
                                 by calculating their intersections.
-                                As shown in Figure (a), the current algorithm for computing Gaussian-tile intersections
+                                As shown in Figure 1.a, the current algorithm for computing Gaussian-tile intersections
                                 is overly conservative
                                 in that it overestimates the tile extent of Gaussians.
                                 We propose two algorithms to increase rendering speed by making exact
@@ -210,7 +227,7 @@
                                     Gaussian
                                     \(\mathcal{G}_i \) as an ellipse.
                                     We compute a tight bounding box — the <strong>SnugBox</strong> presented in Figure
-                                    (b) — around this ellipse
+                                    1.b — around this ellipse
                                     by calculating the four points where its first derivative is zero.
                                     After dividing these points by tile size, rounding, and clipping to the image
                                     boundary, we obtain the rectangular tile extent of the Gaussian in constant time.
@@ -223,7 +240,7 @@
                                     column, we identify the exact tile extent by finding the minimum and maximum
                                     points of the ellipse inside it — all tiles between these points intersect the
                                     ellipse. The insight of our <strong>AccuTile</strong> algorithm, illustrated by
-                                    Figure (c), is that
+                                    Figure 1.c and provided below, is that
                                     exact Gaussian-tile intersections can be computed efficiently such that only two
                                     points
                                     need to be computed per row or column of the SnugBox.
@@ -232,7 +249,7 @@
                                 <p>
                                   <b>The AccuTile Algorithm</b>
                                   For simplicity, the algorithm outlined here is applied to the rows of the SnugBox tile extent
-                                  bounding box, matching the example in Figure (c). In practice, it is applied along the smaller
+                                  bounding box, matching the example in Figure 1.c. In practice, it is applied along the smaller
                                   side of the tile extent. The subscripts \(t\), \(b\), \(l\), and \(r\) represent the <em>top</em>,
                                   <em>bottom</em>, <em>left</em>, and <em>right</em> sides, respectively.
                                 </p>
