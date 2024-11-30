@@ -231,10 +231,10 @@
                                     Gaussian \(\mathcal{G}_i \) by
                                     iterating over the shorter side of the SnugBox tile extent. In each row or
                                     column, we identify the exact tile extent by finding the minimum and maximum
-                                    points of the ellipse inside it --— all tiles between these points intersect the
-                                    ellipse. The insight of our <strong>AccuTile</strong> algorithm, illustrated by
-                                    Figure 1c and provided below, is that these
-                                    exact Gaussian-to-tile intersections can be computed efficiently such that only two
+                                    points of the ellipse inside it — all tiles between these points intersect the
+                                    ellipse. The insight of our <strong>AccuTile</strong> algorithm, illustrated in
+                                    Figure 1c and detailed below, is that these exact Gaussian-to-tile intersections
+                                    can be computed efficiently such that only two
                                     points need to be computed per row or column of the SnugBox.
                                 </p>
                                 <div>
@@ -254,7 +254,7 @@
                                     Gaussian \(
                                     \mathcal{G}_i
                                     \) as the log determinant of the second order approximation of the
-                                    reconstruction error with respect to its mean and scaling parameters \(
+                                    \( L_2 \) reconstruction error with respect to its mean and scaling parameters \(
                                     \mu_i \) and \( s_i \) :
                                     \[
                                     U_i = \log \left| \nabla_{\mu_i,s_i}^2 L_2 \right| = \log \left|
