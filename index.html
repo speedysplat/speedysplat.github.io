@@ -12,11 +12,11 @@
     <!-- Google tag (gtag.js) -->
     <!--<script async src="https://www.googletagmanager.com/gtag/js?id=G-4L2VCD72BH"></script>-->
     <!--<script>-->
-      <!--window.dataLayer = window.dataLayer || [];-->
-      <!--function gtag(){dataLayer.push(arguments);}-->
-      <!--gtag('js', new Date());-->
+    <!--window.dataLayer = window.dataLayer || [];-->
+    <!--function gtag(){dataLayer.push(arguments);}-->
+    <!--gtag('js', new Date());-->
 
-      <!--gtag('config', 'G-4L2VCD72BH');-->
+    <!--gtag('config', 'G-4L2VCD72BH');-->
     <!--</script>-->
 
     <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
@@ -91,7 +91,8 @@
                                 </span>
                                 <!-- Code Link. -->
                                 <span class="link-block">
-                                    <a href="https://github.com/j-alex-hanson/speedy-splat" class="external-link button is-normal is-rounded is-dark">
+                                    <a href="https://github.com/j-alex-hanson/speedy-splat"
+                                        class="external-link button is-normal is-rounded is-dark">
                                         <span class="icon">
                                             <i class="fab fa-github"></i>
                                         </span>
@@ -171,7 +172,8 @@
                             <p>
                                 Gaussian splatting is a tile-based renderer that assigns Gaussians to tiles of pixels
                                 by calculating their intersections.
-                                As shown in Figure 1a, the current algorithm for computing Gaussian-to-tile intersections
+                                As shown in Figure 1a, the current algorithm for computing Gaussian-to-tile
+                                intersections
                                 is overly conservative in estimating the tile extent of Gaussians.
                                 We propose two algorithms to increase rendering speed by making exact
                                 localizations: <strong>SnugBox</strong> and <strong>AccuTile</strong>.
@@ -187,29 +189,32 @@
                                 </div>
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third">
-                                        <img src="./static/images/bbox_tile_intersect.png" alt="SnugBox tile intersection"
-                                            class="figure-image">
+                                        <img src="./static/images/bbox_tile_intersect.png"
+                                            alt="SnugBox tile intersection" class="figure-image">
                                         <figcaption>(b) SnugBox</figcaption>
                                     </figure>
                                 </div>
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third">
-                                        <img src="./static/images/ellipse_tile_intersect.png" alt="AccuTile tile intersection"
-                                            class="figure-image">
+                                        <img src="./static/images/ellipse_tile_intersect.png"
+                                            alt="AccuTile tile intersection" class="figure-image">
                                         <figcaption>(c) AccuTile</figcaption>
                                     </figure>
                                 </div>
                             </div>
-                            <p>
-                            <strong>Figure 1: Gaussian tile allocation by method.</strong>
+                            <p style="font-style: italic;">
+                                <strong>Figure 1: Gaussian tile allocation by method.</strong>
 
-                            (a) 3D Gaussian Splatting overestimates the Gaussian-to-tile intersections by relying solely on the maximum
-                            eigenvalue \(\lambda_{\max}\) of the projected 2D covariance for its computation.
+                                (a) 3D Gaussian Splatting overestimates the Gaussian-to-tile intersections by relying
+                                solely on the maximum
+                                eigenvalue \(\lambda_{\max}\) of the projected 2D covariance for its computation.
 
-                            (b) Our SnugBox method finds the axis aligned tight bounding box of the Gaussian and corresponding rectangular
-                            tile extent in constant time.
+                                (b) Our SnugBox method finds the axis aligned tight bounding box of the Gaussian and
+                                corresponding rectangular
+                                tile extent in constant time.
 
-                            (c) Our AccuTile method extends SnugBox to quickly compute exact Gaussian-to-tile intersections.
+                                (c) Our AccuTile method extends SnugBox to quickly compute exact Gaussian-to-tile
+                                intersections.
 
                             </p>
                             <h4 class="title is-5">SnugBox</h2>
@@ -223,107 +228,120 @@
                                     1b — around this ellipse
                                     by calculating the four points where its first derivative is zero.
                                     After dividing these points by tile size, rounding, and clipping to the image
-                                    boundary, we obtain the rectangular tile extent of \(\mathcal{G}_i \) in constant time.
+                                    boundary, we obtain the rectangular tile extent of \(\mathcal{G}_i \) in constant
+                                    time.
                                 </p>
-                            <h4 class="title is-5">AccuTile</h2>
-                                <p>
-                                    Extending our SnugBox algorithm, we compute the exact tile intersection of
-                                    Gaussian \(\mathcal{G}_i \) by
-                                    iterating over the shorter side of the SnugBox tile extent. In each row or
-                                    column, we identify the exact tile extent by finding the minimum and maximum
-                                    points of the ellipse inside it — all tiles between these points intersect the
-                                    ellipse. The insight of our <strong>AccuTile</strong> algorithm, illustrated in
-                                    Figure 1c and detailed below, is that these exact Gaussian-to-tile intersections
-                                    can be computed efficiently such that only two
-                                    points need to be computed per row or column of the SnugBox.
-                                </p>
-                                <div>
-                        <h3 class="title is-4">Total Number of Gaussians</h2>
-                            <p>
-                                Recent post-hoc pruning technique <a href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] finds that approximately 90%
-                                of Gaussians can be pruned from pretrained scenes while retaining high
-                                visual fidelity. Our <strong>efficient pruning score</strong> identifies a
-                                reparameterization of their sensitivity pruning score that improves its
-                                memory efficiency by 36×, allowing us to integrate it into the 3D-GS
-                                training pipeline via two distinct modalities: <strong>Soft Pruning</strong>
-                                and <strong>Hard Pruning</strong>.
-                            </p>
-                            <h4 class="title is-5">Efficient Pruning Score</h2>
-                                <p>
-                                    <a href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] computes a sensitivity pruning score \( U_i \) for each
-                                    Gaussian \(
-                                    \mathcal{G}_i
-                                    \) as the log determinant of the second order approximation of the
-                                    \( L_2 \) reconstruction error with respect to its mean and scaling parameters \(
-                                    \mu_i \) and \( s_i \) :
-                                    \[
-                                    U_i = \log \left| \nabla_{\mu_i,s_i}^2 L_2 \right| = \log \left|
-                                    \sum_{\phi
-                                    \in \mathcal{P}_{gt}} \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)
-                                    \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)^T \right|,
-                                    \]
-                                    where \( \mathcal{P}_{gt} \) is the set of all training camera poses and
-                                    \(
-                                    I_{\mathcal{G}}(\phi) \) is the rendered view for pose \( \phi \). This
-                                    second order approximation is shown to be exact when the \(L_1 \) error
-                                    over
-                                    \( \mathcal{P}_{gt} \) is zero.
-                                </p>
-                                <p>
-                                    We update this score by computing it with respect to the projected
-                                    Gaussian
-                                    values \( g_i \) instead:
-                                    \[
-                                    \tilde{U}_i = \log \left| \sum_{\phi \in \mathcal{P}_{gt}} \nabla_{g_i}
-                                    I_{\mathcal{G}}(\phi) \nabla_{g_i} I_{\mathcal{G}}(\phi)^T \right|.
-                                    \]
-                                    Because \( g_i \) is a scalar at each pixel and \( \log \) is
-                                    monotonically
-                                    increasing, we can simplify the score to:
-
-                                    \[
-                                    \tilde{U}_i = \sum_{\phi \in \mathcal{P}_{gt}} \nabla_{g_i}
-                                    I_{\mathcal{G}}(\phi)^2.
-                                    \]
-
-                                    Our <strong>efficient pruning score</strong> reduces the storage
-                                    requirement of the sensitivity pruning score by 36× and allows us to integrate it into the 3D-GS training pipeline.
-
-                                <h4 class="title is-5">Soft Pruning and Hard Pruning</h2>
-                                    <p>We empirically observe that the \( L_1 \) loss converges quickly
-                                        during
-                                        training and deploy our efficient pruning score via two modalities:
-                                    </p>
-
-                                    <ol>
-                                        <li>
-                                            <strong>Soft Pruning</strong>, performed during the
-                                            densification
-                                            stage, and
-                                        </li>
-                                        <li>
-                                            <strong>Hard Pruning</strong>, performed after the
-                                            densification stage.
-                                        </li>
-                                    </ol>
+                                <h4 class="title is-5">AccuTile</h2>
                                     <p>
-                                        Together, they reduce the number of Gaussians in the model by
-                                        approximately 90%, increasing rendering and training speed while
-                                        maintaining image quality.
+                                        Extending our SnugBox algorithm, we compute the exact tile intersection of
+                                        Gaussian \(\mathcal{G}_i \) by
+                                        iterating over the shorter side of the SnugBox tile extent. In each row or
+                                        column, we identify the exact tile extent by finding the minimum and maximum
+                                        points of the ellipse inside it — all tiles between these points intersect the
+                                        ellipse. The insight of our <strong>AccuTile</strong> algorithm, illustrated in
+                                        Figure 1c and detailed below, is that these exact Gaussian-to-tile intersections
+                                        can be computed efficiently such that only two
+                                        points need to be computed per row or column of the SnugBox.
                                     </p>
+                                    <div>
+                                        <h3 class="title is-4">Total Number of Gaussians</h2>
+                                            <p>
+                                                Recent post-hoc pruning technique <a
+                                                    href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] finds that
+                                                approximately 90%
+                                                of Gaussians can be pruned from pretrained scenes while retaining high
+                                                visual fidelity. Our <strong>efficient pruning score</strong> identifies
+                                                a
+                                                reparameterization of their sensitivity pruning score that improves its
+                                                memory efficiency by 36×, allowing us to integrate it into the 3D-GS
+                                                training pipeline via two distinct modalities: <strong>Soft
+                                                    Pruning</strong>
+                                                and <strong>Hard Pruning</strong>.
+                                            </p>
+                                            <h4 class="title is-5">Efficient Pruning Score</h2>
+                                                <p>
+                                                    <a href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] computes a
+                                                    sensitivity pruning score \( U_i \) for each
+                                                    Gaussian \(
+                                                    \mathcal{G}_i
+                                                    \) as the log determinant of the second order approximation of the
+                                                    \( L_2 \) reconstruction error with respect to its mean and scaling
+                                                    parameters \(
+                                                    \mu_i \) and \( s_i \) :
+                                                    \[
+                                                    U_i = \log \left| \nabla_{\mu_i,s_i}^2 L_2 \right| = \log \left|
+                                                    \sum_{\phi
+                                                    \in \mathcal{P}_{gt}} \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)
+                                                    \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)^T \right|,
+                                                    \]
+                                                    where \( \mathcal{P}_{gt} \) is the set of all training camera poses
+                                                    and
+                                                    \(
+                                                    I_{\mathcal{G}}(\phi) \) is the rendered view for pose \( \phi \).
+                                                    This
+                                                    second order approximation is shown to be exact when the \(L_1 \)
+                                                    error
+                                                    over
+                                                    \( \mathcal{P}_{gt} \) is zero.
+                                                </p>
+                                                <p>
+                                                    We update this score by computing it with respect to the projected
+                                                    Gaussian
+                                                    values \( g_i \) instead:
+                                                    \[
+                                                    \tilde{U}_i = \log \left| \sum_{\phi \in \mathcal{P}_{gt}}
+                                                    \nabla_{g_i}
+                                                    I_{\mathcal{G}}(\phi) \nabla_{g_i} I_{\mathcal{G}}(\phi)^T \right|.
+                                                    \]
+                                                    Because \( g_i \) is a scalar at each pixel and \( \log \) is
+                                                    monotonically
+                                                    increasing, we can simplify the score to:
 
+                                                    \[
+                                                    \tilde{U}_i = \sum_{\phi \in \mathcal{P}_{gt}} \nabla_{g_i}
+                                                    I_{\mathcal{G}}(\phi)^2.
+                                                    \]
+
+                                                    Our <strong>efficient pruning score</strong> reduces the storage
+                                                    requirement of the sensitivity pruning score by 36× and allows us to
+                                                    integrate it into the 3D-GS training pipeline.
+
+                                                <h4 class="title is-5">Soft Pruning and Hard Pruning</h2>
+                                                    <p>We empirically observe that the \( L_1 \) loss converges quickly
+                                                        during
+                                                        training and deploy our efficient pruning score via two
+                                                        modalities:
+                                                    </p>
+
+                                                    <ol>
+                                                        <li>
+                                                            <strong>Soft Pruning</strong>, performed during the
+                                                            densification
+                                                            stage, and
+                                                        </li>
+                                                        <li>
+                                                            <strong>Hard Pruning</strong>, performed after the
+                                                            densification stage.
+                                                        </li>
+                                                    </ol>
+                                                    <p>
+                                                        Together, they reduce the number of Gaussians in the model by
+                                                        approximately 90%, increasing rendering and training speed while
+                                                        maintaining image quality.
+                                                    </p>
+
+                                    </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <section class="hero">
         <div class="hero-body">
             <div class="container is-max-desktop content has-text-centered">
-                <h2 class="title is-3">Results</h2>
+                <h2 class="title is-3 mb-5">Results</h2> <!-- Added mb-5 for spacing -->
             </div>
-    
+
             <div class="container is-centered">
                 <div class="columns is-multiline is-centered">
                     <!-- Row 1 -->
@@ -339,29 +357,32 @@
                     </div>
                     <!-- Row 2 -->
                     <div class="column is-half">
+                        <video poster="" id="flowers" autoplay controls muted loop playsinline width="100%">
+                            <source src="static/videos/flowers.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="column is-half">
                         <video poster="" id="garden" autoplay controls muted loop playsinline width="100%">
                             <source src="static/videos/garden.mp4" type="video/mp4">
                         </video>
                     </div>
+                    <!-- Row 3 -->
                     <div class="column is-half">
                         <video poster="" id="kitchen" autoplay controls muted loop playsinline width="100%">
                             <source src="static/videos/kitchen.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <!-- Row 3 -->
                     <div class="column is-half">
                         <video poster="" id="room" autoplay controls muted loop playsinline width="100%">
                             <source src="static/videos/room.mp4" type="video/mp4">
                         </video>
                     </div>
-                    <div class="column is-half">
-                        <!-- Add a placeholder or additional video here if needed -->
-                    </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
+
     <section>
         <div class="container is-max-desktop">
             <div class="columns is-centered has-text-centered">
@@ -369,89 +390,122 @@
                     <h2 class="title is-3">The AccuTile Algorithm</h2>
                     <div class="content has-text-justified">
                         <p>
-                          For simplicity, the algorithm outlined here is applied to the rows of the SnugBox tile extent
-                          bounding box, matching the example in Figure 1c. In practice, it is applied along the smaller
-                          side of the tile extent. The subscripts \(t\), \(b\), \(l\), and \(r\) represent the <em>top</em>,
-                          <em>bottom</em>, <em>left</em>, and <em>right</em> sides, respectively.
+                            To match the example in Figure 1c, the algorithm outlined below is applied to the rows of
+                            the SnugBox tile extent
+                            bounding box. In practice, it is applied along the smaller
+                            side of the tile extent. The subscripts \(t\), \(b\), \(l\), and \(r\) represent the
+                            <em>top</em>,
+                            <em>bottom</em>, <em>left</em>, and <em>right</em> sides, respectively.
                         </p>
                         <div class="algorithm-container">
-                          <p>
-                              \[
-                              \textbf{Input:}
-                              \]
-                              \[
-                              \begin{aligned}
+                            <p>
+                                \[
+                                \textbf{Input:}
+                                \]
+                                \[
+                                \begin{aligned}
                                 &\text{Gaussian Ellipse Boundary } \class{highlight-purple}{\mathbf{E}} \\
                                 &\text{SnugBox Bounding Box } \class{highlight-blue}{\mathbf{B}} \\
                                 &\text{SnugBox Tile Extent Rectangle } \class{highlight-yellow}{\mathbf{R}}
-                              \end{aligned}
-                              \]
-                              \[
-                              \textbf{Procedure:}
-                              \]
-                              \[
-                              \begin{aligned}
-                              &\text{Tile count } \class{highlight-yellow}{\mathbf{C}} \gets 0 \\
-                              &\class{highlight-yellow}{\text{line}_{\min}} \gets \class{highlight-yellow}{\mathbf{R}_b} \\
-                              &\textbf{if } \class{highlight-yellow}{\text{line}_{\min}} \geq \class{highlight-blue}{\mathbf{B}_b} \textbf{ then } \\
-                              &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets \text{Intersections}(
-                                    \class{highlight-yellow}{\text{line}_{\min}}, \class{highlight-purple}{\mathbf{E}}) \\
+                                \end{aligned}
+                                \]
+                                \[
+                                \textbf{Procedure:}
+                                \]
+                                \[
+                                \begin{aligned}
+                                &\text{Tile count } \class{highlight-yellow}{\mathbf{C}} \gets 0 \\
+                                &\class{highlight-yellow}{\text{line}_{\min}} \gets
+                                \class{highlight-yellow}{\mathbf{R}_b} \\
+                                &\textbf{if } \class{highlight-yellow}{\text{line}_{\min}} \geq
+                                \class{highlight-blue}{\mathbf{B}_b} \textbf{ then } \\
+                                &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets \text{Intersections}(
+                                \class{highlight-yellow}{\text{line}_{\min}}, \class{highlight-purple}{\mathbf{E}}) \\
 
-                              &\textbf{for row } \class{highlight-yellow}{r} \textbf{ in } \class{highlight-yellow}{\mathbf{R}} \textbf{ do } \\
-                              &\quad \class{highlight-yellow}{\text{line}_{\max}} \gets \class{highlight-yellow}{r_t} \\
-                              &\quad \textbf{if } \class{highlight-yellow}{\text{line}_{\max}} \leq \class{highlight-blue}{\mathbf{B}_t} \textbf{ then } \\
-                              &\quad \quad \class{highlight-purple}{\mathbf{i}_{\max}} \gets \text{Intersections}(
-                                    \class{highlight-yellow}{\text{line}_{\max}}, \class{highlight-purple}{\mathbf{E}}) \\
+                                &\textbf{for row } \class{highlight-yellow}{r} \textbf{ in }
+                                \class{highlight-yellow}{\mathbf{R}} \textbf{ do } \\
+                                &\quad \class{highlight-yellow}{\text{line}_{\max}} \gets \class{highlight-yellow}{r_t}
+                                \\
+                                &\quad \textbf{if } \class{highlight-yellow}{\text{line}_{\max}} \leq
+                                \class{highlight-blue}{\mathbf{B}_t} \textbf{ then } \\
+                                &\quad \quad \class{highlight-purple}{\mathbf{i}_{\max}} \gets \text{Intersections}(
+                                \class{highlight-yellow}{\text{line}_{\max}}, \class{highlight-purple}{\mathbf{E}}) \\
 
-                              &\quad \class{highlight-purple}{e_{\min}} \gets
+                                &\quad \class{highlight-purple}{e_{\min}} \gets
                                 \begin{cases}
-                                  \class{highlight-blue}{\mathbf{B}_l} & \text{if } \class{highlight-blue}{\mathbf{B}_l}
-                                          \text{ in }\class{highlight-yellow}{r} \\
-                                  \min(\class{highlight-purple}{\mathbf{i}_{\min}}, \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
+                                \class{highlight-blue}{\mathbf{B}_l} & \text{if } \class{highlight-blue}{\mathbf{B}_l}
+                                \text{ in }\class{highlight-yellow}{r} \\
+                                \min(\class{highlight-purple}{\mathbf{i}_{\min}},
+                                \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
                                 \end{cases} \\
-                              &\quad \class{highlight-purple}{e_{\max}} \gets
+                                &\quad \class{highlight-purple}{e_{\max}} \gets
                                 \begin{cases}
-                                  \class{highlight-blue}{\mathbf{B}_r} & \text{if } \class{highlight-blue}{\mathbf{B}_r}
-                                          \text{ in }\class{highlight-yellow}{r} \\
-                                  \max(\class{highlight-purple}{\mathbf{i}_{\min}}, \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
+                                \class{highlight-blue}{\mathbf{B}_r} & \text{if } \class{highlight-blue}{\mathbf{B}_r}
+                                \text{ in }\class{highlight-yellow}{r} \\
+                                \max(\class{highlight-purple}{\mathbf{i}_{\min}},
+                                \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
                                 \end{cases} \\
 
-                              &\quad \class{highlight-yellow}{\text{tile}_{\min}}, \class{highlight-yellow}{\text{tile}_{\max}} \gets
-                                     \text{Convert}(\class{highlight-purple}{e_{\min}}, \class{highlight-purple}{e_{\max}}) \\
-                              &\quad \class{highlight-yellow}{\mathbf{C}} \gets \class{highlight-yellow}{\mathbf{C}} +
-                                      (\class{highlight-yellow}{\text{tile}_{\max}} - \class{highlight-yellow}{\text{tile}_{\min}}) \\
+                                &\quad \class{highlight-yellow}{\text{tile}_{\min}},
+                                \class{highlight-yellow}{\text{tile}_{\max}} \gets
+                                \text{Convert}(\class{highlight-purple}{e_{\min}}, \class{highlight-purple}{e_{\max}})
+                                \\
+                                &\quad \class{highlight-yellow}{\mathbf{C}} \gets \class{highlight-yellow}{\mathbf{C}} +
+                                (\class{highlight-yellow}{\text{tile}_{\max}} -
+                                \class{highlight-yellow}{\text{tile}_{\min}}) \\
 
-                              &\quad \text{Process}(\class{highlight-yellow}{\text{tile}_{\min}}, \class{highlight-yellow}{\text{tile}_{\max}}) \\
-                              &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets \class{highlight-purple}{\mathbf{i}_{\max}} \\
-                              &\textbf{return } \class{highlight-yellow}{\mathbf{C}}
-                              \end{aligned}
-                              \]
-                          </p>
+                                &\quad \text{Process}(\class{highlight-yellow}{\text{tile}_{\min}},
+                                \class{highlight-yellow}{\text{tile}_{\max}}) \\
+                                &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets
+                                \class{highlight-purple}{\mathbf{i}_{\max}} \\
+                                &\textbf{return } \class{highlight-yellow}{\mathbf{C}}
+                                \end{aligned}
+                                \]
+                            </p>
                         </div>
                         <p>
-                        We provide a walkthrough of the AccuTile Algorithm processing the SnugBox output from Figure 1b and illustrated by Figure 1c.
+                            The following walkthrough outlines each step of the example illustrated in Figure 1c, where
+                            the AccuTile algorithm processes the SnugBox output from Figure 1b to find the exact tile
+                            extent:
                         </p>
-                        <p>
-                        The <span class="highlight-yellow">tile extent rows</span> from Snugbox, shown in Figure 1b, are processed starting
-                        from the bottom. The <span class="highlight-yellow">lower tile row boundary</span> falls below the
-                        <span class="highlight-blue">bounding box</span>, so no initial intersection is computed. The
-                        <span class="highlight-yellow">upper boundary</span> lies below the top of the <span class="highlight-blue">bounding box</span>,
-                        so intersection points <span class="highlight-purple">\(A\)</span> and <span class="highlight-purple">\(B\)</span> are calculated.
-                        <span class="highlight-blue">\(x_{\min}\)</span> is assigned as this row's minimum ellipse extent
-                        <span class="highlight-purple">\(e_{\min}\)</span> because it lies within the row, and <span class="highlight-purple">\(B\)</span>
-                        is assigned as its maximum ellipse extent <span class="highlight-purple">\(e_{\max}\)</span> because it is the maximal point.
-                        Consequently, this row's <span class="highlight-yellow">tile extent</span> is from the tile containing
-                        <span class="highlight-blue">\(x_{\min}\)</span> to the tile containing <span class="highlight-purple">\(B\)</span>.
-                        For the next row, we keep points <span class="highlight-purple">\(A\)</span> and <span class="highlight-purple">\(B\)</span> and
-                        compute <span class="highlight-yellow">upper boundary</span> points <span class="highlight-purple">\(C\)</span> and
-                        <span class="highlight-purple">\(D\)</span>. <span class="highlight-purple">\(A\)</span> and
-                        <span class="highlight-blue">\(x_{\max}\)</span> are assigned as the row's <span class="highlight-purple">\(e_{\min}\)</span> and
-                        <span class="highlight-purple">\(e_{\max}\)</span>, and the tiles containing them are its
-                        <span class="highlight-yellow">tile extent</span>. Finally, for the last row, <span class="highlight-purple">\(C\)</span> and
-                        <span class="highlight-purple">\(D\)</span> are kept; no additional points are computed because the row's
-                        <span class="highlight-yellow">upper boundary</span> is above the <span class="highlight-blue">bounding box</span>. Giving the
-                        <span class="highlight-yellow">tile extent</span> of this row as the tiles containing <span class="highlight-purple">\(C\)</span> and
-                        <span class="highlight-purple">\(D\)</span>.
+                        <p style="font-style: italic;">
+                            The <span class="highlight-yellow">tile extent rows</span> from Snugbox, shown in Figure 1b,
+                            are processed starting
+                            from the bottom. The <span class="highlight-yellow">lower tile row boundary</span> falls
+                            below the
+                            <span class="highlight-blue">bounding box</span>, so no initial intersection is computed.
+                            The
+                            <span class="highlight-yellow">upper boundary</span> lies below the top of the <span
+                                class="highlight-blue">bounding box</span>,
+                            so intersection points <span class="highlight-purple">\(A\)</span> and <span
+                                class="highlight-purple">\(B\)</span> are calculated.
+                            <span class="highlight-blue">\(x_{\min}\)</span> is assigned as this row's minimum ellipse
+                            extent
+                            <span class="highlight-purple">\(e_{\min}\)</span> because it lies within the row, and <span
+                                class="highlight-purple">\(B\)</span>
+                            is assigned as its maximum ellipse extent <span class="highlight-purple">\(e_{\max}\)</span>
+                            because it is the maximal point.
+                            Consequently, this row's <span class="highlight-yellow">tile extent</span> is from the tile
+                            containing
+                            <span class="highlight-blue">\(x_{\min}\)</span> to the tile containing <span
+                                class="highlight-purple">\(B\)</span>.
+                            For the next row, we keep points <span class="highlight-purple">\(A\)</span> and <span
+                                class="highlight-purple">\(B\)</span> and
+                            compute <span class="highlight-yellow">upper boundary</span> points <span
+                                class="highlight-purple">\(C\)</span> and
+                            <span class="highlight-purple">\(D\)</span>. <span class="highlight-purple">\(A\)</span> and
+                            <span class="highlight-blue">\(x_{\max}\)</span> are assigned as the row's <span
+                                class="highlight-purple">\(e_{\min}\)</span> and
+                            <span class="highlight-purple">\(e_{\max}\)</span>, and the tiles containing them are its
+                            <span class="highlight-yellow">tile extent</span>. Finally, for the last row, <span
+                                class="highlight-purple">\(C\)</span> and
+                            <span class="highlight-purple">\(D\)</span> are kept; no additional points are computed
+                            because the row's
+                            <span class="highlight-yellow">upper boundary</span> is above the <span
+                                class="highlight-blue">bounding box</span>. Thus, the
+                            <span class="highlight-yellow">tile extent</span> of this row is the tiles containing <span
+                                class="highlight-purple">\(C\)</span> and
+                            <span class="highlight-purple">\(D\)</span>.
                         </p>
                     </div>
                 </div>
@@ -459,17 +513,17 @@
         </div>
     </section>
 
-     <section class="section" id="BibTeX">
+    <section class="section" id="BibTeX">
         <div class="container is-max-desktop content">
             <h2 class="title">BibTeX</h2>
-            <pre><code>@Article{HansonSpeedy,
-                author       = {Hanson, Alex and Tu, Allen and Lin, Geng, and Singla, Vasu and Zwicker, Matthias and Goldstein, Tom},
-                title        = {Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives},
-                journal      = {arxiv},
-                year         = {2024}
-            }</code></pre>
+            <pre><code>@article{HansonSpeedy,
+    author = {Hanson, Alex and Tu, Allen and Lin, Geng, and Singla, Vasu and Zwicker, Matthias and Goldstein, Tom},
+    title = {Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives},
+    journal = {arxiv},
+    year = {2024}
+}</code></pre>
         </div>
-    </section> 
+    </section>
 
     <br>
     <footer class="footer">
@@ -478,7 +532,8 @@
                 <a class="icon-link" href="">
                     <i class="fas fa-file-pdf"></i>
                 </a>
-                <a class="icon-link" href="https://github.com/j-alex-hanson/speedy-splat" class="external-link" disabled>
+                <a class="icon-link" href="https://github.com/j-alex-hanson/speedy-splat" class="external-link"
+                    disabled>
                     <i class="fab fa-github"></i>
                 </a>
             </div>
@@ -486,13 +541,21 @@
                 <div class="column is-8">
                     <div class="content">
                         <p>
-                        This work was made possible by the IARPA WRIVA Program, the ONR MURI program, and DAPRA TIAMAT. Commercial support
-                        was provided by Capital One Bank, the Amazon Research Award program, and Open Philanthropy. Further support was
-                        provided by the National Science Foundation (IIS-2212182), and by the NSF TRAILS Institute (2229885). Zwicker was
-                        additionally supported by the National Science Foundation (IIS-2126407).
+                            This work was made possible by the IARPA WRIVA Program, the ONR MURI program, and DAPRA
+                            TIAMAT. Commercial support
+                            was provided by Capital One Bank, the Amazon Research Award program, and Open Philanthropy.
+                            Further support was
+                            provided by the National Science Foundation (IIS-2212182), and by the NSF TRAILS Institute
+                            (2229885). Zwicker was
+                            additionally supported by the National Science Foundation (IIS-2126407).
                         </p>
 
-                        <p>[1] A. Hanson, A. Tu, V. Singla, M. Jayawardhana, M. Zwicker, and T. Goldstein, "PUP 3D-GS: Principled Uncertainty Pruning for 3D Gaussian Splatting", arXiv, 2024.</p>
+                        <ol>
+                            <li>A. Hanson, A. Tu, V. Singla, M. Jayawardhana, M. Zwicker, and T. Goldstein, "<a
+                                    href="https://pup3dgs.github.io/">PUP 3D-GS</a>: Principled Uncertainty Pruning for
+                                3D Gaussian Splatting", <a href="https://arxiv.org/abs/2406.10219">arXiv</a>, 2024.</p>
+                            </li>
+                        </ol>
                     </div>
                     <div class="content has-text-centered">
                         <p>
