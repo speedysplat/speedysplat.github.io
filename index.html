@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="description"
-        content="Speedy-splat accelerates 3D Gaussian Splatting (3D-GS) rendering speed by over 6× and reduces model size by over 90% through accurately localizing Gaussians during rasterization and pruning the scene during training, providing a significantly higher speedup than existing techniques while maintaining competitive image quality.">
+        content="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives. Accelerate 3D Gaussian Splatting rendering speed by over 6× and reduce model size by over 90% through accurately localizing primitives during rasterization and pruning the scene during training, providing a significantly higher speedup than existing techniques while maintaining competitive image quality.">
     <meta name="keywords"
         content="Speedy-Splat, speedysplat, Speedy Splat, speedy splat, speedy-splat, Gaussian Splatting, Gaussian, 3D Gaussian Splatting">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -283,21 +283,21 @@
                                         <h3 class="title is-4 has-text-centered">Total Number of Gaussians</h2>
                                             <p>
                                                 Recent post-hoc pruning technique <a
-                                                    href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] finds that
-                                                approximately 90%
-                                                of Gaussians can be pruned from pretrained scenes while retaining high
-                                                visual fidelity. Our <strong>efficient pruning score</strong> identifies
-                                                a
-                                                reparameterization of their sensitivity pruning score that improves its
-                                                memory efficiency by 36×, allowing us to integrate it into the 3D-GS
-                                                training pipeline via two distinct modalities: <strong>Soft
-                                                    Pruning</strong>
-                                                and <strong>Hard Pruning</strong>.
+                                                    href="https://pup3dgs.github.io/">PUP 3D-GS</a> [<a
+                                                    href="https://speedysplat.github.io/#Related">1</a>] finds
+                                                that approximately 90% of Gaussians can be pruned from pretrained scenes
+                                                while retaining high visual fidelity. Our <strong>efficient pruning
+                                                    score</strong>
+                                                identifies a reparameterization of their sensitivity pruning score that
+                                                improves its memory efficiency by 36×, allowing us to integrate it into
+                                                the 3D-GS training pipeline via two distinct modalities: <strong>Soft
+                                                    Pruning</strong> and <strong>Hard Pruning</strong>.
                                             </p>
                                             <h4 class="title is-5">Efficient Pruning Score</h2>
                                                 <p>
-                                                    <a href="https://pup3dgs.github.io/">PUP 3D-GS</a> [1] computes a
-                                                    sensitivity pruning score \( U_i \) for each
+                                                    <a href="https://pup3dgs.github.io/">PUP 3D-GS</a> [<a
+                                                        href="https://speedysplat.github.io/#Related">1</a>]
+                                                    computes a sensitivity pruning score \( U_i \) for each
                                                     Gaussian \(
                                                     \mathcal{G}_i
                                                     \) as the log determinant of the second order approximation of the
@@ -561,6 +561,32 @@
     pages     = {21537-21546},
     url       = {https://speedysplat.github.io/}
 }</code></pre>
+
+            <h2 class="title">Related Work</h2>
+            <p>For additional papers on efficient 3D Gaussian Splatting, see our group’s related work below. If your
+                research builds on ours, we encourage you to cite these papers.</p>
+            <ol>
+                <li>
+                    <a href="https://pup3dgs.github.io/" target="_blank" rel="noopener">
+                        <strong>PUP-3DGS</strong>
+                    </a>
+                    <em>(CVPR 2025)</em>
+                    <small><a href="https://pup3dgs.github.io/#BibTeX" target="_blank">[BibTeX]</a></small>
+                    — Prune 90% of primitives from any pretrained 3D Gaussian Splatting model using a mathematically
+                    principled sensitivity score, more than tripling rendering speed while retaining more salient
+                    foreground information and higher visual fidelity than previous techniques at a substantially
+                    higher compression ratio.
+                </li>
+                <li>
+                    <a href="https://speede3dgs.github.io/" target="_blank" rel="noopener">
+                        <strong>SpeeDe3DGS</strong>
+                    </a>
+                    <small><a href="https://speede3dgs.github.io/#BibTeX" target="_blank">[BibTeX]</a></small>
+                    — Deliver the strong visual fidelity of traditionally slow per-Gaussian neural motion for dynamic 3D
+                    Gaussian Splatting at 13.71× the rendering speed via temporal sensitivity pruning and groupwise
+                    SE(3) motion distillation.
+                </li>
+            </ol>
         </div>
     </section>
 
@@ -588,13 +614,6 @@
                             (2229885). Zwicker was
                             additionally supported by the National Science Foundation (IIS-2126407).
                         </p>
-
-                        <ol>
-                            <li>A. Hanson, A. Tu, V. Singla, M. Jayawardhana, M. Zwicker, and T. Goldstein, <a href="https://pup3dgs.github.io/">‘PUP 3D-GS:
-                                Principled Uncertainty Pruning for 3D Gaussian Splatting’</a>, in Proceedings of the
-                                Computer Vision and Pattern Recognition Conference (CVPR), 2025, pp. 5949–5958.</p>
-                            </li>
-                        </ol>
                     </div>
                     <div class="content has-text-centered">
                         <p>
