@@ -107,6 +107,7 @@
     <script defer src="./static/js/fontawesome.all.min.js?v=202602181340"></script>
     <script src="./static/js/bulma-carousel.min.js?v=202602181340"></script>
     <script src="./static/js/index.js?v=202602181340"></script>
+    <script defer src="./static/js/script.js?v=2026.02.18.1"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 </head>
@@ -651,7 +652,13 @@
     <section class="section" id="BibTeX">
         <div class="container is-max-desktop content">
             <h2 class="title">BibTeX</h2>
-            <pre><code>@InProceedings{HansonSpeedy,
+            <div class="bibtex-container"
+                style="position: relative; background: #f5f5f5; border-radius: 8px; padding: 0.5rem;">
+                <button class="copy-code-btn" id="copy-btn"
+                    style="position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.5rem; background: #ffffff; border: 1px solid #e5e5e5; border-radius: 4px; color: #595959; font-size: 1rem; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; z-index: 10; line-height: 1;">
+                    <i class="fa fa-copy"></i>
+                </button>
+                <pre><code id="bibtex-content">@InProceedings{HansonSpeedy,
     author    = {Hanson, Alex and Tu, Allen and Lin, Geng and Singla, Vasu and Zwicker, Matthias and Goldstein, Tom},
     title     = {Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives},
     booktitle = {Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)},
@@ -660,6 +667,7 @@
     pages     = {21537-21546},
     url       = {https://speedysplat.github.io/}
 }</code></pre>
+            </div>
 
             <h2 class="title">Related Work</h2>
             <p>For additional papers on efficient 3D Gaussian Splatting, see our group’s related work below. If your
