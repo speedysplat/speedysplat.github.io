@@ -3,11 +3,18 @@ body {
 }
 
 .video-compare-container {
-  width: 90%;
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
   position: relative;
   display: block;
   line-height: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .video-compare-container {
+    width: calc(100% - 1.5rem);
+  }
 }
 
 .videoMerge {
@@ -350,61 +357,68 @@ body {
 
 
 .figure-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    /*border: 1px solid #ccc;*/
-    border-radius: 8px;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  /*border: 1px solid #ccc;*/
+  border-radius: 8px;
 }
 
 .column.is-one-third {
-    flex: 0 0 33%; /* Allow each column to take up more space */
-    max-width: 33%; /* Ensures three images stay on one row */
-    padding: 0;
-    justify-content: center;
+  flex: 0 0 33%;
+  /* Allow each column to take up more space */
+  max-width: 33%;
+  /* Ensures three images stay on one row */
+  padding: 0;
+  justify-content: center;
 }
 
 figcaption {
-    font-size: 0.9rem;
-    color: #555;
-    text-align: center;
-    margin-top: 8px;
+  font-size: 0.9rem;
+  color: #555;
+  text-align: center;
+  margin-top: 8px;
 }
 
 .figure-one-third {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
 .algorithm-container {
-    text-align: left;
+  text-align: left;
 }
 
 .algorithm-container p {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .algorithm-container mjx-container {
-    text-align: left !important;
-    display: block !important;
+  text-align: left !important;
+  display: block !important;
 }
 
 .highlight-purple {
-    background-color: #DFA6DC; /* Light purple */
-    padding: 0px 2px;
+  background-color: #DFA6DC;
+  /* Light purple */
+  padding: 0px 2px;
 }
 
 .highlight-blue {
-    background-color: #84D8FF; /* Light blue */
-    padding: 0px 2px;
+  background-color: #84D8FF;
+  /* Light blue */
+  padding: 0px 2px;
 }
 
 .highlight-yellow {
-    background-color: #F0EDC7; /* Light yellow */
-    padding: 0px 2px;
+  background-color: #F0EDC7;
+  /* Light yellow */
+  padding: 0px 2px;
 }
 
-.algorithm-container .highlight-yellow, .algorithm-container .highlight-purple, .algorithm-container .highlight-blue {
-    padding: 4px 6px;
+.algorithm-container .highlight-yellow,
+.algorithm-container .highlight-purple,
+.algorithm-container .highlight-blue {
+  padding: 4px 6px;
 }
