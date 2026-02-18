@@ -9,6 +9,79 @@
         content="Speedy-Splat, speedysplat, Speedy Splat, speedy splat, speedy-splat, Gaussian Splatting, Gaussian, 3D Gaussian Splatting">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives</title>
+
+    <!-- Canonical Link -->
+    <link rel="canonical" href="https://speedysplat.github.io/">
+
+    <!-- Resource Hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://ajax.googleapis.com">
+
+    <!-- Open Graph Tags -->
+    <meta property="og:title"
+        content="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives">
+    <meta property="og:description"
+        content="Accelerate 3D Gaussian Splatting rendering speed by 2× for free by accurately localizing primitives during rasterization and over 6× in total by pruning the scene by more than 90% during training.">
+    <meta property="og:url" content="https://speedysplat.github.io/">
+    <meta property="og:image" content="https://speedysplat.github.io/static/images/kitchen_poster.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Speedy-Splat">
+
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title"
+        content="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives">
+    <meta name="twitter:description"
+        content="Accelerate 3D Gaussian Splatting rendering speed by 2× for free by accurately localizing primitives during rasterization and over 6× in total by pruning the scene by more than 90% during training.">
+    <meta name="twitter:image" content="https://speedysplat.github.io/static/images/kitchen_poster.jpg">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "headline": "Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Alex Hanson",
+          "url": "https://www.cs.umd.edu/~hanson/"
+        },
+        {
+          "@type": "Person",
+          "name": "Allen Tu",
+          "url": "https://tuallen.github.io"
+        },
+        {
+            "@type": "Person",
+            "name": "Geng Lin",
+            "url": "https://scholar.google.com/citations?user=2Vh_sboAAAAJ"
+        },
+        {
+            "@type": "Person",
+            "name": "Vasu Singla",
+            "url": "https://vasusingla.github.io/"
+        },
+        {
+            "@type": "Person",
+            "name": "Matthias Zwicker",
+            "url": "https://www.cs.umd.edu/~zwicker/"
+        },
+        {
+            "@type": "Person",
+            "name": "Tom Goldstein",
+            "url": "https://www.cs.umd.edu/~tomg/"
+        }
+      ],
+      "description": "Accelerate 3D Gaussian Splatting rendering speed by 2× for free by accurately localizing primitives during rasterization and over 6× in total by pruning the scene by more than 90% during training.",
+      "image": "https://speedysplat.github.io/static/images/kitchen_poster.jpg",
+      "datePublished": "2024-11-30",
+      "url": "https://speedysplat.github.io/"
+    }
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4L2VCD72BH"></script>
     <script>
@@ -21,19 +94,19 @@
 
     <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
 
-    <link rel="stylesheet" href="./static/css/bulma.min.css">
-    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="./static/css/bulma.min.css?v=202602181340">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css?v=202602181340">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-    <link rel="stylesheet" href="./static/css/index.css">
-    <link rel="icon" href="./static/images/favicon.ico">
+    <link rel="stylesheet" href="./static/css/index.css?v=202602181340">
+    <link rel="icon" href="./static/images/favicon.ico?v=202602181340">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script defer src="./static/js/fontawesome.all.min.js"></script>
-    <script src="./static/js/bulma-carousel.min.js"></script>
-    <script src="./static/js/index.js"></script>
+    <script defer src="./static/js/fontawesome.all.min.js?v=202602181340"></script>
+    <script src="./static/js/bulma-carousel.min.js?v=202602181340"></script>
+    <script src="./static/js/index.js?v=202602181340"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 </head>
@@ -46,7 +119,7 @@
                     <div class="column has-text-centered">
                         <h1 class="title is-1 publication-title">Speedy-Splat: Fast 3D Gaussian Splatting with Sparse
                             Pixels and Sparse Primitives</h1>
-                        <h1 style="font-size:1.5rem"> CVPR 2025<br></h1>
+                        <div class="is-size-3 publication-venue">CVPR 2025</div>
                         <div class="is-size-5 publication-authors">
                             <span class="author-block">
                                 <a href="https://www.cs.umd.edu/~hanson/">Alex Hanson</a>,</span>
@@ -130,11 +203,16 @@
     </section>
 
     <section class="hero teaser">
-        <div class="container is-max-desktop">
+        <div class="container is-centered">
             <div class="hero-body">
-                <video id="teaser" autoplay muted loop playsinline width="100%">
-                    <source src="./static/videos/teaser.mp4" type="video/mp4">
-                </video>
+                <div class="container is-centered">
+                    <!-- <div class="column is-half"> -->
+                    <video poster="static/images/teaser_poster.jpg" id="teaser" autoplay muted loop playsinline
+                        width="100%" onclick="this.paused ? this.play() : this.pause()">
+                        <source src="./static/videos/teaser_compressed.mp4" type="video/mp4">
+                    </video>
+                    <!-- </div> -->
+                </div>
                 <!-- <h2 class="subtitle has-text-centered">
               <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
               free-viewpoint
@@ -215,25 +293,25 @@
                                 localizations: <strong>SnugBox</strong> and <strong>AccuTile</strong>.
                             </p>
                             <!-- Figure Section -->
-                            <div class="columns is-centered">
+                            <div class="columns is-centered is-mobile">
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third">
                                         <img src="./static/images/3dgs_tile_intersect.png" alt="3DGS tile intersection"
-                                            class="figure-image">
+                                            class="figure-image" loading="lazy">
                                         <figcaption>(a) 3D Gaussian Splatting </figcaption>
                                     </figure>
                                 </div>
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third">
                                         <img src="./static/images/bbox_tile_intersect.png"
-                                            alt="SnugBox tile intersection" class="figure-image">
+                                            alt="SnugBox tile intersection" class="figure-image" loading="lazy">
                                         <figcaption>(b) SnugBox</figcaption>
                                     </figure>
                                 </div>
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third">
                                         <img src="./static/images/ellipse_tile_intersect.png"
-                                            alt="AccuTile tile intersection" class="figure-image">
+                                            alt="AccuTile tile intersection" class="figure-image" loading="lazy">
                                         <figcaption>(c) AccuTile</figcaption>
                                     </figure>
                                 </div>
@@ -382,35 +460,41 @@
                 <div class="columns is-multiline is-centered">
                     <!-- Row 1 -->
                     <div class="column is-half">
-                        <video poster="" id="bonsai" autoplay controls muted loop playsinline width="100%">
-                            <source src="static/videos/bonsai.mp4" type="video/mp4">
+                        <video poster="static/images/bonsai_poster.jpg" id="bonsai" autoplay muted loop playsinline
+                            width="100%" onclick="this.paused ? this.play() : this.pause()">
+                            <source src="static/videos/bonsai_compressed.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="column is-half">
-                        <video poster="" id="counter" autoplay controls muted loop playsinline width="100%">
-                            <source src="static/videos/counter.mp4" type="video/mp4">
+                        <video poster="static/images/counter_poster.jpg" id="counter" autoplay muted loop playsinline
+                            width="100%" onclick="this.paused ? this.play() : this.pause()">
+                            <source src="static/videos/counter_compressed.mp4" type="video/mp4">
                         </video>
                     </div>
                     <!-- Row 2 -->
                     <div class="column is-half">
-                        <video poster="" id="flowers" autoplay controls muted loop playsinline width="100%">
-                            <source src="static/videos/flowers.mp4" type="video/mp4">
+                        <video poster="static/images/flowers_poster.jpg" id="flowers" autoplay muted loop playsinline
+                            width="100%" onclick="this.paused ? this.play() : this.pause()">
+                            <source src="static/videos/flowers_compressed.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="column is-half">
-                        <video poster="" id="garden" autoplay controls muted loop playsinline width="100%">
+                        <video poster="static/images/garden_poster.jpg" id="garden" autoplay muted loop playsinline
+                            width="100%" onclick="this.paused ? this.play() : this.pause()">
                             <source src="static/videos/garden.mp4" type="video/mp4">
                         </video>
                     </div>
                     <!-- Row 3 -->
                     <div class="column is-half">
-                        <video poster="" id="kitchen" autoplay controls muted loop playsinline width="100%">
-                            <source src="static/videos/kitchen.mp4" type="video/mp4">
+                        <video poster="static/images/kitchen_poster.jpg" id="kitchen" autoplay muted loop playsinline
+                            width="100%" onclick="this.paused ? this.play() : this.pause()">
+                            <source src="static/videos/kitchen_compressed.mp4" type="video/mp4">
                         </video>
                     </div>
                     <div class="column is-half">
-                        <video poster="" id="room" autoplay controls muted loop playsinline width="100%">
-                            <source src="static/videos/room.mp4" type="video/mp4">
+                        <video poster="static/images/room_poster.jpg" id="room" autoplay muted loop playsinline
+                            width="100%" onclick="this.paused ? this.play() : this.pause()">
+                            <source src="static/videos/room_compressed.mp4" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -419,7 +503,7 @@
     </section>
 
 
-    <section>
+    <section class="section">
         <div class="container is-max-desktop">
             <div class="columns is-centered has-text-centered">
                 <div class="column is-four-fifths">
@@ -594,11 +678,21 @@
     <footer class="footer">
         <div class="container">
             <div class="content has-text-centered">
-                <a class="icon-link" href="https://arxiv.org/pdf/2412.00578">
+                <a class="icon-link" href="https://arxiv.org/pdf/2412.00578" target="_blank" rel="noopener noreferrer">
                     <i class="fas fa-file-pdf"></i>
                 </a>
-                <a class="icon-link" href="https://github.com/j-alex-hanson/speedy-splat" class="external-link"
-                    disabled>
+                <a class="icon-link" href="https://arxiv.org/abs/2412.00578" target="_blank" rel="noopener noreferrer">
+                    <i class="ai ai-arxiv"></i>
+                </a>
+                <a class="icon-link" href="static/files/speedysplat_poster.pdf" target="_blank"
+                    rel="noopener noreferrer">
+                    <i class="fas fa-image"></i>
+                </a>
+                <a class="icon-link" href="https://youtu.be/jqtqVHKRrfw" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a class="icon-link" href="https://github.com/j-alex-hanson/speedy-splat" target="_blank"
+                    rel="noopener noreferrer">
                     <i class="fab fa-github"></i>
                 </a>
             </div>
