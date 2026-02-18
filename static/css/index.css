@@ -423,3 +423,22 @@ figcaption {
 .algorithm-container .highlight-blue {
   padding: 4px 6px;
 }
+
+/* Math display toggling */
+.math-mobile {
+  display: none;
+}
+
+.math-desktop {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .math-mobile {
+    display: block;
+  }
+
+  .math-desktop {
+    display: none;
+  }
+}
