@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="description"
@@ -8,77 +7,144 @@
     <meta name="keywords"
         content="Speedy-Splat, speedysplat, Speedy Splat, speedy splat, speedy-splat, Gaussian Splatting, Gaussian, 3D Gaussian Splatting">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
     <title>Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives</title>
 
     <!-- Canonical Link -->
     <link rel="canonical" href="https://speedysplat.github.io/">
+    <meta name="robots" content="index,follow">
 
-    <!-- Resource Hints -->
+    <!-- Resource Hints. Only origins the page still contacts: Google Fonts
+         for the async Google Sans, and jsDelivr for MathJax. The icon fonts
+         and Bulma are self-hosted now, and jQuery is gone entirely. -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://ajax.googleapis.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
     <!-- Open Graph Tags -->
     <meta property="og:title"
         content="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives">
     <meta property="og:description"
-        content="Accelerate 3D Gaussian Splatting rendering speed by 2× for free by accurately localizing primitives during rasterization and over 6× in total by pruning the scene by more than 90% during training.">
+        content="Accelerate 3D Gaussian Splatting rendering speed by 2× for free by accurately localizing primitives during rasterization and over 6× in total by pruning the scene by more than 90% during training, providing a significantly higher speedup than existing techniques while maintaining competitive image quality.">
     <meta property="og:url" content="https://speedysplat.github.io/">
     <meta property="og:image" content="https://speedysplat.github.io/static/images/kitchen_poster.jpg">
+    <meta property="og:image:width" content="1152">
+    <meta property="og:image:height" content="768">
+    <meta property="og:image:alt"
+        content="Side-by-side renders of the Kitchen scene: Speedy-Splat (ours) at 0.11M Gaussians and 722.88 FPS on the left, 3D-GS at 1.8M Gaussians and 111.41 FPS on the right.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Speedy-Splat">
+    <meta property="og:locale" content="en_US">
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title"
         content="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives">
     <meta name="twitter:description"
-        content="Accelerate 3D Gaussian Splatting rendering speed by 2× for free by accurately localizing primitives during rasterization and over 6× in total by pruning the scene by more than 90% during training.">
+        content="Accelerate 3D Gaussian Splatting rendering speed by 2× for free by accurately localizing primitives during rasterization and over 6× in total by pruning the scene by more than 90% during training, providing a significantly higher speedup than existing techniques while maintaining competitive image quality.">
     <meta name="twitter:image" content="https://speedysplat.github.io/static/images/kitchen_poster.jpg">
+    <meta name="twitter:image:alt"
+        content="Side-by-side renders of the Kitchen scene: Speedy-Splat (ours) at 0.11M Gaussians and 722.88 FPS on the left, 3D-GS at 1.8M Gaussians and 111.41 FPS on the right.">
+    <meta name="twitter:url" content="https://speedysplat.github.io/">
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ScholarlyArticle",
+      "@id": "https://speedysplat.github.io/#article",
       "headline": "Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives",
       "author": [
         {
           "@type": "Person",
           "name": "Alex Hanson",
-          "url": "https://www.cs.umd.edu/~hanson/"
+          "url": "https://www.cs.umd.edu/~hanson/",
+          "affiliation": {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Maryland, College Park"
+          }
         },
         {
           "@type": "Person",
+          "@id": "https://tuallen.github.io/#person",
           "name": "Allen Tu",
-          "url": "https://tuallen.github.io"
+          "url": "https://tuallen.github.io",
+          "affiliation": {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Maryland, College Park"
+          }
         },
         {
-            "@type": "Person",
-            "name": "Geng Lin",
-            "url": "https://scholar.google.com/citations?user=2Vh_sboAAAAJ"
+          "@type": "Person",
+          "name": "Geng Lin",
+          "url": "https://scholar.google.com/citations?user=2Vh_sboAAAAJ",
+          "affiliation": {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Maryland, College Park"
+          }
         },
         {
-            "@type": "Person",
-            "name": "Vasu Singla",
-            "url": "https://vasusingla.github.io/"
+          "@type": "Person",
+          "name": "Vasu Singla",
+          "url": "https://vasusingla.github.io/",
+          "affiliation": {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Maryland, College Park"
+          }
         },
         {
-            "@type": "Person",
-            "name": "Matthias Zwicker",
-            "url": "https://www.cs.umd.edu/~zwicker/"
+          "@type": "Person",
+          "name": "Matthias Zwicker",
+          "url": "https://www.cs.umd.edu/~zwicker/",
+          "affiliation": {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Maryland, College Park"
+          }
         },
         {
-            "@type": "Person",
-            "name": "Tom Goldstein",
-            "url": "https://www.cs.umd.edu/~tomg/"
+          "@type": "Person",
+          "name": "Tom Goldstein",
+          "url": "https://www.cs.umd.edu/~tomg/",
+          "affiliation": {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Maryland, College Park"
+          }
         }
       ],
-      "description": "Accelerate 3D Gaussian Splatting rendering speed by 2× for free by accurately localizing primitives during rasterization and over 6× in total by pruning the scene by more than 90% during training.",
+      "description": "Accelerate 3D Gaussian Splatting rendering speed by 2× for free by accurately localizing primitives during rasterization and over 6× in total by pruning the scene by more than 90% during training, providing a significantly higher speedup than existing techniques while maintaining competitive image quality.",
       "image": "https://speedysplat.github.io/static/images/kitchen_poster.jpg",
-      "datePublished": "2024-11-30",
+      "datePublished": "2025-06",
+      "dateCreated": "2024-11-30",
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "DOI",
+          "value": "10.1109/CVPR52734.2025.02006"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "arXiv",
+          "value": "2412.00578"
+        }
+      ],
+      "sameAs": "https://arxiv.org/abs/2412.00578",
+      "isPartOf": {
+        "@type": "PublicationEvent",
+        "name": "Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)",
+        "alternateName": "CVPR 2025"
+      },
+      "pagination": "21537-21546",
+      "publisher": {
+        "@type": "Organization",
+        "name": "IEEE"
+      },
+      "inLanguage": "en",
+      "keywords": "Speedy-Splat, speedysplat, Speedy Splat, speedy splat, speedy-splat, Gaussian Splatting, Gaussian, 3D Gaussian Splatting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://speedysplat.github.io/"
+      },
       "url": "https://speedysplat.github.io/"
     }
     </script>
@@ -92,215 +158,240 @@
         gtag('config', 'G-4L2VCD72BH');
     </script>
 
-    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <!-- Teaser poster. It is the largest thing above the fold, so it decides
+         LCP, but a video poster is fetched at low priority and only once the
+         element is laid out. Preloading it moves it into the first round of
+         requests; the href has to match the poster attribute exactly or the
+         browser treats it as a second image and fetches it twice. -->
+    <link rel="preload" href="static/images/teaser_poster.jpg?v=2026.07.31.3" as="image" fetchpriority="high">
 
-    <link rel="stylesheet" href="./static/css/bulma.min.css?v=2026.03.08.1">
-    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css?v=2026.03.08.1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-    <link rel="stylesheet" href="./static/css/index.css?v=2026.03.08.1">
-    <link rel="icon" href="./static/images/favicon.svg?v=2026.03.08.1" type="image/svg+xml">
-    <link rel="icon" href="./static/images/favicon.png?v=2026.03.08.1" type="image/png" sizes="32x32">
-    <link rel="icon" href="./static/images/favicon.ico?v=2026.03.08.1" sizes="any">
-    <link rel="apple-touch-icon" href="./static/images/favicon.png?v=2026.03.08.1">
+    <!-- Fonts. Noto Sans is self-hosted (see tools/build-webfonts.sh); Google
+         Sans is proprietary, so it stays on Google's CDN but loads without
+         blocking first paint, falling back to Noto Sans until it arrives. -->
+    <link rel="preload" href="./static/webfonts/noto-sans-latin.woff2?v=2026.07.31.3" as="font"
+        type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="./static/css/noto-sans.css?v=2026.07.31.3">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans&display=swap"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans&display=swap">
+    </noscript>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script defer src="./static/js/fontawesome.all.min.js?v=2026.03.08.1"></script>
-    <script src="./static/js/bulma-carousel.min.js?v=2026.03.08.1"></script>
-    <script src="./static/js/index.js?v=2026.03.08.1"></script>
-    <script defer src="./static/js/script.js?v=2026.03.08.1"></script>
-    <script defer src="./static/js/pdf-modal.js?v=2026.03.09"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="./static/css/bulma.min.css?v=2026.07.31.3">
+    <link rel="stylesheet" href="./static/css/rhythm.css?v=2026.07.31.3">
+    <link rel="stylesheet" href="./static/css/icons.css?v=2026.07.31.3">
+    <link rel="stylesheet" href="./static/css/pdf-modal.css?v=2026.07.31.3">
+    <link rel="stylesheet" href="./static/css/index.css?v=2026.07.31.3">
+    <link rel="stylesheet" href="./static/css/interactions.css?v=2026.07.31.3">
+    <link rel="icon" href="./static/images/favicon.svg?v=2026.07.31.3" type="image/svg+xml">
+    <link rel="icon" href="./static/images/favicon.png?v=2026.07.31.3" type="image/png" sizes="32x32">
+    <link rel="icon" href="./static/images/favicon.ico?v=2026.07.31.3" sizes="any">
+    <link rel="apple-touch-icon" href="./static/images/favicon.png?v=2026.07.31.3">
+
+    <script defer src="./static/js/lazy-video.js?v=2026.07.31.3"></script>
+    <script defer src="./static/js/script.js?v=2026.07.31.3"></script>
+    <script defer src="./static/js/pdf-modal.js?v=2026.07.31.3"></script>
+    <!-- tex-chtml, not tex-mml-chtml: the -mml- bundle adds a MathML *input*
+         processor and there is no <math> markup on this page, so it was dead
+         weight. Same CHTML output, so equations render identically. The config
+         must precede the script tag. -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            options: {
+                // Nothing on these pages needs the right-click menu, and skipping it
+                // avoids building its DOM on every typeset.
+                enableMenu: false
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
 </head>
 
 <body>
-    <section class="hero">
-        <div class="hero-body">
-            <div class="container is-max-desktop">
-                <div class="columns is-centered">
-                    <div class="column has-text-centered">
-                        <h1 class="title is-1 publication-title">Speedy-Splat: Fast 3D Gaussian Splatting with Sparse
-                            Pixels and Sparse Primitives</h1>
-                        <div class="is-size-3 publication-venue">CVPR 2025</div>
-                        <div class="is-size-5 publication-authors">
-                            <span class="author-block">
-                                <a href="https://www.cs.umd.edu/~hanson/" target="_blank" rel="noopener noreferrer">Alex
-                                    Hanson</a>,</span>
-                            <span class="author-block">
-                                <a href="https://tuallen.github.io" target="_blank" rel="noopener noreferrer">Allen
-                                    Tu</a>,</span>
-                            <span class="author-block">
-                                <a href="https://scholar.google.com/citations?user=2Vh_sboAAAAJ" target="_blank"
-                                    rel="noopener noreferrer">Geng Lin</a>,
-                            </span>
-                            <span class="author-block">
-                                <a href="https://vasusingla.github.io/" target="_blank" rel="noopener noreferrer">Vasu
-                                    Singla</a>,
-                            </span>
-
-                            <span class="author-block">
-                                <a href="https://www.cs.umd.edu/~zwicker/" target="_blank"
-                                    rel="noopener noreferrer">Matthias Zwicker</a>,
-                            </span>
-                            <span class="author-block">
-                                <a href="https://www.cs.umd.edu/~tomg/" target="_blank" rel="noopener noreferrer">Tom
-                                    Goldstein</a>
-                            </span>
-                        </div>
-
-                        <div class="is-size-5 publication-authors">
-                            <span class="author-block">University of Maryland, College Park</span>
-                        </div>
-
+    <main>
+        <section class="hero">
+            <div class="hero-body">
+                <div class="container is-max-desktop">
+                    <div class="columns is-centered">
                         <div class="column has-text-centered">
-                            <div class="publication-links">
-                                <!-- PDF Link. -->
-                                <span class="link-block">
-                                    <a href="https://arxiv.org/pdf/2412.00578"
-                                        title="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives"
-                                        class="external-link button is-normal is-rounded is-dark" target="_blank"
-                                        rel="noopener noreferrer">
-                                        <span class="icon">
-                                            <i class="fas fa-file-pdf"></i>
-                                        </span>
-                                        <span>Paper</span>
-                                    </a>
+                            <!-- The method name is kept on one line: breaking "3D / Gaussian
+                                 Splatting" mid-phrase reads as two ideas. It is a plain
+                                 <span>, so the heading is still one continuous text node with
+                                 ordinary spaces — crawlers see the same string either way. -->
+                            <h1 class="title is-1 publication-title">Speedy-Splat: Fast
+                                <span class="nowrap">3D Gaussian Splatting</span> with
+                                <span class="nowrap">Sparse Pixels</span> and
+                                <span class="nowrap">Sparse Primitives</span></h1>
+                            <div class="is-size-3 publication-venue">CVPR 2025</div>
+                            <div class="is-size-5 publication-authors">
+                                <span class="author-block">
+                                    <a href="https://www.cs.umd.edu/~hanson/" target="_blank" rel="noopener noreferrer">Alex
+                                        Hanson</a>,</span>
+                                <span class="author-block">
+                                    <a href="https://tuallen.github.io" target="_blank" rel="noopener noreferrer">Allen
+                                        Tu</a>,</span>
+                                <span class="author-block">
+                                    <a href="https://scholar.google.com/citations?user=2Vh_sboAAAAJ" target="_blank"
+                                        rel="noopener noreferrer">Geng Lin</a>,
                                 </span>
-                                <span class="link-block">
-                                    <a href="https://arxiv.org/abs/2412.00578"
-                                        class="external-link button is-normal is-rounded is-dark" target="_blank"
-                                        rel="noopener noreferrer">
-                                        <span class="icon">
-                                            <i class="ai ai-arxiv"></i>
-                                        </span>
-                                        <span>arXiv</span>
-                                    </a>
+                                <span class="author-block">
+                                    <a href="https://vasusingla.github.io/" target="_blank" rel="noopener noreferrer">Vasu
+                                        Singla</a>,
                                 </span>
-                                <span class="link-block">
-                                    <a href="static/files/speedysplat_poster.pdf"
-                                        title="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives"
-                                        class="external-link button is-normal is-rounded is-dark" target="_blank"
-                                        rel="noopener noreferrer">
-                                        <span class="icon">
-                                            <i class="fas fa-image"></i>
-                                        </span>
-                                        <span>Poster</span>
-                                    </a>
+
+                                <span class="author-block">
+                                    <a href="https://www.cs.umd.edu/~zwicker/" target="_blank"
+                                        rel="noopener noreferrer">Matthias Zwicker</a>,
                                 </span>
-                                <!-- Video Link. -->
-                                <span class="link-block">
-                                    <a href="https://youtu.be/jqtqVHKRrfw"
-                                        class="external-link button is-normal is-rounded is-dark" target="_blank"
-                                        rel="noopener noreferrer">
-                                        <span class="icon">
-                                            <i class="fab fa-youtube"></i>
-                                        </span>
-                                        <span>Video</span>
-                                    </a>
+                                <span class="author-block">
+                                    <a href="https://www.cs.umd.edu/~tomg/" target="_blank" rel="noopener noreferrer">Tom
+                                        Goldstein</a>
                                 </span>
-                                <!-- Code Link. -->
-                                <span class="link-block">
-                                    <a href="https://github.com/j-alex-hanson/speedy-splat"
-                                        class="external-link button is-normal is-rounded is-dark" target="_blank"
-                                        rel="noopener noreferrer">
-                                        <span class="icon">
-                                            <i class="fab fa-github"></i>
-                                        </span>
-                                        <span>Code</span>
-                                    </a>
-                                </span>
+                            </div>
+
+                            <div class="is-size-5 publication-authors">
+                                <span class="author-block">University of Maryland, College Park</span>
+                            </div>
+
+                            <div class="column has-text-centered">
+                                <div class="publication-links">
+                                    <!-- PDF Link. -->
+                                    <span class="link-block">
+                                        <a href="https://arxiv.org/pdf/2412.00578"
+                                            title="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives"
+                                            class="external-link button is-normal is-rounded is-dark" target="_blank"
+                                            rel="noopener noreferrer">
+                                            <span class="icon">
+                                                <i class="fas fa-file-pdf"></i>
+                                            </span>
+                                            <span>Paper</span>
+                                        </a>
+                                    </span>
+                                    <span class="link-block">
+                                        <a href="https://arxiv.org/abs/2412.00578"
+                                            class="external-link button is-normal is-rounded is-dark" target="_blank"
+                                            rel="noopener noreferrer">
+                                            <span class="icon">
+                                                <i class="ai ai-arxiv"></i>
+                                            </span>
+                                            <span>arXiv</span>
+                                        </a>
+                                    </span>
+                                    <span class="link-block">
+                                        <a href="static/files/speedysplat_poster.pdf?v=2026.07.31.3"
+                                            title="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives"
+                                            class="external-link button is-normal is-rounded is-dark" target="_blank"
+                                            rel="noopener noreferrer">
+                                            <span class="icon">
+                                                <i class="fas fa-image"></i>
+                                            </span>
+                                            <span>Poster</span>
+                                        </a>
+                                    </span>
+                                    <!-- Video Link. -->
+                                    <span class="link-block">
+                                        <a href="https://youtu.be/jqtqVHKRrfw"
+                                            class="external-link button is-normal is-rounded is-dark" target="_blank"
+                                            rel="noopener noreferrer">
+                                            <span class="icon">
+                                                <i class="fab fa-youtube"></i>
+                                            </span>
+                                            <span>Video</span>
+                                        </a>
+                                    </span>
+                                    <!-- Code Link. -->
+                                    <span class="link-block">
+                                        <a href="https://github.com/j-alex-hanson/speedy-splat"
+                                            class="external-link button is-normal is-rounded is-dark" target="_blank"
+                                            rel="noopener noreferrer">
+                                            <span class="icon">
+                                                <i class="fab fa-github"></i>
+                                            </span>
+                                            <span>Code</span>
+                                        </a>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="hero teaser">
-        <div class="container is-centered">
-            <div class="hero-body">
-                <div class="container is-centered">
-                    <!-- <div class="column is-half"> -->
-                    <video poster="static/images/teaser_poster.jpg" id="teaser" autoplay muted loop playsinline
-                        width="100%" onclick="this.paused ? this.play() : this.pause()">
-                        <source src="./static/videos/teaser_compressed.mp4" type="video/mp4">
-                    </video>
-                    <!-- </div> -->
+        <section class="hero teaser">
+            <div class="container is-centered">
+                <div class="hero-body">
+                    <div class="container is-centered">
+                        <!-- <div class="column is-half"> -->
+                        <video poster="static/images/teaser_poster.jpg?v=2026.07.31.3" id="teaser" muted loop playsinline
+                            preload="none" aria-label="Speedy-Splat teaser"
+                            onclick="this.paused ? this.play() : this.pause()">
+                            <source data-src="./static/videos/teaser_compressed.mp4?v=2026.07.31.3" type="video/mp4">
+                        </video>
+                        <!-- </div> -->
+                    </div>
+                    <!-- <h2 class="subtitle has-text-centered">
+                  <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+                  free-viewpoint
+                  portraits.
+                </h2> -->
                 </div>
-                <!-- <h2 class="subtitle has-text-centered">
-              <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-              free-viewpoint
-              portraits.
-            </h2> -->
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="section">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered has-text-centered">
-                <div class="column is-four-fifths">
-                    <h2 class="title is-3">Abstract</h2>
-                    <div class="content has-text-justified">
-                        <p>
-                            3D Gaussian Splatting (3D-GS) is a recent 3D scene reconstruction technique that enables
-                            real-time rendering of novel views by modeling scenes as parametric point clouds of
-                            differentiable 3D Gaussians.
-                            However, its rendering speed and model size still present bottlenecks, especially in
-                            resource-constrained settings.
-                        </p>
-                        <p>
-                            In this paper, we identify and address two key inefficiencies in 3D-GS to substantially
-                            improve rendering speed. These improvements also yield the ancillary benefits of reduced
-                            model size and training time.
-                            First, we optimize the rendering pipeline to precisely localize Gaussians in the scene,
-                            boosting rendering speed without altering visual fidelity.
-                            Second, we introduce a novel pruning technique and integrate it into the training pipeline,
-                            significantly reducing model size and training time while further raising rendering speed.
-                        </p>
-                        <p>
-                            Our Speedy-Splat approach combines these techniques to accelerate average rendering speed by
-                            a drastic 6.71× across scenes from the Mip-NeRF 360, Tanks & Temples, and Deep Blending
-                            datasets with 10.6× fewer primitives than 3D-GS.
-                        </p>
+        <section class="section" id="abstract">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered has-text-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">Abstract</h2>
+                        <div class="content has-text-justified">
+                            <p>
+                                3D Gaussian Splatting (3D-GS) is a recent 3D scene reconstruction technique that enables
+                                real-time rendering of novel views by modeling scenes as parametric point clouds of
+                                differentiable 3D Gaussians.
+                                However, its rendering speed and model size still present bottlenecks, especially in
+                                resource-constrained settings.
+                            </p>
+                            <p>
+                                In this paper, we identify and address two key inefficiencies in 3D-GS to substantially
+                                improve rendering speed. These improvements also yield the ancillary benefits of reduced
+                                model size and training time.
+                                First, we optimize the rendering pipeline to precisely localize Gaussians in the scene,
+                                boosting rendering speed without altering visual fidelity.
+                                Second, we introduce a novel pruning technique and integrate it into the training pipeline,
+                                significantly reducing model size and training time while further raising rendering speed.
+                            </p>
+                            <p>
+                                Our Speedy-Splat approach combines these techniques to accelerate average rendering speed by
+                                a drastic 6.71× across scenes from the Mip-NeRF 360, Tanks & Temples, and Deep Blending
+                                datasets with 10.6× fewer primitives than 3D-GS.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Paper video. -->
-            <div class="columns is-centered has-text-centered">
-                <div class="column is-four-fifths">
-                    <h2 class="title is-3">Video</h2>
-                    <div class="publication-video">
-                        <iframe width="560" height="315"
-                            src="https://www.youtube.com/embed/jqtqVHKRrfw?si=kThbnobksvCS_npG"
-                            title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; 
-           encrypted-media; " allowfullscreen></iframe>
+        </section>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered has-text-centered">
-                <div class="column is-four-fifths">
-                    <h2 class="title is-3">Method</h2>
-                    <div class="content has-text-justified">
-                        <p>
-                            The rendering speed of 3D Gaussian Splatting (3D-GS) is primarily determined by two factors:
-                        </p>
-                        <ol>
-                            <li>The <strong>number of Gaussians allocated to each pixel</strong>, and</li>
-                            <li>The <strong>total number of Gaussians</strong> in the scene.</li>
-                        </ol>
-                        <p>Speedy-Splat introduces methods to address each of these.</p>
-                        <h3 class="title is-4 has-text-centered">Number of Gaussians Allocated to Each Pixel</h2>
+            <section class="section" id="method">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered has-text-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">Method</h2>
+                        <div class="content has-text-justified">
+                            <p>
+                                The rendering speed of 3D Gaussian Splatting (3D-GS) is primarily determined by two factors:
+                            </p>
+                            <ol>
+                                                        <li>The <strong>number of Gaussians allocated to each pixel</strong>, and</li>
+                                                        <li>The <strong>total number of Gaussians</strong> in the scene.</li>
+                                                    </ol>
+                            <p>Speedy-Splat introduces methods to address each of these.</p>
+                            <h3 class="title is-4 has-text-centered">Number of Gaussians Allocated to Each Pixel</h3>
                             <p>
                                 Gaussian splatting is a tile-based renderer that assigns Gaussians to tiles of pixels
                                 by calculating their intersections.
@@ -310,26 +401,43 @@
                                 We propose two algorithms to increase rendering speed by making exact
                                 localizations: <strong>SnugBox</strong> and <strong>AccuTile</strong>.
                             </p>
-                            <!-- Figure Section -->
-                            <div class="columns is-centered is-mobile">
+                            <!-- Figure 1: the three tile-allocation methods, side by side. Each
+                                 panel carries an id so the prose can link to the exact one it
+                                 names rather than to the figure as a whole. -->
+                            <div class="columns is-centered is-mobile" id="figure1">
                                 <div class="column is-one-third">
-                                    <figure class="figure-one-third">
-                                        <img src="./static/images/3dgs_tile_intersect.png" alt="3DGS tile intersection"
-                                            class="figure-image" loading="lazy">
+                                    <figure class="figure-one-third" id="figure1a">
+                                        <picture>
+                                            <source srcset="./static/images/3dgs_tile_intersect.webp?v=2026.07.31.3"
+                                                type="image/webp">
+                                            <img src="./static/images/3dgs_tile_intersect.png?v=2026.07.31.3"
+                                                alt="3DGS tile intersection" class="figure-image" loading="lazy"
+                                                width="864" height="806">
+                                        </picture>
                                         <figcaption>(a) 3D Gaussian Splatting </figcaption>
                                     </figure>
                                 </div>
                                 <div class="column is-one-third">
-                                    <figure class="figure-one-third">
-                                        <img src="./static/images/bbox_tile_intersect.png"
-                                            alt="SnugBox tile intersection" class="figure-image" loading="lazy">
+                                    <figure class="figure-one-third" id="figure1b">
+                                        <picture>
+                                            <source srcset="./static/images/bbox_tile_intersect.webp?v=2026.07.31.3"
+                                                type="image/webp">
+                                            <img src="./static/images/bbox_tile_intersect.png?v=2026.07.31.3"
+                                                alt="SnugBox tile intersection" class="figure-image" loading="lazy"
+                                                width="864" height="806">
+                                        </picture>
                                         <figcaption>(b) SnugBox</figcaption>
                                     </figure>
                                 </div>
                                 <div class="column is-one-third">
-                                    <figure class="figure-one-third">
-                                        <img src="./static/images/ellipse_tile_intersect.png"
-                                            alt="AccuTile tile intersection" class="figure-image" loading="lazy">
+                                    <figure class="figure-one-third" id="figure1c">
+                                        <picture>
+                                            <source srcset="./static/images/ellipse_tile_intersect.webp?v=2026.07.31.3"
+                                                type="image/webp">
+                                            <img src="./static/images/ellipse_tile_intersect.png?v=2026.07.31.3"
+                                                alt="AccuTile tile intersection" class="figure-image" loading="lazy"
+                                                width="864" height="806">
+                                        </picture>
                                         <figcaption>(c) AccuTile</figcaption>
                                     </figure>
                                 </div>
@@ -349,336 +457,356 @@
                                 intersections.
 
                             </p>
-                            <h4 class="title is-5">SnugBox</h2>
+                            <h4 class="title is-5">SnugBox</h4>
+                            <p>
+                                A threshold on \( \alpha_i(p) = \sigma_i g_i(p) \), where \( \sigma_i \) is the
+                                opacity of Gaussian \(
+                                \mathcal{G}_i \) and \( g_i(p) \) is its value at pixel \( p
+                                \) when it is projected to the image plane, determines the exact pixel exent of
+                                \(\mathcal{G}_i \) as an ellipse.
+                                We compute a tight bounding box — the <strong>SnugBox</strong> in Figure
+                                1b — around this ellipse
+                                by calculating the four points where its first derivative is zero.
+                                After dividing these points by tile size, rounding, and clipping to the image
+                                boundary, we obtain the rectangular tile extent of \(\mathcal{G}_i \) in constant
+                                time.
+                            </p>
+                            <h4 class="title is-5">AccuTile</h4>
+                            <p>
+                                Extending our SnugBox algorithm, we compute the exact tile intersection of
+                                Gaussian \(\mathcal{G}_i \) by
+                                iterating over the shorter side of the SnugBox tile extent. In each row or
+                                column, we identify the exact tile extent by finding the minimum and maximum
+                                points of the ellipse inside it — all tiles between these points intersect the
+                                ellipse. The insight of our <strong>AccuTile</strong> algorithm, illustrated in
+                                Figure 1c and <a href="#accutile">detailed below</a>, is that these exact
+                                Gaussian-to-tile intersections
+                                can be computed efficiently such that only two
+                                points need to be computed per row or column of the SnugBox.
+                            </p>
+                            <div>
+                                <h3 class="title is-4 has-text-centered">Total Number of Gaussians</h3>
                                 <p>
-                                    A threshold on \( \alpha_i(p) = \sigma_i g_i(p) \), where \( \sigma_i \) is the
-                                    opacity of Gaussian \(
-                                    \mathcal{G}_i \) and \( g_i(p) \) is its value at pixel \( p
-                                    \) when it is projected to the image plane, determines the exact pixel exent of
-                                    \(\mathcal{G}_i \) as an ellipse.
-                                    We compute a tight bounding box — the <strong>SnugBox</strong> presented in Figure
-                                    1b — around this ellipse
-                                    by calculating the four points where its first derivative is zero.
-                                    After dividing these points by tile size, rounding, and clipping to the image
-                                    boundary, we obtain the rectangular tile extent of \(\mathcal{G}_i \) in constant
-                                    time.
+                                    Recent post-hoc pruning technique <a href="https://pup3dgs.github.io/"
+                                    target="_blank" rel="noopener noreferrer">PUP 3D-GS</a> finds
+                                    that approximately 90% of Gaussians can be pruned from pretrained scenes
+                                    while retaining high visual fidelity. Our <strong>efficient pruning
+                                    score</strong>
+                                    identifies a reparameterization of their sensitivity pruning score that
+                                    improves its memory efficiency by 36×, allowing us to integrate it into
+                                    the 3D-GS training pipeline via two distinct modalities: <strong>Soft
+                                    Pruning</strong> and <strong>Hard Pruning</strong>.
                                 </p>
-                                <h4 class="title is-5">AccuTile</h2>
-                                    <p>
-                                        Extending our SnugBox algorithm, we compute the exact tile intersection of
-                                        Gaussian \(\mathcal{G}_i \) by
-                                        iterating over the shorter side of the SnugBox tile extent. In each row or
-                                        column, we identify the exact tile extent by finding the minimum and maximum
-                                        points of the ellipse inside it — all tiles between these points intersect the
-                                        ellipse. The insight of our <strong>AccuTile</strong> algorithm, illustrated in
-                                        Figure 1c and detailed below, is that these exact Gaussian-to-tile intersections
-                                        can be computed efficiently such that only two
-                                        points need to be computed per row or column of the SnugBox.
-                                    </p>
-                                    <div>
-                                        <h3 class="title is-4 has-text-centered">Total Number of Gaussians</h2>
-                                            <p>
-                                                Recent post-hoc pruning technique <a href="https://pup3dgs.github.io/"
-                                                    target="_blank" rel="noopener noreferrer">PUP 3D-GS</a> [<a
-                                                    href="https://speedysplat.github.io/#Related" target="_blank"
-                                                    rel="noopener noreferrer">1</a>] finds
-                                                that approximately 90% of Gaussians can be pruned from pretrained scenes
-                                                while retaining high visual fidelity. Our <strong>efficient pruning
-                                                    score</strong>
-                                                identifies a reparameterization of their sensitivity pruning score that
-                                                improves its memory efficiency by 36×, allowing us to integrate it into
-                                                the 3D-GS training pipeline via two distinct modalities: <strong>Soft
-                                                    Pruning</strong> and <strong>Hard Pruning</strong>.
-                                            </p>
-                                            <h4 class="title is-5">Efficient Pruning Score</h2>
-                                                <p>
-                                                    <a href="https://pup3dgs.github.io/" target="_blank"
-                                                        rel="noopener noreferrer">PUP 3D-GS</a> [<a
-                                                        href="https://speedysplat.github.io/#Related" target="_blank"
-                                                        rel="noopener noreferrer">1</a>]
-                                                    computes a sensitivity pruning score \( U_i \) for each
-                                                    Gaussian \(
-                                                    \mathcal{G}_i
-                                                    \) as the log determinant of the second order approximation of the
-                                                    \( L_2 \) reconstruction error with respect to its mean and scaling
-                                                    parameters \(
-                                                    \mu_i \) and \( s_i \) :
-                                                </p>
-                                                <p style="text-align:center;">
-                                                    <span class="math-desktop">
-                                                        \[
-                                                        U_i = \log \left| \nabla_{\mu_i,s_i}^2 L_2 \right| = \log \left|
-                                                        \sum_{\phi
-                                                        \in \mathcal{P}_{gt}} \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)
-                                                        \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)^T \right|,
-                                                        \]
-                                                    </span>
-                                                    <span class="math-mobile">
-                                                        \[
-                                                        \begin{aligned}
-                                                        U_i &= \log \left| \nabla_{\mu_i,s_i}^2 L_2 \right| \\
-                                                        &= \log \left|\sum_{\phi\in \mathcal{P}_{gt}} \nabla_{\mu_i,s_i}
-                                                        I_{\mathcal{G}}(\phi)\nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)^T
-                                                        \right|,
-                                                        \end{aligned}
-                                                        \]
-                                                    </span>
-                                                </p>
-                                                <p>
-                                                    where \( \mathcal{P}_{gt} \) is the set of all training camera poses
-                                                    and \( I_{\mathcal{G}}(\phi) \) is the rendered view for pose \(
-                                                    \phi \). This second order approximation is shown to be exact when
-                                                    the \(L_1\) error over \( \mathcal{P}_{gt} \) is zero.
-                                                </p>
-                                                <p>
-                                                    We update this score by computing it with respect to the projected
-                                                    Gaussian values \( g_i \) instead:
-                                                </p>
+                                <h4 class="title is-5">Efficient Pruning Score</h4>
+                                <p>
+                                    <a href="https://pup3dgs.github.io/" target="_blank"
+                                    rel="noopener noreferrer">PUP 3D-GS</a>
+                                    computes a sensitivity pruning score \( U_i \) for each
+                                    Gaussian \(
+                                    \mathcal{G}_i
+                                    \) as the log determinant of the second order approximation of the
+                                    \( L_2 \) reconstruction error with respect to its mean and scaling
+                                    parameters \(
+                                    \mu_i \) and \( s_i \) :
+                                </p>
+                                <p style="text-align:center;">
+                                    <span class="math-desktop">
+                                    \[
+                                    U_i = \log \left| \nabla_{\mu_i,s_i}^2 L_2 \right| = \log \left|
+                                    \sum_{\phi
+                                    \in \mathcal{P}_{gt}} \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)
+                                    \nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)^T \right|,
+                                    \]
+                                    </span>
+                                    <span class="math-mobile">
+                                    \[
+                                    \begin{aligned}
+                                    U_i &= \log \left| \nabla_{\mu_i,s_i}^2 L_2 \right| \\
+                                    &= \log \left|\sum_{\phi\in \mathcal{P}_{gt}} \nabla_{\mu_i,s_i}
+                                    I_{\mathcal{G}}(\phi)\nabla_{\mu_i,s_i} I_{\mathcal{G}}(\phi)^T
+                                    \right|,
+                                    \end{aligned}
+                                    \]
+                                    </span>
+                                </p>
+                                <p>
+                                    where \( \mathcal{P}_{gt} \) is the set of all training camera poses
+                                    and \( I_{\mathcal{G}}(\phi) \) is the rendered view for pose \(
+                                    \phi \). This second order approximation is shown to be exact when
+                                    the \(L_1\) error over \( \mathcal{P}_{gt} \) is zero.
+                                </p>
+                                <p>
+                                    We update this score by computing it with respect to the projected
+                                    Gaussian values \( g_i \) instead:
+                                </p>
 
-                                                <p style="text-align:center;">
-                                                    \[
-                                                    \tilde{U}_i = \log \left| \sum_{\phi \in \mathcal{P}_{gt}}
-                                                    \nabla_{g_i} I_{\mathcal{G}}(\phi) \nabla_{g_i}
-                                                    I_{\mathcal{G}}(\phi)^T\right|.
-                                                    \]
-                                                </p>
-                                                <p>
-                                                    Because \( g_i \) is a scalar at each pixel and \( \log \) is
-                                                    monotonically increasing, we can simplify the score to:
-                                                </p>
-                                                \[
-                                                \tilde{U}_i = \sum_{\phi \in \mathcal{P}_{gt}} \nabla_{g_i}
-                                                I_{\mathcal{G}}(\phi)^2.
-                                                \]
-                                                <p>
-                                                    Our <strong>efficient pruning score</strong> reduces the storage
-                                                    requirement of the sensitivity pruning score by 36× and allows us to
-                                                    integrate it into the 3D-GS training pipeline.
-                                                </p>
+                                <p style="text-align:center;">
+                                    \[
+                                    \tilde{U}_i = \log \left| \sum_{\phi \in \mathcal{P}_{gt}}
+                                    \nabla_{g_i} I_{\mathcal{G}}(\phi) \nabla_{g_i}
+                                    I_{\mathcal{G}}(\phi)^T\right|.
+                                    \]
+                                </p>
+                                <p>
+                                    Because \( g_i \) is a scalar at each pixel and \( \log \) is
+                                    monotonically increasing, we can simplify the score to:
+                                </p>
+                                \[
+                                \tilde{U}_i = \sum_{\phi \in \mathcal{P}_{gt}} \nabla_{g_i}
+                                I_{\mathcal{G}}(\phi)^2.
+                                \]
+                                <p>
+                                    Our <strong>efficient pruning score</strong> reduces the storage
+                                    requirement of the sensitivity pruning score by 36× and allows us to
+                                    integrate it into the 3D-GS training pipeline.
+                                </p>
 
-                                                <h4 class="title is-5">Soft Pruning and Hard Pruning</h2>
-                                                    <p>We empirically observe that the \( L_1 \) loss converges quickly
-                                                        during
-                                                        training and deploy our efficient pruning score via two
-                                                        modalities:
-                                                    </p>
+                                <h4 class="title is-5">Soft Pruning and Hard Pruning</h4>
+                                <p>We empirically observe that the \( L_1 \) loss converges quickly
+                                    during
+                                    training and deploy our efficient pruning score via two
+                                    modalities:
+                                </p>
 
-                                                    <ol>
-                                                        <li>
-                                                            <strong>Soft Pruning</strong>, performed during the
-                                                            densification
-                                                            stage, and
-                                                        </li>
-                                                        <li>
-                                                            <strong>Hard Pruning</strong>, performed after the
-                                                            densification stage.
-                                                        </li>
-                                                    </ol>
-                                                    <p>
-                                                        Together, they reduce the number of Gaussians in the model by
-                                                        approximately 90%, increasing rendering and training speed while
-                                                        maintaining image quality.
-                                                    </p>
+                                <ol>
+                                    <li>
+                                        <strong>Soft Pruning</strong>, performed during the
+                                        densification
+                                        stage, and
+                                    </li>
+                                    <li>
+                                        <strong>Hard Pruning</strong>, performed after the
+                                        densification stage.
+                                    </li>
+                                </ol>
+                                <p>
+                                    Together, they reduce the number of Gaussians in the model by
+                                    approximately 90%, increasing rendering and training speed while
+                                    maintaining image quality.
+                                </p>
 
-                                    </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-    </section>
+        </section>
 
-    <section class="hero">
-        <div class="hero-body">
-            <div class="container is-max-desktop content has-text-centered">
-                <h2 class="title is-3 mb-5">Results</h2> <!-- Added mb-5 for spacing -->
-            </div>
+        <section class="hero" id="results">
+            <div class="hero-body">
+                <div class="container is-max-desktop content has-text-centered">
+                    <h2 class="title is-3">Results</h2>
+                </div>
 
-            <div class="container is-centered">
-                <div class="columns is-multiline is-centered">
-                    <!-- Row 1 -->
-                    <div class="column is-half">
-                        <video poster="static/images/bonsai_poster.jpg" id="bonsai" autoplay muted loop playsinline
-                            width="100%" onclick="this.paused ? this.play() : this.pause()">
-                            <source src="static/videos/bonsai_compressed.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="column is-half">
-                        <video poster="static/images/counter_poster.jpg" id="counter" autoplay muted loop playsinline
-                            width="100%" onclick="this.paused ? this.play() : this.pause()">
-                            <source src="static/videos/counter_compressed.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <!-- Row 2 -->
-                    <div class="column is-half">
-                        <video poster="static/images/flowers_poster.jpg" id="flowers" autoplay muted loop playsinline
-                            width="100%" onclick="this.paused ? this.play() : this.pause()">
-                            <source src="static/videos/flowers_compressed.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="column is-half">
-                        <video poster="static/images/garden_poster.jpg" id="garden" autoplay muted loop playsinline
-                            width="100%" onclick="this.paused ? this.play() : this.pause()">
-                            <source src="static/videos/garden.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <!-- Row 3 -->
-                    <div class="column is-half">
-                        <video poster="static/images/kitchen_poster.jpg" id="kitchen" autoplay muted loop playsinline
-                            width="100%" onclick="this.paused ? this.play() : this.pause()">
-                            <source src="static/videos/kitchen_compressed.mp4" type="video/mp4">
-                        </video>
-                    </div>
-                    <div class="column is-half">
-                        <video poster="static/images/room_poster.jpg" id="room" autoplay muted loop playsinline
-                            width="100%" onclick="this.paused ? this.play() : this.pause()">
-                            <source src="static/videos/room_compressed.mp4" type="video/mp4">
-                        </video>
+                <!-- The grid is kept as-is; what changed is when the clips load. Each
+                     carries data-src rather than src and no autoplay, so lazy-video.js
+                     fetches and plays one only once it scrolls into view. Six results
+                     autoplaying on load pulled ~66 MB before anything was on screen. -->
+                <div class="container is-centered">
+                    <div class="columns is-multiline is-centered results-grid">
+                        <!-- Row 1 -->
+                        <div class="column is-half">
+                            <video data-poster="static/images/bonsai_poster.jpg?v=2026.07.31.3" muted loop playsinline preload="none"
+                                aria-label="Bonsai scene" onclick="this.paused ? this.play() : this.pause()">
+                                <source data-src="static/videos/bonsai_compressed.mp4?v=2026.07.31.3" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="column is-half">
+                            <video data-poster="static/images/counter_poster.jpg?v=2026.07.31.3" muted loop playsinline preload="none"
+                                aria-label="Counter scene" onclick="this.paused ? this.play() : this.pause()">
+                                <source data-src="static/videos/counter_compressed.mp4?v=2026.07.31.3" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Row 2 -->
+                        <div class="column is-half">
+                            <video data-poster="static/images/flowers_poster.jpg?v=2026.07.31.3" muted loop playsinline preload="none"
+                                aria-label="Flowers scene" onclick="this.paused ? this.play() : this.pause()">
+                                <source data-src="static/videos/flowers_compressed.mp4?v=2026.07.31.3" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="column is-half">
+                            <video data-poster="static/images/garden_poster.jpg?v=2026.07.31.3" muted loop playsinline preload="none"
+                                aria-label="Garden scene" onclick="this.paused ? this.play() : this.pause()">
+                                <!-- The other five point at their _compressed encode; this one
+                                     referenced the 20 MB master, which was an oversight. -->
+                                <source data-src="static/videos/garden_compressed.mp4?v=2026.07.31.3" type="video/mp4">
+                            </video>
+                        </div>
+                        <!-- Row 3 -->
+                        <div class="column is-half">
+                            <video data-poster="static/images/kitchen_poster.jpg?v=2026.07.31.3" muted loop playsinline preload="none"
+                                aria-label="Kitchen scene" onclick="this.paused ? this.play() : this.pause()">
+                                <source data-src="static/videos/kitchen_compressed.mp4?v=2026.07.31.3" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="column is-half">
+                            <video data-poster="static/images/room_poster.jpg?v=2026.07.31.3" muted loop playsinline preload="none"
+                                aria-label="Room scene" onclick="this.paused ? this.play() : this.pause()">
+                                <source data-src="static/videos/room_compressed.mp4?v=2026.07.31.3" type="video/mp4">
+                            </video>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
+
+            <section class="section" id="video">
+        <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+                            <div class="column is-four-fifths">
+                                <h2 class="title is-3">Video</h2>
+                                <div class="publication-video">
+                                    <iframe width="560" height="315"
+                                        src="https://www.youtube.com/embed/jqtqVHKRrfw?si=kThbnobksvCS_npG"
+                                        title="Speedy-Splat: CVPR 2025 presentation" frameborder="0" allow="accelerometer; autoplay;
+                       encrypted-media; " allowfullscreen loading="lazy"></iframe>
+
+                                </div>
+                            </div>
+                        </div>
         </div>
     </section>
 
-
-    <section class="section">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered has-text-centered">
-                <div class="column is-four-fifths">
-                    <h2 class="title is-3">The AccuTile Algorithm</h2>
-                    <div class="content has-text-justified">
-                        <p>
-                            To match the example in Figure 1c, the algorithm outlined below is applied to the rows of
-                            the SnugBox tile extent
-                            bounding box. In practice, it is applied along the smaller
-                            side of the tile extent. The subscripts \(t\), \(b\), \(l\), and \(r\) represent the
-                            <em>top</em>,
-                            <em>bottom</em>, <em>left</em>, and <em>right</em> sides, respectively.
-                        </p>
-                        <div class="algorithm-container">
+<section class="section" id="accutile">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered has-text-centered">
+                    <div class="column is-four-fifths">
+                        <h2 class="title is-3">The AccuTile Algorithm</h2>
+                        <div class="content has-text-justified">
                             <p>
-                                \[
-                                \textbf{Input:}
-                                \]
-                                \[
-                                \begin{aligned}
-                                &\text{Gaussian Ellipse Boundary } \class{highlight-purple}{\mathbf{E}} \\
-                                &\text{SnugBox Bounding Box } \class{highlight-blue}{\mathbf{B}} \\
-                                &\text{SnugBox Tile Extent Rectangle } \class{highlight-yellow}{\mathbf{R}}
-                                \end{aligned}
-                                \]
-                                \[
-                                \textbf{Procedure:}
-                                \]
-                                \[
-                                \begin{aligned}
-                                &\text{Tile count } \class{highlight-yellow}{\mathbf{C}} \gets 0 \\
-                                &\class{highlight-yellow}{\text{line}_{\min}} \gets
-                                \class{highlight-yellow}{\mathbf{R}_b} \\
-                                &\textbf{if } \class{highlight-yellow}{\text{line}_{\min}} \geq
-                                \class{highlight-blue}{\mathbf{B}_b} \textbf{ then } \\
-                                &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets \text{Intersections}(
-                                \class{highlight-yellow}{\text{line}_{\min}}, \class{highlight-purple}{\mathbf{E}}) \\
+                                To match the example in <a href="#figure1c">Figure 1c</a>, the algorithm
+                                outlined below is applied to the rows of
+                                the SnugBox tile extent
+                                bounding box. In practice, it is applied along the smaller
+                                side of the tile extent. The subscripts \(t\), \(b\), \(l\), and \(r\) represent the
+                                <em>top</em>,
+                                <em>bottom</em>, <em>left</em>, and <em>right</em> sides, respectively.
+                            </p>
+                            <div class="algorithm-container">
+                                <p>
+                                    \[
+                                    \textbf{Input:}
+                                    \]
+                                    \[
+                                    \begin{aligned}
+                                    &\text{Gaussian Ellipse Boundary } \class{highlight-purple}{\mathbf{E}} \\
+                                    &\text{SnugBox Bounding Box } \class{highlight-blue}{\mathbf{B}} \\
+                                    &\text{SnugBox Tile Extent Rectangle } \class{highlight-yellow}{\mathbf{R}}
+                                    \end{aligned}
+                                    \]
+                                    \[
+                                    \textbf{Procedure:}
+                                    \]
+                                    \[
+                                    \begin{aligned}
+                                    &\text{Tile count } \class{highlight-yellow}{\mathbf{C}} \gets 0 \\
+                                    &\class{highlight-yellow}{\text{line}_{\min}} \gets
+                                    \class{highlight-yellow}{\mathbf{R}_b} \\
+                                    &\textbf{if } \class{highlight-yellow}{\text{line}_{\min}} \geq
+                                    \class{highlight-blue}{\mathbf{B}_b} \textbf{ then } \\
+                                    &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets \text{Intersections}(
+                                    \class{highlight-yellow}{\text{line}_{\min}}, \class{highlight-purple}{\mathbf{E}}) \\
 
-                                &\textbf{for row } \class{highlight-yellow}{r} \textbf{ in }
-                                \class{highlight-yellow}{\mathbf{R}} \textbf{ do } \\
-                                &\quad \class{highlight-yellow}{\text{line}_{\max}} \gets \class{highlight-yellow}{r_t}
-                                \\
-                                &\quad \textbf{if } \class{highlight-yellow}{\text{line}_{\max}} \leq
-                                \class{highlight-blue}{\mathbf{B}_t} \textbf{ then } \\
-                                &\quad \quad \class{highlight-purple}{\mathbf{i}_{\max}} \gets \text{Intersections}(
-                                \class{highlight-yellow}{\text{line}_{\max}}, \class{highlight-purple}{\mathbf{E}}) \\
+                                    &\textbf{for row } \class{highlight-yellow}{r} \textbf{ in }
+                                    \class{highlight-yellow}{\mathbf{R}} \textbf{ do } \\
+                                    &\quad \class{highlight-yellow}{\text{line}_{\max}} \gets \class{highlight-yellow}{r_t}
+                                    \\
+                                    &\quad \textbf{if } \class{highlight-yellow}{\text{line}_{\max}} \leq
+                                    \class{highlight-blue}{\mathbf{B}_t} \textbf{ then } \\
+                                    &\quad \quad \class{highlight-purple}{\mathbf{i}_{\max}} \gets \text{Intersections}(
+                                    \class{highlight-yellow}{\text{line}_{\max}}, \class{highlight-purple}{\mathbf{E}}) \\
 
-                                &\quad \class{highlight-purple}{e_{\min}} \gets
-                                \begin{cases}
-                                \class{highlight-blue}{\mathbf{B}_l} & \text{if } \class{highlight-blue}{\mathbf{B}_l}
-                                \text{ in }\class{highlight-yellow}{r} \\
-                                \min(\class{highlight-purple}{\mathbf{i}_{\min}},
-                                \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
-                                \end{cases} \\
-                                &\quad \class{highlight-purple}{e_{\max}} \gets
-                                \begin{cases}
-                                \class{highlight-blue}{\mathbf{B}_r} & \text{if } \class{highlight-blue}{\mathbf{B}_r}
-                                \text{ in }\class{highlight-yellow}{r} \\
-                                \max(\class{highlight-purple}{\mathbf{i}_{\min}},
-                                \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
-                                \end{cases} \\
+                                    &\quad \class{highlight-purple}{e_{\min}} \gets
+                                    \begin{cases}
+                                    \class{highlight-blue}{\mathbf{B}_l} & \text{if } \class{highlight-blue}{\mathbf{B}_l}
+                                    \text{ in }\class{highlight-yellow}{r} \\
+                                    \min(\class{highlight-purple}{\mathbf{i}_{\min}},
+                                    \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
+                                    \end{cases} \\
+                                    &\quad \class{highlight-purple}{e_{\max}} \gets
+                                    \begin{cases}
+                                    \class{highlight-blue}{\mathbf{B}_r} & \text{if } \class{highlight-blue}{\mathbf{B}_r}
+                                    \text{ in }\class{highlight-yellow}{r} \\
+                                    \max(\class{highlight-purple}{\mathbf{i}_{\min}},
+                                    \class{highlight-purple}{\mathbf{i}_{\max}}) & \text{otherwise}
+                                    \end{cases} \\
 
-                                &\quad \class{highlight-yellow}{\text{tile}_{\min}},
-                                \class{highlight-yellow}{\text{tile}_{\max}} \gets
-                                \text{Convert}(\class{highlight-purple}{e_{\min}}, \class{highlight-purple}{e_{\max}})
-                                \\
-                                &\quad \class{highlight-yellow}{\mathbf{C}} \gets \class{highlight-yellow}{\mathbf{C}} +
-                                (\class{highlight-yellow}{\text{tile}_{\max}} -
-                                \class{highlight-yellow}{\text{tile}_{\min}}) \\
+                                    &\quad \class{highlight-yellow}{\text{tile}_{\min}},
+                                    \class{highlight-yellow}{\text{tile}_{\max}} \gets
+                                    \text{Convert}(\class{highlight-purple}{e_{\min}}, \class{highlight-purple}{e_{\max}})
+                                    \\
+                                    &\quad \class{highlight-yellow}{\mathbf{C}} \gets \class{highlight-yellow}{\mathbf{C}} +
+                                    (\class{highlight-yellow}{\text{tile}_{\max}} -
+                                    \class{highlight-yellow}{\text{tile}_{\min}}) \\
 
-                                &\quad \text{Process}(\class{highlight-yellow}{\text{tile}_{\min}},
-                                \class{highlight-yellow}{\text{tile}_{\max}}) \\
-                                &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets
-                                \class{highlight-purple}{\mathbf{i}_{\max}} \\
-                                &\textbf{return } \class{highlight-yellow}{\mathbf{C}}
-                                \end{aligned}
-                                \]
+                                    &\quad \text{Process}(\class{highlight-yellow}{\text{tile}_{\min}},
+                                    \class{highlight-yellow}{\text{tile}_{\max}}) \\
+                                    &\quad \class{highlight-purple}{\mathbf{i}_{\min}} \gets
+                                    \class{highlight-purple}{\mathbf{i}_{\max}} \\
+                                    &\textbf{return } \class{highlight-yellow}{\mathbf{C}}
+                                    \end{aligned}
+                                    \]
+                                </p>
+                            </div>
+                            <p>
+                                The following walkthrough outlines each step of the example illustrated in
+                                <a href="#figure1c">Figure 1c</a>, where
+                                the AccuTile algorithm processes the SnugBox output from <a href="#figure1b">Figure 1b</a> to find the exact tile
+                                extent:
+                            </p>
+                            <p style="font-style: italic;">
+                                The <span class="highlight-yellow">tile extent rows</span> from Snugbox, shown in <a href="#figure1b">Figure 1b</a>,
+                                are processed starting
+                                from the bottom. The <span class="highlight-yellow">lower tile row boundary</span> falls
+                                below the
+                                <span class="highlight-blue">bounding box</span>, so no initial intersection is computed.
+                                The
+                                <span class="highlight-yellow">upper boundary</span> lies below the top of the <span
+                                    class="highlight-blue">bounding box</span>,
+                                so intersection points <span class="highlight-purple">\(A\)</span> and <span
+                                    class="highlight-purple">\(B\)</span> are calculated.
+                                <span class="highlight-blue">\(x_{\min}\)</span> is assigned as this row’s minimum ellipse
+                                extent
+                                <span class="highlight-purple">\(e_{\min}\)</span> because it lies within the row, and <span
+                                    class="highlight-purple">\(B\)</span>
+                                is assigned as its maximum ellipse extent <span class="highlight-purple">\(e_{\max}\)</span>
+                                because it is the maximal point.
+                                Consequently, this row’s <span class="highlight-yellow">tile extent</span> is from the tile
+                                containing
+                                <span class="highlight-blue">\(x_{\min}\)</span> to the tile containing <span
+                                    class="highlight-purple">\(B\)</span>.
+                                For the next row, we keep points <span class="highlight-purple">\(A\)</span> and <span
+                                    class="highlight-purple">\(B\)</span> and
+                                compute <span class="highlight-yellow">upper boundary</span> points <span
+                                    class="highlight-purple">\(C\)</span> and
+                                <span class="highlight-purple">\(D\)</span>. <span class="highlight-purple">\(A\)</span> and
+                                <span class="highlight-blue">\(x_{\max}\)</span> are assigned as the row’s <span
+                                    class="highlight-purple">\(e_{\min}\)</span> and
+                                <span class="highlight-purple">\(e_{\max}\)</span>, and the tiles containing them are its
+                                <span class="highlight-yellow">tile extent</span>. Finally, for the last row, <span
+                                    class="highlight-purple">\(C\)</span> and
+                                <span class="highlight-purple">\(D\)</span> are kept; no additional points are computed
+                                because the row’s
+                                <span class="highlight-yellow">upper boundary</span> is above the <span
+                                    class="highlight-blue">bounding box</span>. Thus, the
+                                <span class="highlight-yellow">tile extent</span> of this row is the tiles containing <span
+                                    class="highlight-purple">\(C\)</span> and
+                                <span class="highlight-purple">\(D\)</span>.
                             </p>
                         </div>
-                        <p>
-                            The following walkthrough outlines each step of the example illustrated in Figure 1c, where
-                            the AccuTile algorithm processes the SnugBox output from Figure 1b to find the exact tile
-                            extent:
-                        </p>
-                        <p style="font-style: italic;">
-                            The <span class="highlight-yellow">tile extent rows</span> from Snugbox, shown in Figure 1b,
-                            are processed starting
-                            from the bottom. The <span class="highlight-yellow">lower tile row boundary</span> falls
-                            below the
-                            <span class="highlight-blue">bounding box</span>, so no initial intersection is computed.
-                            The
-                            <span class="highlight-yellow">upper boundary</span> lies below the top of the <span
-                                class="highlight-blue">bounding box</span>,
-                            so intersection points <span class="highlight-purple">\(A\)</span> and <span
-                                class="highlight-purple">\(B\)</span> are calculated.
-                            <span class="highlight-blue">\(x_{\min}\)</span> is assigned as this row's minimum ellipse
-                            extent
-                            <span class="highlight-purple">\(e_{\min}\)</span> because it lies within the row, and <span
-                                class="highlight-purple">\(B\)</span>
-                            is assigned as its maximum ellipse extent <span class="highlight-purple">\(e_{\max}\)</span>
-                            because it is the maximal point.
-                            Consequently, this row's <span class="highlight-yellow">tile extent</span> is from the tile
-                            containing
-                            <span class="highlight-blue">\(x_{\min}\)</span> to the tile containing <span
-                                class="highlight-purple">\(B\)</span>.
-                            For the next row, we keep points <span class="highlight-purple">\(A\)</span> and <span
-                                class="highlight-purple">\(B\)</span> and
-                            compute <span class="highlight-yellow">upper boundary</span> points <span
-                                class="highlight-purple">\(C\)</span> and
-                            <span class="highlight-purple">\(D\)</span>. <span class="highlight-purple">\(A\)</span> and
-                            <span class="highlight-blue">\(x_{\max}\)</span> are assigned as the row's <span
-                                class="highlight-purple">\(e_{\min}\)</span> and
-                            <span class="highlight-purple">\(e_{\max}\)</span>, and the tiles containing them are its
-                            <span class="highlight-yellow">tile extent</span>. Finally, for the last row, <span
-                                class="highlight-purple">\(C\)</span> and
-                            <span class="highlight-purple">\(D\)</span> are kept; no additional points are computed
-                            because the row's
-                            <span class="highlight-yellow">upper boundary</span> is above the <span
-                                class="highlight-blue">bounding box</span>. Thus, the
-                            <span class="highlight-yellow">tile extent</span> of this row is the tiles containing <span
-                                class="highlight-purple">\(C\)</span> and
-                            <span class="highlight-purple">\(D\)</span>.
-                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="section" id="BibTeX">
-        <div class="container is-max-desktop content">
-            <h2 class="title">BibTeX</h2>
-            <div class="bibtex-container"
-                style="position: relative; background: #f5f5f5; border-radius: 8px; padding: 0.5rem;">
-                <button class="copy-code-btn" id="copy-btn"
-                    style="position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.5rem; background: #ffffff; border: 1px solid #e5e5e5; border-radius: 4px; color: #595959; font-size: 1rem; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: center; justify-content: center; z-index: 10; line-height: 1;">
-                    <i class="fa fa-copy"></i>
-                </button>
-                <pre><code id="bibtex-content">@InProceedings{HansonSpeedy,
+        <section class="section" id="BibTeX">
+            <div class="container is-max-desktop content">
+                <h2 class="title is-3">BibTeX</h2>
+                <div class="bibtex-container">
+                    <button class="copy-code-btn" id="copy-btn" aria-label="Copy BibTeX to clipboard">
+                        <i class="fa fa-copy"></i>
+                    </button>
+                    <pre><code id="bibtex-content">@InProceedings{HansonSpeedy,
     author    = {Hanson, Alex and Tu, Allen and Lin, Geng and Singla, Vasu and Zwicker, Matthias and Goldstein, Tom},
     title     = {Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives},
     booktitle = {Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)},
@@ -688,61 +816,72 @@
     doi       = {10.1109/CVPR52734.2025.02006},
     url       = {https://speedysplat.github.io/}
 }</code></pre>
+                </div>
+
+                <h2 class="title is-3">Related Work</h2>
+                <p>For additional papers on efficient 3D Gaussian Splatting, see our group’s related work below. If your
+                    research builds on ours, we encourage you to cite these papers.</p>
+                <ul class="related-list">
+                    <li class="related-item">
+                        <p class="related-title">
+                            <a href="https://pup3dgs.github.io/" target="_blank" rel="noopener noreferrer">
+                                PUP 3D-GS: Principled Uncertainty Pruning for 3D Gaussian Splatting</a>
+                        </p>
+                        <p class="related-meta">
+                            <span class="related-venue">CVPR 2025</span>
+                            <a class="related-bibtex" href="https://pup3dgs.github.io/#BibTeX" target="_blank"
+                                rel="noopener noreferrer" aria-label="BibTeX for PUP 3D-GS">BibTeX</a>
+                        </p>
+                        Prune 90% of primitives from any pretrained 3D Gaussian Splatting model using a mathematically
+                        principled sensitivity score, more than tripling rendering speed while retaining more salient
+                        foreground information and higher visual fidelity than previous techniques at a substantially
+                        higher compression ratio.
+                    </li>
+                    <li class="related-item">
+                        <p class="related-title">
+                            <a href="https://speede3dgs.github.io/" target="_blank" rel="noopener noreferrer">
+                                SpeeDe3DGS: Speedy Deformable 3D Gaussian Splatting with Temporal Pruning and Motion
+                                Grouping</a>
+                        </p>
+                        <p class="related-meta">
+                            <span class="related-venue">CVPR 2026</span>
+                            <a class="related-bibtex" href="https://speede3dgs.github.io/#BibTeX" target="_blank"
+                                rel="noopener noreferrer" aria-label="BibTeX for SpeeDe3DGS">BibTeX</a>
+                        </p>
+                        Boost dynamic Gaussian Splatting rendering speed from 20 to 276 FPS using temporal sensitivity
+                        pruning and groupwise SE(3) motion distillation, all while preserving the superior image quality
+                        of per-Gaussian neural motion.
+                    </li>
+                </ul>
             </div>
+        </section>
+    </main>
 
-            <h2 class="title">Related Work</h2>
-            <p>For additional papers on efficient 3D Gaussian Splatting, see our group’s related work below. If your
-                research builds on ours, we encourage you to cite these papers.</p>
-            <ol>
-                <li>
-                    <a href="https://pup3dgs.github.io/" target="_blank" rel="noopener">
-                        <strong>PUP-3DGS</strong>
-                    </a>
-                    (CVPR 2025)
-                    <small><a href="https://pup3dgs.github.io/#BibTeX" target="_blank"
-                            rel="noopener noreferrer">[BibTeX]</a></small>
-                    — Prune 90% of primitives from any pretrained 3D Gaussian Splatting model using a mathematically
-                    principled sensitivity score, more than tripling rendering speed while retaining more salient
-                    foreground information and higher visual fidelity than previous techniques at a substantially
-                    higher compression ratio.
-                </li>
-                <li>
-                    <a href="https://speede3dgs.github.io/" target="_blank" rel="noopener">
-                        <strong>SpeeDe3DGS</strong>
-                    </a>
-                    (CVPR 2026)
-                    <small><a href="https://speede3dgs.github.io/#BibTeX" target="_blank"
-                            rel="noopener noreferrer">[BibTeX]</a></small>
-                    — Boost DeformableGS rendering speed from 20 to 276 FPS using temporal sensitivity pruning and
-                    groupwise SE(3) motion distillation, all while preserving the superior image quality of per-Gaussian
-                    neural motion.
-                </li>
-            </ol>
-        </div>
-    </section>
-
-    <br>
     <footer class="footer">
         <div class="container">
             <div class="content has-text-centered">
                 <a class="icon-link" href="https://arxiv.org/pdf/2412.00578" target="_blank" rel="noopener noreferrer"
-                    title="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives">
-                    <i class="fas fa-file-pdf"></i>
+                    title="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives"
+                    aria-label="Paper PDF on arXiv">
+                    <i class="fas fa-file-pdf" aria-hidden="true"></i>
                 </a>
-                <a class="icon-link" href="https://arxiv.org/abs/2412.00578" target="_blank" rel="noopener noreferrer">
-                    <i class="ai ai-arxiv"></i>
+                <a class="icon-link" href="https://arxiv.org/abs/2412.00578" target="_blank" rel="noopener noreferrer"
+                    aria-label="arXiv abstract page">
+                    <i class="ai ai-arxiv" aria-hidden="true"></i>
                 </a>
-                <a class="icon-link" href="static/files/speedysplat_poster.pdf" target="_blank"
+                <a class="icon-link" href="static/files/speedysplat_poster.pdf?v=2026.07.31.3" target="_blank"
                     rel="noopener noreferrer"
-                    title="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives">
-                    <i class="fas fa-image"></i>
+                    title="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives"
+                    aria-label="Poster PDF">
+                    <i class="fas fa-image" aria-hidden="true"></i>
                 </a>
-                <a class="icon-link" href="https://youtu.be/jqtqVHKRrfw" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-youtube"></i>
+                <a class="icon-link" href="https://youtu.be/jqtqVHKRrfw" target="_blank" rel="noopener noreferrer"
+                    aria-label="Presentation video on YouTube">
+                    <i class="fab fa-youtube" aria-hidden="true"></i>
                 </a>
                 <a class="icon-link" href="https://github.com/j-alex-hanson/speedy-splat" target="_blank"
-                    rel="noopener noreferrer">
-                    <i class="fab fa-github"></i>
+                    rel="noopener noreferrer" aria-label="Code on GitHub">
+                    <i class="fab fa-github" aria-hidden="true"></i>
                 </a>
             </div>
             <div class="columns is-centered">
@@ -758,7 +897,7 @@
                     </div>
                     <div class="content has-text-centered">
                         <p>
-                            We thank the authors of <a rel="nerfies"
+                            We thank the authors of <a
                                 href="https://github.com/nerfies/nerfies.github.io/tree/main" target="_blank"
                                 rel="noopener noreferrer">Nerfies</a>
                             for generously <a href="https://github.com/speedysplat/speedysplat.github.io"
