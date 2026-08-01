@@ -163,41 +163,52 @@ body {
 /* ---- The tile figures, in dark mode ----
  *
  * All three have opaque white baked into the image (pixel-sampled: every border sample
- * is #ffffff, and white is 10-64% of each frame), so on the dark page they are three
+ * is #ffffff, and white is 10-64% of each frame), so on the dark page they would be three
  * bright slabs at the full 21:1 against the black ground — brighter than any text on the
- * page. theme.css hands the light-card treatment to `.paper-figure`, `.table-iv-image`,
- * `.figure-centered img` and `.figure-full`; these carry `.figure-image`, which is not
- * in that list, so the rule is restated here for this page's own class.
+ * page. They need the same light-card treatment as the other paper figures.
  *
- * The padding is 0.375rem rather than theme.css's 0.75rem, and that is a measured
- * decision, not a preference. These three sit in `.column.is-one-third` cells at 260px
- * display width, where 12px of padding is 4.6% of the frame — against 1.2% for the
- * 960px-wide figures the 0.75rem value was tuned on. On top of that the source images
- * already carry their own white margin: the drawn content starts 15px into a 520px
- * frame, which is 7.5px once scaled to 260px. So a full 0.75rem sits on top of an
- * existing 7.5px gutter and pushes the visible artwork down to 236px of the 260px cell.
- * Halving it recovers 12px of diagram (236px -> 248px) while still reading as a card.
+ * The card goes on `#figure1`, the row that wraps all three, rather than on each image.
+ * Carding them individually put three separately-rounded white panels side by side with
+ * only the 2px their radii carve out between them, which read as three things rather than
+ * one figure. Backing the row instead gives a single sheet of paper with the three panels
+ * on it — which is how Figure 1 appears in the paper.
  *
- * The cells are butted edge to edge — measured 0px gap between adjacent images, so
- * adjacent cards are separated only by the 2px their border radii carve out. That is
- * the reason to keep the radius and not to grow the padding: more padding does not
- * separate the cards, it only shrinks the artwork inside them.
+ * The images themselves lose their own radius in dark, or each would cut a rounded notch
+ * out of the shared card behind it. Their captions stay where they are: they sit in the
+ * three `.column` cells, so each remains centred under its own panel.
  *
- * Dark only. In light mode these stay exactly as they shipped: no background, no
- * padding, no shadow — just the 8px radius the rule above has always given them. */
-[data-theme="dark"] .figure-image {
-  background: #f2f4f6;
-  padding: 0.375rem;
+ * Pure white, matching the images exactly. Anything lighter than the page but short of
+ * white left a visible seam where an image met its own card.
+ *
+ * Dark only. In light mode all of this is absent: no background, no padding, no shadow —
+ * the images keep the 8px radius the rule above has always given them. */
+[data-theme="dark"] #figure1 {
+  background: #ffffff;
+  padding: 0.5rem 0.375rem;
+  border-radius: 8px;
   box-sizing: border-box;
 }
 
-/* theme.css eases the colour swap for the figures it knows about; `.figure-image` is
-   this page's own class, so it opts into the same transition here or the tiles would
-   snap to their cards while the rest of the page faded. */
-.theme-anim .figure-image {
+[data-theme="dark"] #figure1 .figure-image {
+  border-radius: 0;
+}
+
+/* The captions sit on the card in dark mode, so they take the card's ink colour rather
+   than the page's — theme.css points figcaption at `--text-muted`, which is tuned for the
+   dark page and would be near-invisible on white. */
+[data-theme="dark"] #figure1 figcaption {
+  color: #555555;
+}
+
+/* theme.css eases the colour swap for the figures it knows about; this row is this page's
+   own, so it opts into the same transition or the tiles would snap to their card while
+   the rest of the page faded. */
+.theme-anim #figure1,
+.theme-anim #figure1 figcaption {
   transition: background-color 0.3s ease, color 0.3s ease,
     border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
 
 @media (prefers-reduced-motion: reduce) {
   .theme-anim .figure-image {
@@ -476,98 +487,38 @@ figcaption {
   }
 }
 
-/* ---- Display equations on narrow screens ----
+/* ---- Display equations ----
  *
- * MathJax lays a display equation out at its intrinsic width and nothing clips it, so
- * a formula wider than the viewport used to push the whole page sideways.
+ * These formulas were authored to fit a phone, so none of them should ever show a
+ * scrollbar. `overflow: hidden` guarantees no scroll track is ever painted, and
+ * math-fit.js guarantees there is nothing to hide: it measures each equation once
+ * MathJax has typeset it and scales that one by exactly the ratio it needs.
  *
- * This was previously solved with `overflow-x: auto`, which fixed the page but made
- * every display equation a scroll container. Desktop browsers draw overlay scrollbars
- * that appear only while scrolling, so it looked clean — but Android Chrome paints a
- * classic track, putting a bar under all seven equations to accommodate the one that is
- * actually too wide, and then only by ~25px.
+ * A fixed set of `scale()` breakpoints lived here through several revisions. CSS cannot
+ * ask how wide an equation turned out, so any such set is a guess — too weak for the
+ * widest formula on the narrowest screen, and needlessly small for every other one.
+ * Measuring is the only way to be certain everything fits, and being certain is what
+ * lets the overflow stay hidden with no scrollbar anywhere.
  *
- * Shrink to fit instead. `font-size` cannot do it: MathJax writes `font-size: 121.4%`
- * as an inline style on the container, and an inline style beats any stylesheet rule.
- * So the scaling goes on `mjx-math`, the inner box, via a transform. `transform` does
- * not affect layout, so the container is also given a matching height reduction — the
- * scale is small enough that the leftover is a couple of pixels.
- *
- * A reader who wants the fine detail can pinch-zoom, which is how maths is normally
- * read on a phone and does not require a scroll gesture inside a 40px-tall box.
+ * (Originally there were no rules here at all: equations rendered at natural width and
+ * Bulma's `html { overflow-x: hidden }` quietly clipped any that were too wide.)
  */
 mjx-container[display="true"] {
   max-width: 100%;
-  /* Scrollable as a safety net. The scale steps below cover ordinary phone widths, but
-     at 200% text a formula can need ~35% of its natural size — far past the 0.80 floor —
-     and `overflow: hidden` then made the remainder unreachable, which is content loss
-     rather than a nuisance. A scroll container only paints a bar when it actually
-     overflows, so in the common case the scaling means there is nothing to scroll and no
-     bar appears; when scaling is not enough the content stays reachable. */
-  overflow-x: auto;
-  overflow-y: hidden;
+  /* `clip`, not `hidden`. Both suppress the scrollbar, but a `hidden` box is still a
+     scroll container — `scrollLeft` can be moved programmatically and some engines will
+     let a trackpad fling it — whereas `clip` is not scrollable at all. Since math-fit.js
+     guarantees the ink already fits, there is nothing to reach and nothing to scroll to. */
+  overflow: clip;
 }
 
-/* Discrete steps rather than a fluid clamp: `scale()` takes a bare <number>, and
-   `clamp(0.8, 0.35 + 0.14vw, 1)` mixes a unitless value with a length, which is an
-   invalid calc() type — the whole declaration is dropped and nothing scales. Three
-   breakpoints cover the range; the widest formula across these pages needs ~80% to
-   clear a 320px screen. */
-@media screen and (max-width: 480px) {
-  mjx-container[display="true"] > mjx-math {
-    transform: scale(0.92);
-    /* `left top`, not `center top`. A transform does not change layout, so the box keeps
-       its unscaled width and `center` leaves the shrunken content centred on the
-       ORIGINAL centre — hanging off both sides equally, with the right-hand overflow
-       clipped and unreachable under the `overflow: hidden` above. Measured 36.9px of an
-       equation cut off at 320px. Anchoring at the left pulls the content into the box
-       instead; MathJax already centres the equation within `mjx-container`, so the
-       result still reads as centred. */
-    transform-origin: left top;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  mjx-container[display="true"] > mjx-math {
-    transform: scale(0.86);
-  }
-}
-
-@media screen and (max-width: 340px) {
-  mjx-container[display="true"] > mjx-math {
-    transform: scale(0.8);
-  }
-}
-
-/* Inline math must not become a scroll container — that would break the line box — and
-   must not scale independently of the sentence around it. Capping its width is enough:
-   long inline expressions are rare, and the page no longer overflows now that the
-   display equations fit. */
+/* Inline maths is left alone. It sits in a line box, so giving it its own scroll or
+   transform would break the run of text around it, and these expressions are short
+   enough to wrap with the sentence. */
 mjx-container:not([display="true"]) {
   max-width: 100%;
 }
 
-/* Inline maths must not become a scroll container at normal widths — that would break
-   the line box. But a long inline expression can still be wider than a small phone, and
-   because it is `display: inline` a `max-width` does nothing to it, so nothing clips it
-   and it drags the whole page sideways. Allowing it to scroll on its own axis only at the
-   narrowest widths keeps the formula complete and the page fixed.
-
-   This matters most where a page has no *display* equations at all — transfira's only wide
-   maths is inline, so the scaling applied to `[display="true"]` never reaches it. */
-/* Unconditional, not behind a width query. A long inline expression is wider than its
-   column whenever the text size is large relative to the viewport, which is a function of
-   both — so a px bound covered only one variable and left the formula clipped at, say,
-   500px with 200% text. `inline-block` is what makes `overflow-x` apply at all: on a
-   non-replaced inline box neither it nor `max-width` has any effect, which is why the
-   overflow was unreachable rather than merely off-screen. The scroll only ever appears on
-   an expression that genuinely does not fit; the rest are untouched. */
-mjx-container:not([display="true"]) {
-  display: inline-block;
-  overflow-x: auto;
-  overflow-y: hidden;
-  vertical-align: middle;
-}
 
 /* ---- Reserving space before the poster decodes ----
  * These have `preload="none"` and a deferred poster, so without a declared ratio
