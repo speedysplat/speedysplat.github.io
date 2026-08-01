@@ -180,37 +180,37 @@
          element is laid out. Preloading it moves it into the first round of
          requests; the href has to match the poster attribute exactly or the
          browser treats it as a second image and fetches it twice. -->
-    <link rel="preload" href="static/images/teaser_poster.jpg?v=2026.08.01.19" as="image" fetchpriority="high">
+    <link rel="preload" href="static/images/teaser_poster.jpg?v=2026.08.01.21" as="image" fetchpriority="high">
 
     <!-- Fonts. Noto Sans is self-hosted (see tools/build-webfonts.sh); Google
          Sans is proprietary, so it stays on Google's CDN but loads without
          blocking first paint, falling back to Noto Sans until it arrives. -->
-    <link rel="preload" href="./static/webfonts/noto-sans-latin.woff2?v=2026.08.01.19" as="font"
+    <link rel="preload" href="./static/webfonts/noto-sans-latin.woff2?v=2026.08.01.21" as="font"
         type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="./static/css/noto-sans.css?v=2026.08.01.19">
+    <link rel="stylesheet" href="./static/css/noto-sans.css?v=2026.08.01.21">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans&display=swap"
         media="print" onload="this.media='all'">
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans&display=swap">
     </noscript>
 
-    <link rel="stylesheet" href="./static/css/bulma.min.css?v=2026.08.01.19">
-    <link rel="stylesheet" href="./static/css/theme.css?v=2026.08.01.19">
-    <link rel="stylesheet" href="./static/css/rhythm.css?v=2026.08.01.19">
-    <link rel="stylesheet" href="./static/css/icons.css?v=2026.08.01.19">
-    <link rel="stylesheet" href="./static/css/pdf-modal.css?v=2026.08.01.19">
-    <link rel="stylesheet" href="./static/css/index.css?v=2026.08.01.19">
-    <link rel="stylesheet" href="./static/css/interactions.css?v=2026.08.01.19">
-    <link rel="icon" href="./static/images/favicon.svg?v=2026.08.01.19" type="image/svg+xml">
-    <link rel="icon" href="./static/images/favicon.png?v=2026.08.01.19" type="image/png" sizes="32x32">
-    <link rel="icon" href="./static/images/favicon.ico?v=2026.08.01.19" sizes="any">
-    <link rel="apple-touch-icon" href="./static/images/favicon.png?v=2026.08.01.19">
+    <link rel="stylesheet" href="./static/css/bulma.min.css?v=2026.08.01.21">
+    <link rel="stylesheet" href="./static/css/theme.css?v=2026.08.01.21">
+    <link rel="stylesheet" href="./static/css/rhythm.css?v=2026.08.01.21">
+    <link rel="stylesheet" href="./static/css/icons.css?v=2026.08.01.21">
+    <link rel="stylesheet" href="./static/css/pdf-modal.css?v=2026.08.01.21">
+    <link rel="stylesheet" href="./static/css/index.css?v=2026.08.01.21">
+    <link rel="stylesheet" href="./static/css/interactions.css?v=2026.08.01.21">
+    <link rel="icon" href="./static/images/favicon.svg?v=2026.08.01.21" type="image/svg+xml">
+    <link rel="icon" href="./static/images/favicon.png?v=2026.08.01.21" type="image/png" sizes="32x32">
+    <link rel="icon" href="./static/images/favicon.ico?v=2026.08.01.21" sizes="any">
+    <link rel="apple-touch-icon" href="./static/images/favicon.png?v=2026.08.01.21">
 
-    <script defer src="./static/js/lazy-video.js?v=2026.08.01.19"></script>
-    <script defer src="./static/js/script.js?v=2026.08.01.19"></script>
-    <script defer src="./static/js/pdf-modal.js?v=2026.08.01.19"></script>
-    <script defer src="./static/js/theme-switcher.js?v=2026.08.01.19"></script>
-    <script defer src="./static/js/math-fit.js?v=2026.08.01.19"></script>
+    <script defer src="./static/js/lazy-video.js?v=2026.08.01.21"></script>
+    <script defer src="./static/js/script.js?v=2026.08.01.21"></script>
+    <script defer src="./static/js/pdf-modal.js?v=2026.08.01.21"></script>
+    <script defer src="./static/js/theme-switcher.js?v=2026.08.01.21"></script>
+    <script defer src="./static/js/math-fit.js?v=2026.08.01.21"></script>
     <!-- tex-chtml, not tex-mml-chtml: the -mml- bundle adds a MathML *input*
          processor and there is no <math> markup on this page, so it was dead
          weight. Same CHTML output, so equations render identically. The config
@@ -247,7 +247,7 @@
                                 <span class="nowrap">3D Gaussian Splatting</span> with
                                 <span class="nowrap">Sparse Pixels</span> and
                                 <span class="nowrap">Sparse Primitives</span></h1>
-                            <div class="is-size-3 publication-venue">CVPR 2025</div>
+                            <div class="is-size-3 publication-venue"><a class="plain-link" href="https://cvpr.thecvf.com/Conferences/2025" target="_blank" rel="noopener noreferrer">CVPR 2025</a></div>
                             <div class="is-size-5 publication-authors">
                                 <span class="author-block">
                                     <a href="https://www.cs.umd.edu/~hanson/" target="_blank" rel="noopener noreferrer">Alex
@@ -275,7 +275,7 @@
                             </div>
 
                             <div class="is-size-5 publication-authors">
-                                <span class="author-block">University of Maryland, College Park</span>
+                                <span class="author-block"><a class="plain-link" href="https://www.umiacs.umd.edu/" target="_blank" rel="noopener noreferrer">University of Maryland, College Park</a></span>
                             </div>
 
                             <div class="column has-text-centered">
@@ -303,7 +303,7 @@
                                         </a>
                                     </span>
                                     <span class="link-block">
-                                        <a href="static/files/speedysplat_poster.pdf?v=2026.08.01.19"
+                                        <a href="static/files/speedysplat_poster.pdf?v=2026.08.01.21"
                                             title="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives"
                                             class="external-link button is-normal is-rounded is-dark" target="_blank"
                                             rel="noopener noreferrer">
@@ -347,10 +347,10 @@
             <div class="container is-centered">
                 <div class="hero-body">
                     <div class="container is-centered">
-                        <video poster="static/images/teaser_poster.jpg?v=2026.08.01.19" id="teaser" muted loop playsinline
+                        <video poster="static/images/teaser_poster.jpg?v=2026.08.01.21" id="teaser" muted loop playsinline
                             preload="none" aria-label="Speedy-Splat teaser"
                             onclick="this.paused ? this.play() : this.pause()">
-                            <source data-src="./static/videos/teaser_compressed.mp4?v=2026.08.01.19" type="video/mp4">
+                            <source data-src="./static/videos/teaser_compressed.mp4?v=2026.08.01.21" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -421,9 +421,9 @@
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third" id="figure1a">
                                         <picture>
-                                            <source srcset="./static/images/3dgs_tile_intersect.webp?v=2026.08.01.19"
+                                            <source srcset="./static/images/3dgs_tile_intersect.webp?v=2026.08.01.21"
                                                 type="image/webp">
-                                            <img src="./static/images/3dgs_tile_intersect.png?v=2026.08.01.19"
+                                            <img src="./static/images/3dgs_tile_intersect.png?v=2026.08.01.21"
                                                 alt="3DGS tile intersection" class="figure-image" loading="lazy"
                                                 width="864" height="806">
                                         </picture>
@@ -433,9 +433,9 @@
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third" id="figure1b">
                                         <picture>
-                                            <source srcset="./static/images/bbox_tile_intersect.webp?v=2026.08.01.19"
+                                            <source srcset="./static/images/bbox_tile_intersect.webp?v=2026.08.01.21"
                                                 type="image/webp">
-                                            <img src="./static/images/bbox_tile_intersect.png?v=2026.08.01.19"
+                                            <img src="./static/images/bbox_tile_intersect.png?v=2026.08.01.21"
                                                 alt="SnugBox tile intersection" class="figure-image" loading="lazy"
                                                 width="864" height="806">
                                         </picture>
@@ -445,9 +445,9 @@
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third" id="figure1c">
                                         <picture>
-                                            <source srcset="./static/images/ellipse_tile_intersect.webp?v=2026.08.01.19"
+                                            <source srcset="./static/images/ellipse_tile_intersect.webp?v=2026.08.01.21"
                                                 type="image/webp">
-                                            <img src="./static/images/ellipse_tile_intersect.png?v=2026.08.01.19"
+                                            <img src="./static/images/ellipse_tile_intersect.png?v=2026.08.01.21"
                                                 alt="AccuTile tile intersection" class="figure-image" loading="lazy"
                                                 width="864" height="806">
                                         </picture>
@@ -619,43 +619,43 @@
                     <div class="columns is-multiline is-centered results-grid">
                         <!-- Row 1 -->
                         <div class="column is-half">
-                            <video data-poster="static/images/bonsai_poster.jpg?v=2026.08.01.19" muted loop playsinline preload="none"
+                            <video data-poster="static/images/bonsai_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
                                 aria-label="Bonsai scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/bonsai_compressed.mp4?v=2026.08.01.19" type="video/mp4">
+                                <source data-src="static/videos/bonsai_compressed.mp4?v=2026.08.01.21" type="video/mp4">
                             </video>
                         </div>
                         <div class="column is-half">
-                            <video data-poster="static/images/counter_poster.jpg?v=2026.08.01.19" muted loop playsinline preload="none"
+                            <video data-poster="static/images/counter_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
                                 aria-label="Counter scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/counter_compressed.mp4?v=2026.08.01.19" type="video/mp4">
+                                <source data-src="static/videos/counter_compressed.mp4?v=2026.08.01.21" type="video/mp4">
                             </video>
                         </div>
                         <!-- Row 2 -->
                         <div class="column is-half">
-                            <video data-poster="static/images/flowers_poster.jpg?v=2026.08.01.19" muted loop playsinline preload="none"
+                            <video data-poster="static/images/flowers_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
                                 aria-label="Flowers scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/flowers_compressed.mp4?v=2026.08.01.19" type="video/mp4">
+                                <source data-src="static/videos/flowers_compressed.mp4?v=2026.08.01.21" type="video/mp4">
                             </video>
                         </div>
                         <div class="column is-half">
-                            <video data-poster="static/images/garden_poster.jpg?v=2026.08.01.19" muted loop playsinline preload="none"
+                            <video data-poster="static/images/garden_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
                                 aria-label="Garden scene" onclick="this.paused ? this.play() : this.pause()">
                                 <!-- The other five point at their _compressed encode; this one
                                      referenced the 20 MB master, which was an oversight. -->
-                                <source data-src="static/videos/garden_compressed.mp4?v=2026.08.01.19" type="video/mp4">
+                                <source data-src="static/videos/garden_compressed.mp4?v=2026.08.01.21" type="video/mp4">
                             </video>
                         </div>
                         <!-- Row 3 -->
                         <div class="column is-half">
-                            <video data-poster="static/images/kitchen_poster.jpg?v=2026.08.01.19" muted loop playsinline preload="none"
+                            <video data-poster="static/images/kitchen_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
                                 aria-label="Kitchen scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/kitchen_compressed.mp4?v=2026.08.01.19" type="video/mp4">
+                                <source data-src="static/videos/kitchen_compressed.mp4?v=2026.08.01.21" type="video/mp4">
                             </video>
                         </div>
                         <div class="column is-half">
-                            <video data-poster="static/images/room_poster.jpg?v=2026.08.01.19" muted loop playsinline preload="none"
+                            <video data-poster="static/images/room_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
                                 aria-label="Room scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/room_compressed.mp4?v=2026.08.01.19" type="video/mp4">
+                                <source data-src="static/videos/room_compressed.mp4?v=2026.08.01.21" type="video/mp4">
                             </video>
                         </div>
                     </div>
@@ -882,7 +882,7 @@
                     aria-label="arXiv abstract page">
                     <i class="ai ai-arxiv" aria-hidden="true"></i>
                 </a>
-                <a class="icon-link" href="static/files/speedysplat_poster.pdf?v=2026.08.01.19" target="_blank"
+                <a class="icon-link" href="static/files/speedysplat_poster.pdf?v=2026.08.01.21" target="_blank"
                     rel="noopener noreferrer"
                     title="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives"
                     aria-label="Poster PDF">
@@ -914,7 +914,7 @@
                          links to — see the Credits section there. -->
                     <div class="content has-text-centered colophon">
                         <p>
-                            &copy; 2025 University of Maryland
+                            &copy; 2025 <a class="plain-link" href="https://www.umiacs.umd.edu/" target="_blank" rel="noopener noreferrer">University of Maryland</a>
                             <span class="colophon-marks">
                                 &middot;
                                 <!-- A <button> rather than an <a>: it performs an action on this
