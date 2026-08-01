@@ -180,37 +180,37 @@
          element is laid out. Preloading it moves it into the first round of
          requests; the href has to match the poster attribute exactly or the
          browser treats it as a second image and fetches it twice. -->
-    <link rel="preload" href="static/images/teaser_poster.jpg?v=2026.08.01.15" as="image" fetchpriority="high">
+    <link rel="preload" href="static/images/teaser_poster.jpg?v=2026.08.01.19" as="image" fetchpriority="high">
 
     <!-- Fonts. Noto Sans is self-hosted (see tools/build-webfonts.sh); Google
          Sans is proprietary, so it stays on Google's CDN but loads without
          blocking first paint, falling back to Noto Sans until it arrives. -->
-    <link rel="preload" href="./static/webfonts/noto-sans-latin.woff2?v=2026.08.01.15" as="font"
+    <link rel="preload" href="./static/webfonts/noto-sans-latin.woff2?v=2026.08.01.19" as="font"
         type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="./static/css/noto-sans.css?v=2026.08.01.15">
+    <link rel="stylesheet" href="./static/css/noto-sans.css?v=2026.08.01.19">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans&display=swap"
         media="print" onload="this.media='all'">
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans&display=swap">
     </noscript>
 
-    <link rel="stylesheet" href="./static/css/bulma.min.css?v=2026.08.01.15">
-    <link rel="stylesheet" href="./static/css/theme.css?v=2026.08.01.15">
-    <link rel="stylesheet" href="./static/css/rhythm.css?v=2026.08.01.15">
-    <link rel="stylesheet" href="./static/css/icons.css?v=2026.08.01.15">
-    <link rel="stylesheet" href="./static/css/pdf-modal.css?v=2026.08.01.15">
-    <link rel="stylesheet" href="./static/css/index.css?v=2026.08.01.15">
-    <link rel="stylesheet" href="./static/css/interactions.css?v=2026.08.01.15">
-    <link rel="icon" href="./static/images/favicon.svg?v=2026.08.01.15" type="image/svg+xml">
-    <link rel="icon" href="./static/images/favicon.png?v=2026.08.01.15" type="image/png" sizes="32x32">
-    <link rel="icon" href="./static/images/favicon.ico?v=2026.08.01.15" sizes="any">
-    <link rel="apple-touch-icon" href="./static/images/favicon.png?v=2026.08.01.15">
+    <link rel="stylesheet" href="./static/css/bulma.min.css?v=2026.08.01.19">
+    <link rel="stylesheet" href="./static/css/theme.css?v=2026.08.01.19">
+    <link rel="stylesheet" href="./static/css/rhythm.css?v=2026.08.01.19">
+    <link rel="stylesheet" href="./static/css/icons.css?v=2026.08.01.19">
+    <link rel="stylesheet" href="./static/css/pdf-modal.css?v=2026.08.01.19">
+    <link rel="stylesheet" href="./static/css/index.css?v=2026.08.01.19">
+    <link rel="stylesheet" href="./static/css/interactions.css?v=2026.08.01.19">
+    <link rel="icon" href="./static/images/favicon.svg?v=2026.08.01.19" type="image/svg+xml">
+    <link rel="icon" href="./static/images/favicon.png?v=2026.08.01.19" type="image/png" sizes="32x32">
+    <link rel="icon" href="./static/images/favicon.ico?v=2026.08.01.19" sizes="any">
+    <link rel="apple-touch-icon" href="./static/images/favicon.png?v=2026.08.01.19">
 
-    <script defer src="./static/js/lazy-video.js?v=2026.08.01.15"></script>
-    <script defer src="./static/js/script.js?v=2026.08.01.15"></script>
-    <script defer src="./static/js/pdf-modal.js?v=2026.08.01.15"></script>
-    <script defer src="./static/js/theme-switcher.js?v=2026.08.01.15"></script>
-    <script defer src="./static/js/math-fit.js?v=2026.08.01.15"></script>
+    <script defer src="./static/js/lazy-video.js?v=2026.08.01.19"></script>
+    <script defer src="./static/js/script.js?v=2026.08.01.19"></script>
+    <script defer src="./static/js/pdf-modal.js?v=2026.08.01.19"></script>
+    <script defer src="./static/js/theme-switcher.js?v=2026.08.01.19"></script>
+    <script defer src="./static/js/math-fit.js?v=2026.08.01.19"></script>
     <!-- tex-chtml, not tex-mml-chtml: the -mml- bundle adds a MathML *input*
          processor and there is no <math> markup on this page, so it was dead
          weight. Same CHTML output, so equations render identically. The config
@@ -303,7 +303,7 @@
                                         </a>
                                     </span>
                                     <span class="link-block">
-                                        <a href="static/files/speedysplat_poster.pdf?v=2026.08.01.15"
+                                        <a href="static/files/speedysplat_poster.pdf?v=2026.08.01.19"
                                             title="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives"
                                             class="external-link button is-normal is-rounded is-dark" target="_blank"
                                             rel="noopener noreferrer">
@@ -347,19 +347,12 @@
             <div class="container is-centered">
                 <div class="hero-body">
                     <div class="container is-centered">
-                        <!-- <div class="column is-half"> -->
-                        <video poster="static/images/teaser_poster.jpg?v=2026.08.01.15" id="teaser" muted loop playsinline
+                        <video poster="static/images/teaser_poster.jpg?v=2026.08.01.19" id="teaser" muted loop playsinline
                             preload="none" aria-label="Speedy-Splat teaser"
                             onclick="this.paused ? this.play() : this.pause()">
-                            <source data-src="./static/videos/teaser_compressed.mp4?v=2026.08.01.15" type="video/mp4">
+                            <source data-src="./static/videos/teaser_compressed.mp4?v=2026.08.01.19" type="video/mp4">
                         </video>
-                        <!-- </div> -->
                     </div>
-                    <!-- <h2 class="subtitle has-text-centered">
-                  <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-                  free-viewpoint
-                  portraits.
-                </h2> -->
                 </div>
             </div>
         </section>
@@ -428,9 +421,9 @@
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third" id="figure1a">
                                         <picture>
-                                            <source srcset="./static/images/3dgs_tile_intersect.webp?v=2026.08.01.15"
+                                            <source srcset="./static/images/3dgs_tile_intersect.webp?v=2026.08.01.19"
                                                 type="image/webp">
-                                            <img src="./static/images/3dgs_tile_intersect.png?v=2026.08.01.15"
+                                            <img src="./static/images/3dgs_tile_intersect.png?v=2026.08.01.19"
                                                 alt="3DGS tile intersection" class="figure-image" loading="lazy"
                                                 width="864" height="806">
                                         </picture>
@@ -440,9 +433,9 @@
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third" id="figure1b">
                                         <picture>
-                                            <source srcset="./static/images/bbox_tile_intersect.webp?v=2026.08.01.15"
+                                            <source srcset="./static/images/bbox_tile_intersect.webp?v=2026.08.01.19"
                                                 type="image/webp">
-                                            <img src="./static/images/bbox_tile_intersect.png?v=2026.08.01.15"
+                                            <img src="./static/images/bbox_tile_intersect.png?v=2026.08.01.19"
                                                 alt="SnugBox tile intersection" class="figure-image" loading="lazy"
                                                 width="864" height="806">
                                         </picture>
@@ -452,9 +445,9 @@
                                 <div class="column is-one-third">
                                     <figure class="figure-one-third" id="figure1c">
                                         <picture>
-                                            <source srcset="./static/images/ellipse_tile_intersect.webp?v=2026.08.01.15"
+                                            <source srcset="./static/images/ellipse_tile_intersect.webp?v=2026.08.01.19"
                                                 type="image/webp">
-                                            <img src="./static/images/ellipse_tile_intersect.png?v=2026.08.01.15"
+                                            <img src="./static/images/ellipse_tile_intersect.png?v=2026.08.01.19"
                                                 alt="AccuTile tile intersection" class="figure-image" loading="lazy"
                                                 width="864" height="806">
                                         </picture>
@@ -626,43 +619,43 @@
                     <div class="columns is-multiline is-centered results-grid">
                         <!-- Row 1 -->
                         <div class="column is-half">
-                            <video data-poster="static/images/bonsai_poster.jpg?v=2026.08.01.15" muted loop playsinline preload="none"
+                            <video data-poster="static/images/bonsai_poster.jpg?v=2026.08.01.19" muted loop playsinline preload="none"
                                 aria-label="Bonsai scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/bonsai_compressed.mp4?v=2026.08.01.15" type="video/mp4">
+                                <source data-src="static/videos/bonsai_compressed.mp4?v=2026.08.01.19" type="video/mp4">
                             </video>
                         </div>
                         <div class="column is-half">
-                            <video data-poster="static/images/counter_poster.jpg?v=2026.08.01.15" muted loop playsinline preload="none"
+                            <video data-poster="static/images/counter_poster.jpg?v=2026.08.01.19" muted loop playsinline preload="none"
                                 aria-label="Counter scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/counter_compressed.mp4?v=2026.08.01.15" type="video/mp4">
+                                <source data-src="static/videos/counter_compressed.mp4?v=2026.08.01.19" type="video/mp4">
                             </video>
                         </div>
                         <!-- Row 2 -->
                         <div class="column is-half">
-                            <video data-poster="static/images/flowers_poster.jpg?v=2026.08.01.15" muted loop playsinline preload="none"
+                            <video data-poster="static/images/flowers_poster.jpg?v=2026.08.01.19" muted loop playsinline preload="none"
                                 aria-label="Flowers scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/flowers_compressed.mp4?v=2026.08.01.15" type="video/mp4">
+                                <source data-src="static/videos/flowers_compressed.mp4?v=2026.08.01.19" type="video/mp4">
                             </video>
                         </div>
                         <div class="column is-half">
-                            <video data-poster="static/images/garden_poster.jpg?v=2026.08.01.15" muted loop playsinline preload="none"
+                            <video data-poster="static/images/garden_poster.jpg?v=2026.08.01.19" muted loop playsinline preload="none"
                                 aria-label="Garden scene" onclick="this.paused ? this.play() : this.pause()">
                                 <!-- The other five point at their _compressed encode; this one
                                      referenced the 20 MB master, which was an oversight. -->
-                                <source data-src="static/videos/garden_compressed.mp4?v=2026.08.01.15" type="video/mp4">
+                                <source data-src="static/videos/garden_compressed.mp4?v=2026.08.01.19" type="video/mp4">
                             </video>
                         </div>
                         <!-- Row 3 -->
                         <div class="column is-half">
-                            <video data-poster="static/images/kitchen_poster.jpg?v=2026.08.01.15" muted loop playsinline preload="none"
+                            <video data-poster="static/images/kitchen_poster.jpg?v=2026.08.01.19" muted loop playsinline preload="none"
                                 aria-label="Kitchen scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/kitchen_compressed.mp4?v=2026.08.01.15" type="video/mp4">
+                                <source data-src="static/videos/kitchen_compressed.mp4?v=2026.08.01.19" type="video/mp4">
                             </video>
                         </div>
                         <div class="column is-half">
-                            <video data-poster="static/images/room_poster.jpg?v=2026.08.01.15" muted loop playsinline preload="none"
+                            <video data-poster="static/images/room_poster.jpg?v=2026.08.01.19" muted loop playsinline preload="none"
                                 aria-label="Room scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/room_compressed.mp4?v=2026.08.01.15" type="video/mp4">
+                                <source data-src="static/videos/room_compressed.mp4?v=2026.08.01.19" type="video/mp4">
                             </video>
                         </div>
                     </div>
@@ -889,7 +882,7 @@
                     aria-label="arXiv abstract page">
                     <i class="ai ai-arxiv" aria-hidden="true"></i>
                 </a>
-                <a class="icon-link" href="static/files/speedysplat_poster.pdf?v=2026.08.01.15" target="_blank"
+                <a class="icon-link" href="static/files/speedysplat_poster.pdf?v=2026.08.01.19" target="_blank"
                     rel="noopener noreferrer"
                     title="Speedy-Splat: Fast 3D Gaussian Splatting with Sparse Pixels and Sparse Primitives"
                     aria-label="Poster PDF">
@@ -903,17 +896,6 @@
                     rel="noopener noreferrer" aria-label="Code on GitHub">
                     <i class="fab fa-github" aria-hidden="true"></i>
                 </a>
-                <!-- Theme toggle. A <button> rather than an <a>: it performs an action on
-                     this page instead of going anywhere, so it belongs in the tab order
-                     as a button and needs no href. The sun and moon are stacked inside a
-                     one-em window and slide past each other on hover. -->
-                <button type="button" class="icon-link" id="theme-toggle"
-                    aria-label="Switch to dark mode" aria-pressed="false">
-                    <span class="theme-icon-wrap">
-                        <i class="fas fa-sun theme-icon theme-icon-sun" aria-hidden="true"></i>
-                        <i class="fas fa-moon theme-icon theme-icon-moon" aria-hidden="true"></i>
-                    </span>
-                </button>
             </div>
             <div class="columns is-centered">
                 <div class="column is-8">
@@ -926,14 +908,33 @@
                             additionally supported by the National Science Foundation (IIS-2126407).
                         </p>
                     </div>
-                    <div class="content has-text-centered">
+                    <!-- Colophon. Copyright, theme toggle and source link on one line, in
+                         the manner of tuallen.github.io. The template credit that used to
+                         sit here now lives in the repository README, which the source icon
+                         links to — see the Credits section there. -->
+                    <div class="content has-text-centered colophon">
                         <p>
-                            We thank the authors of <a
-                                href="https://github.com/nerfies/nerfies.github.io/tree/main" target="_blank"
-                                rel="noopener noreferrer">Nerfies</a>
-                            for generously <a href="https://github.com/speedysplat/speedysplat.github.io"
-                                target="_blank" rel="noopener noreferrer">open-sourcing</a> the
-                            template used in this website.
+                            &copy; 2025 University of Maryland
+                            <span class="colophon-marks">
+                                &middot;
+                                <!-- A <button> rather than an <a>: it performs an action on this
+                                     page instead of going anywhere, so it belongs in the tab
+                                     order as a button and needs no href. The sun and moon are
+                                     stacked inside a one-em window and slide past each other on
+                                     hover. -->
+                                <button type="button" class="colophon-toggle" id="theme-toggle"
+                                    aria-label="Switch to dark mode" aria-pressed="false">
+                                    <span class="theme-icon-wrap">
+                                        <i class="fas fa-sun theme-icon theme-icon-sun" aria-hidden="true"></i>
+                                        <i class="fas fa-moon theme-icon theme-icon-moon" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                                &middot;
+                                <a href="https://github.com/speedysplat/speedysplat.github.io" target="_blank"
+                                    rel="noopener noreferrer" aria-label="Website source code">
+                                    <i class="fas fa-code" aria-hidden="true"></i>
+                                </a>
+                            </span>
                         </p>
                     </div>
                 </div>
