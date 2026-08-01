@@ -53,7 +53,7 @@ body {
 
 .footer .icon-link {
   font-size: 25px;
-  color: #000;
+  color: var(--text-heading);
 }
 
 .link-block a {
@@ -66,13 +66,13 @@ body {
 }
 
 .publication-title {
-  color: #000;
+  color: var(--text-heading);
   margin-top: -20px;
   font-family: 'Google Sans', 'Google Sans Fallback', 'Noto Sans', sans-serif;
 }
 
 .publication-authors {
-  color: #000;
+  color: var(--text-heading);
   font-family: 'Google Sans', 'Google Sans Fallback', 'Noto Sans', sans-serif;
 }
 
@@ -81,7 +81,7 @@ body {
 }
 
 .publication-venue {
-  color: #000;
+  color: var(--text-heading);
   font-weight: bold;
 }
 
@@ -101,7 +101,7 @@ body {
   padding-bottom: 56.25%;
   overflow: hidden;
   border-radius: 10px !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 4px 16px var(--shadow);
 }
 
 .publication-video iframe {
@@ -121,7 +121,7 @@ body {
   width: 100%;
   height: auto;
   border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 4px 16px var(--shadow);
 }
 
 /* ---- Tile-intersection figures ---- */
@@ -134,6 +134,51 @@ body {
   border-radius: 8px;
 }
 
+/* ---- The tile figures, in dark mode ----
+ *
+ * All three have opaque white baked into the image (pixel-sampled: every border sample
+ * is #ffffff, and white is 10-64% of each frame), so on the dark page they are three
+ * bright slabs at the full 21:1 against the black ground — brighter than any text on the
+ * page. theme.css hands the light-card treatment to `.paper-figure`, `.table-iv-image`,
+ * `.figure-centered img` and `.figure-full`; these carry `.figure-image`, which is not
+ * in that list, so the rule is restated here for this page's own class.
+ *
+ * The padding is 0.375rem rather than theme.css's 0.75rem, and that is a measured
+ * decision, not a preference. These three sit in `.column.is-one-third` cells at 260px
+ * display width, where 12px of padding is 4.6% of the frame — against 1.2% for the
+ * 960px-wide figures the 0.75rem value was tuned on. On top of that the source images
+ * already carry their own white margin: the drawn content starts 15px into a 520px
+ * frame, which is 7.5px once scaled to 260px. So a full 0.75rem sits on top of an
+ * existing 7.5px gutter and pushes the visible artwork down to 236px of the 260px cell.
+ * Halving it recovers 12px of diagram (236px -> 248px) while still reading as a card.
+ *
+ * The cells are butted edge to edge — measured 0px gap between adjacent images, so
+ * adjacent cards are separated only by the 2px their border radii carve out. That is
+ * the reason to keep the radius and not to grow the padding: more padding does not
+ * separate the cards, it only shrinks the artwork inside them.
+ *
+ * Dark only. In light mode these stay exactly as they shipped: no background, no
+ * padding, no shadow — just the 8px radius the rule above has always given them. */
+[data-theme="dark"] .figure-image {
+  background: #f2f4f6;
+  padding: 0.375rem;
+  box-sizing: border-box;
+}
+
+/* theme.css eases the colour swap for the figures it knows about; `.figure-image` is
+   this page's own class, so it opts into the same transition here or the tiles would
+   snap to their cards while the rest of the page faded. */
+.theme-anim .figure-image {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-anim .figure-image {
+    transition: none !important;
+  }
+}
+
 /* Three abreast, so each keeps a third of the row rather than wrapping. */
 .column.is-one-third {
   flex: 0 0 33%;
@@ -144,9 +189,59 @@ body {
 
 figcaption {
   font-size: 0.9rem;
-  color: #555;
+  color: var(--text-muted);
   text-align: center;
   margin-top: 8px;
+}
+
+/* ---- Figure 1's captions, upright ----
+ *
+ * Bulma ships `.content figure figcaption { font-style: italic }`, which made this
+ * page's three sublabels the only italic captions across the five project pages. A bare
+ * `figcaption` selector cannot undo it — one element loses to one class plus two — so
+ * this matches Bulma's own selector shape. (The same specificity trap has bitten this
+ * codebase before: see the `.content figure` margin note on transfira.)
+ *
+ * Removing the slant alone would leave "(a)" reading as ordinary body text, so the
+ * enumerator is wrapped in a <strong> and the label role moves from the slant to the
+ * weight. That is the pattern the main Figure 1 caption below already uses — it bolds
+ * "Figure 1: Gaussian tile allocation by method." and leaves the rest plain — so the
+ * sublabels and their parent caption now read as one system.
+ *
+ * The <strong> needs no colour rule of its own: theme.css sets `strong, b { color:
+ * inherit }`, so the enumerator takes its caption's colour in both themes (measured
+ * #555 light, #a6b0bb dark — identical to the caption around it) and carries weight
+ * only. Verified rather than assumed, since an earlier revision of theme.css gave bold
+ * text its own token, which would have made the label brighter than its caption.
+ */
+.content figure figcaption {
+  font-style: normal;
+  /* Inherit the body colour rather than take `figcaption`'s #555. These three are not
+     standalone captions — they are sublabels of the Figure 1 caption directly below,
+     which inherits the body colour, so at #555 they were the darker odd-one-out inside
+     their own figure. Matching means the four read as one caption block. */
+  color: inherit;
+}
+
+/* The main Figure 1 caption. Was `style="font-style: italic;"` inline — the slant is
+   dropped for the same reason as above, and since that attribute carried nothing else
+   the class replaces it rather than leaving an empty `style=` behind.
+ *
+ * No `color` here on purpose. The paragraph inherits the body colour (#4a4a4a light,
+ * `--text` dark) and giving it `--text-muted` would have quietly darkened it to #555 in
+ * light mode — a change to light rendering, which this work must not make. Its bold
+ * lead-in is what marks it as a caption, so the class only has to cancel the slant. */
+.figure-caption {
+  font-style: normal;
+  /* The caption ran straight into the "SnugBox" heading beneath it, so the two read as
+     one block. The selector below has to include `.content` and the `:not(:last-child)`
+     weight to beat Bulma's own `.content p:not(:last-child) { margin-bottom: 1em }` —
+     a bare `.figure-caption` is one class against one class plus one element and loses,
+     which is why the margin measured 16px rather than the 2rem asked for. */
+}
+
+.content .figure-caption:not(:last-child) {
+  margin-bottom: 2rem;
 }
 
 .figure-one-third {
@@ -245,8 +340,8 @@ figcaption {
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: #595959;
-  background: #f0f0f0;
+  color: var(--text-quiet);
+  background-color: var(--bg-chip);
   border-radius: 999px;
   padding: 0.15em 0.6em;
   white-space: nowrap;
@@ -256,14 +351,14 @@ figcaption {
    discoverable without shouting on every entry. */
 .related-bibtex {
   font-size: 0.82rem;
-  color: #595959;
+  color: var(--text-quiet);
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .related-bibtex:hover {
-  color: #363636;
+  color: var(--text-hover);
   border-bottom-color: #b5b5b5;
 }
 
@@ -272,7 +367,7 @@ figcaption {
 
 .bibtex-container {
   position: relative;
-  background: #f5f5f5;
+  background-color: var(--bg-code);
   border-radius: 8px;
   padding: 0.5rem;
 }
@@ -285,15 +380,15 @@ figcaption {
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
-  background: #fff;
+  background-color: var(--bg);
   /* Was #e5e5e5, 1.26:1 against the button's own white fill — a control boundary
      WCAG 1.4.11 asks to reach 3:1. The measurement that matters is against the
      #f5f5f5 code block the button sits on, not its own fill: #8f8f8f gave 3.23:1
      inward but only 2.97:1 outward, so #858585 is used instead — 3.45:1 and 3.17:1,
      clearing 3:1 on both edges while still reading as quiet chrome. */
-  border: 1px solid #858585;
+  border: 1px solid var(--border);
   border-radius: 4px;
-  color: #595959;
+  color: var(--text-quiet);
   font-size: 1rem;
   line-height: 1;
   cursor: pointer;
@@ -304,13 +399,13 @@ figcaption {
 /* Hover used to lighten the border to #b5b5b5 — 2.05:1, less visible than at rest,
    so the feedback made the control harder to see. Darker instead. */
 .copy-code-btn:hover {
-  border-color: #6b6b6b;
-  color: #363636;
+  border-color: var(--border-hover);
+  color: var(--text-hover);
 }
 
 .copy-code-btn.copied {
-  color: #257953;
-  border-color: #257953;
+  color: var(--copied);
+  border-color: var(--copied);
 }
 
 /* ---- Equations ----
@@ -357,32 +452,83 @@ figcaption {
 
 /* ---- Display equations on narrow screens ----
  *
- * MathJax lays a display equation out at its intrinsic width and nothing clips it,
- * so a formula wider than the viewport pushes the whole page sideways — below
- * ~385px this page could be scrolled horizontally by ~65px. The `math-mobile`
- * variants already restack the longest formulas, but some remain wider than a
- * small phone whatever we do with line breaks.
+ * MathJax lays a display equation out at its intrinsic width and nothing clips it, so
+ * a formula wider than the viewport used to push the whole page sideways.
  *
- * Letting the container scroll on its own axis keeps the equation legible and
- * complete while the page itself stays fixed. Applied to the container rather than
- * the <p>, so surrounding prose is unaffected.
+ * This was previously solved with `overflow-x: auto`, which fixed the page but made
+ * every display equation a scroll container. Desktop browsers draw overlay scrollbars
+ * that appear only while scrolling, so it looked clean — but Android Chrome paints a
+ * classic track, putting a bar under all seven equations to accommodate the one that is
+ * actually too wide, and then only by ~25px.
+ *
+ * Shrink to fit instead. `font-size` cannot do it: MathJax writes `font-size: 121.4%`
+ * as an inline style on the container, and an inline style beats any stylesheet rule.
+ * So the scaling goes on `mjx-math`, the inner box, via a transform. `transform` does
+ * not affect layout, so the container is also given a matching height reduction — the
+ * scale is small enough that the leftover is a couple of pixels.
+ *
+ * A reader who wants the fine detail can pinch-zoom, which is how maths is normally
+ * read on a phone and does not require a scroll gesture inside a 40px-tall box.
  */
 mjx-container[display="true"] {
   max-width: 100%;
+  /* Scrollable as a safety net. The scale steps below cover ordinary phone widths, but
+     at 200% text a formula can need ~35% of its natural size — far past the 0.80 floor —
+     and `overflow: hidden` then made the remainder unreachable, which is content loss
+     rather than a nuisance. A scroll container only paints a bar when it actually
+     overflows, so in the common case the scaling means there is nothing to scroll and no
+     bar appears; when scaling is not enough the content stays reachable. */
   overflow-x: auto;
   overflow-y: hidden;
-  /* Room for the scrollbar so it never sits on top of a glyph. */
-  padding-bottom: 2px;
 }
 
-/* Inline math normally must not become a scroll container — that would break the
-   line box. But a long inline expression can still be wider than a small phone,
-   and nothing clips it, so it drags the page sideways. Allowing it to scroll only
-   at the narrowest widths keeps the formula complete and the page fixed. */
+/* Discrete steps rather than a fluid clamp: `scale()` takes a bare <number>, and
+   `clamp(0.8, 0.35 + 0.14vw, 1)` mixes a unitless value with a length, which is an
+   invalid calc() type — the whole declaration is dropped and nothing scales. Three
+   breakpoints cover the range; the widest formula across these pages needs ~80% to
+   clear a 320px screen. */
+@media screen and (max-width: 480px) {
+  mjx-container[display="true"] > mjx-math {
+    transform: scale(0.92);
+    /* `left top`, not `center top`. A transform does not change layout, so the box keeps
+       its unscaled width and `center` leaves the shrunken content centred on the
+       ORIGINAL centre — hanging off both sides equally, with the right-hand overflow
+       clipped and unreachable under the `overflow: hidden` above. Measured 36.9px of an
+       equation cut off at 320px. Anchoring at the left pulls the content into the box
+       instead; MathJax already centres the equation within `mjx-container`, so the
+       result still reads as centred. */
+    transform-origin: left top;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  mjx-container[display="true"] > mjx-math {
+    transform: scale(0.86);
+  }
+}
+
+@media screen and (max-width: 340px) {
+  mjx-container[display="true"] > mjx-math {
+    transform: scale(0.8);
+  }
+}
+
+/* Inline math must not become a scroll container — that would break the line box — and
+   must not scale independently of the sentence around it. Capping its width is enough:
+   long inline expressions are rare, and the page no longer overflows now that the
+   display equations fit. */
 mjx-container:not([display="true"]) {
   max-width: 100%;
 }
 
+/* Inline maths must not become a scroll container at normal widths — that would break
+   the line box. But a long inline expression can still be wider than a small phone, and
+   because it is `display: inline` a `max-width` does nothing to it, so nothing clips it
+   and it drags the whole page sideways. Allowing it to scroll on its own axis only at the
+   narrowest widths keeps the formula complete and the page fixed.
+
+   This matters most where a page has no *display* equations at all — transfira's only wide
+   maths is inline, so the scaling applied to `[display="true"]` never reaches it. */
 @media screen and (max-width: 400px) {
   mjx-container:not([display="true"]) {
     display: inline-block;
