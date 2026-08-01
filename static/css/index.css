@@ -260,21 +260,31 @@ figcaption {
   color: inherit;
 }
 
-/* The main Figure 1 caption. Was `style="font-style: italic;"` inline — the slant is
-   dropped for the same reason as above, and since that attribute carried nothing else
-   the class replaces it rather than leaving an empty `style=` behind.
+/* Captions and the AccuTile walkthrough, styled as transfira's are.
  *
- * No `color` here on purpose. The paragraph inherits the body colour (#4a4a4a light,
- * `--text` dark) and giving it `--text-muted` would have quietly darkened it to #555 in
- * light mode — a change to light rendering, which this work must not make. Its bold
- * lead-in is what marks it as a caption, so the class only has to cancel the slant. */
+ * Both used to be inline `font-style: italic` paragraphs at full body size and body
+ * colour, which made them read as more prose rather than as apparatus — and left this
+ * page the odd one out, since speede3dgs, splatsure and transfira all demote their
+ * captions to 0.9rem in the caption grey. Matching them: same size, same colour, upright,
+ * with an unbolded label ahead of a bold summary sentence.
+ *
+ * The size and colour are stated as tokens so dark mode follows: `--text-muted` is the
+ * same #555 in light and the dark palette's own muted grey in dark. */
 .figure-caption {
   font-style: normal;
-  /* The caption ran straight into the "SnugBox" heading beneath it, so the two read as
-     one block. The selector below has to include `.content` and the `:not(:last-child)`
-     weight to beat Bulma's own `.content p:not(:last-child) { margin-bottom: 1em }` —
-     a bare `.figure-caption` is one class against one class plus one element and loses,
-     which is why the margin measured 16px rather than the 2rem asked for. */
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* The walkthrough is a step-by-step aside the reader can skip, so it is set in from the
+   text column and carries a rule down its left edge — the convention for a quoted or
+   parenthetical block, and legible in a way 30 lines of italic prose is not. Its
+   colour-coded spans do the rest of the work. */
+.figure-caption.walkthrough {
+  border-left: 2px solid var(--border);
+  padding-left: 1rem;
+  margin-left: 0;
 }
 
 .content .figure-caption:not(:last-child) {
