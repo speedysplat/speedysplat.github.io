@@ -198,6 +198,7 @@
     <link rel="stylesheet" href="./static/css/theme.css?v=2026.08.01.21">
     <link rel="stylesheet" href="./static/css/rhythm.css?v=2026.08.01.21">
     <link rel="stylesheet" href="./static/css/icons.css?v=2026.08.01.21">
+    <link rel="stylesheet" href="./static/css/slideshow.css?v=2026.08.01.21">
     <link rel="stylesheet" href="./static/css/pdf-modal.css?v=2026.08.01.21">
     <link rel="stylesheet" href="./static/css/index.css?v=2026.08.01.21">
     <link rel="stylesheet" href="./static/css/interactions.css?v=2026.08.01.21">
@@ -206,6 +207,7 @@
     <link rel="icon" href="./static/images/favicon.ico?v=2026.08.01.21" sizes="any">
     <link rel="apple-touch-icon" href="./static/images/favicon.png?v=2026.08.01.21">
 
+    <script defer src="./static/js/slideshow.js?v=2026.08.01.21"></script>
     <script defer src="./static/js/lazy-video.js?v=2026.08.01.21"></script>
     <script defer src="./static/js/script.js?v=2026.08.01.21"></script>
     <script defer src="./static/js/pdf-modal.js?v=2026.08.01.21"></script>
@@ -607,53 +609,66 @@
                     <h2 class="title is-3">Results</h2>
                 </div>
 
-                <!-- The grid is kept as-is; what changed is when the clips load. Each
-                     carries data-src rather than src and no autoplay, so lazy-video.js
-                     fetches and plays one only once it scrolls into view. Six results
-                     autoplaying on load pulled ~66 MB before anything was on screen. -->
-                <div class="container is-centered">
-                    <div class="columns is-multiline is-centered results-grid">
-                        <!-- Row 1 -->
-                        <div class="column is-half">
-                            <video data-poster="static/images/bonsai_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
-                                aria-label="Bonsai scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/bonsai_compressed.mp4?v=2026.08.01.21" type="video/mp4">
-                            </video>
+                <!-- Match the PUP/SpeeDe peeking carousel: only the active video
+                     decodes, while adjacent poster frames show that more results are
+                     available. The ring supports arrows, dots, keyboard, mouse, and touch. -->
+                <div class="container">
+                    <div class="slideshow" tabindex="0" aria-label="Qualitative results">
+                        <div class="slideshow-viewport">
+                            <div class="slideshow-track">
+                                <div class="slideshow-slide">
+                                    <video data-poster="static/images/bonsai_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
+                                        aria-label="Bonsai scene" onclick="this.paused ? this.play() : this.pause()">
+                                        <source data-src="static/videos/bonsai_compressed.mp4?v=2026.08.01.21" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="slideshow-slide">
+                                    <video data-poster="static/images/counter_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
+                                        aria-label="Counter scene" onclick="this.paused ? this.play() : this.pause()">
+                                        <source data-src="static/videos/counter_compressed.mp4?v=2026.08.01.21" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="slideshow-slide">
+                                    <video data-poster="static/images/flowers_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
+                                        aria-label="Flowers scene" onclick="this.paused ? this.play() : this.pause()">
+                                        <source data-src="static/videos/flowers_compressed.mp4?v=2026.08.01.21" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="slideshow-slide">
+                                    <video data-poster="static/images/garden_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
+                                        aria-label="Garden scene" onclick="this.paused ? this.play() : this.pause()">
+                                        <source data-src="static/videos/garden_compressed.mp4?v=2026.08.01.21" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="slideshow-slide">
+                                    <video data-poster="static/images/kitchen_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
+                                        aria-label="Kitchen scene" onclick="this.paused ? this.play() : this.pause()">
+                                        <source data-src="static/videos/kitchen_compressed.mp4?v=2026.08.01.21" type="video/mp4">
+                                    </video>
+                                </div>
+                                <div class="slideshow-slide">
+                                    <video data-poster="static/images/room_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
+                                        aria-label="Room scene" onclick="this.paused ? this.play() : this.pause()">
+                                        <source data-src="static/videos/room_compressed.mp4?v=2026.08.01.21" type="video/mp4">
+                                    </video>
+                                </div>
+                            </div>
                         </div>
-                        <div class="column is-half">
-                            <video data-poster="static/images/counter_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
-                                aria-label="Counter scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/counter_compressed.mp4?v=2026.08.01.21" type="video/mp4">
-                            </video>
+                        <div class="slideshow-controls">
+                            <button type="button" class="slideshow-prev" aria-label="Previous result">
+                                <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" focusable="false">
+                                    <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                        stroke-linejoin="round" d="M15 5l-7 7 7 7" />
+                                </svg>
+                            </button>
+                            <button type="button" class="slideshow-next" aria-label="Next result">
+                                <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" focusable="false">
+                                    <path fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                        stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                                </svg>
+                            </button>
                         </div>
-                        <!-- Row 2 -->
-                        <div class="column is-half">
-                            <video data-poster="static/images/flowers_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
-                                aria-label="Flowers scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/flowers_compressed.mp4?v=2026.08.01.21" type="video/mp4">
-                            </video>
-                        </div>
-                        <div class="column is-half">
-                            <video data-poster="static/images/garden_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
-                                aria-label="Garden scene" onclick="this.paused ? this.play() : this.pause()">
-                                <!-- The other five point at their _compressed encode; this one
-                                     referenced the 20 MB master, which was an oversight. -->
-                                <source data-src="static/videos/garden_compressed.mp4?v=2026.08.01.21" type="video/mp4">
-                            </video>
-                        </div>
-                        <!-- Row 3 -->
-                        <div class="column is-half">
-                            <video data-poster="static/images/kitchen_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
-                                aria-label="Kitchen scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/kitchen_compressed.mp4?v=2026.08.01.21" type="video/mp4">
-                            </video>
-                        </div>
-                        <div class="column is-half">
-                            <video data-poster="static/images/room_poster.jpg?v=2026.08.01.21" muted loop playsinline preload="none"
-                                aria-label="Room scene" onclick="this.paused ? this.play() : this.pause()">
-                                <source data-src="static/videos/room_compressed.mp4?v=2026.08.01.21" type="video/mp4">
-                            </video>
-                        </div>
+                        <div class="slideshow-status" aria-live="polite"></div>
                     </div>
                 </div>
             </div>

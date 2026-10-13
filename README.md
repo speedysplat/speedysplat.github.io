@@ -48,9 +48,9 @@ terms along.
   scans the markup and JavaScript for the classes actually referenced, so no list needs
   maintaining by hand, and refuses to finish if a glyph is missing an outline or a stylesheet
   rule.
-- **Media loaded on demand.** Video sources and poster frames are held in `data-` attributes
-  and promoted when they are wanted, so a reader who never scrolls past the abstract does not
-  pay for the results.
+- **Media loaded on demand.** Video sources and poster frames are held in `data-` attributes.
+  The results carousel decodes only its active clip and pauses it off screen; neighboring slides
+  show lightweight posters instead of running six video decoders at once.
 - **Space reserved before decode.** Images and canvases declare their source aspect ratio, so
   nothing shifts as media arrives.
 - **`cache_bust.py`** stamps a version query on every local asset — in the HTML, in `url()`
@@ -105,12 +105,14 @@ terms along.
 │   │   ├── noto-sans.css         # self-hosted body typeface
 │   │   ├── pdf-modal.css         # shared with the sibling sites
 │   │   ├── rhythm.css            # vertical spacing scale, footer layout
+│   │   ├── slideshow.css         # responsive peeking results carousel
 │   │   └── theme.css             # colour tokens, both themes, the colophon
 │   ├── js/
 │   │   ├── lazy-video.js         # defers standalone videos outside a carousel
 │   │   ├── math-fit.js           # scales display equations to narrow screens
 │   │   ├── pdf-modal.js          # focus-trapped PDF overlay, PDF.js on demand
 │   │   ├── script.js             # BibTeX copy button
+│   │   ├── slideshow.js          # cyclic carousel, playback and input handling
 │   │   └── theme-switcher.js     # light/dark, persisted in localStorage
 │   ├── webfonts/            # subset icon fonts + Noto Sans
 │   ├── images/              # stills, figures, favicons
@@ -127,6 +129,10 @@ terms along.
 
 ## The moving parts
 
+- **Results carousel** (`slideshow.js` + `slideshow.css`)
+  A cyclic, draggable ring shared with PUP 3D-GS and SpeeDe3DGS. It supports arrow buttons,
+  navigation dots, keyboard arrows, mouse dragging and touch swipes. Only the active video plays;
+  the remaining slides stay paused and use poster frames until selected.
 - **Lazy video** (`lazy-video.js`)  
   `loading="lazy"` is a no-op on `<video>`, so an autoplaying clip is fetched and decoded whether or not it has ever been seen. Sources live in `data-src` and posters in `data-poster` — `preload="none"` does not cover a poster — and both are promoted when the element scrolls into view, then paused when it leaves.
 - **In-page PDF viewer** (`pdf-modal.js`)  
