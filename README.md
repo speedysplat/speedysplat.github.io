@@ -108,6 +108,7 @@ terms along.
 │   │   ├── slideshow.css         # responsive peeking results carousel
 │   │   └── theme.css             # colour tokens, both themes, the colophon
 │   ├── js/
+│   │   ├── algorithm-disclosure.js # resilient AccuTile expand/collapse control
 │   │   ├── lazy-video.js         # defers standalone videos outside a carousel
 │   │   ├── math-fit.js           # scales display equations to narrow screens
 │   │   ├── pdf-modal.js          # focus-trapped PDF overlay, PDF.js on demand
@@ -129,6 +130,13 @@ terms along.
 
 ## The moving parts
 
+- **AccuTile disclosure** (`algorithm-disclosure.js` + `.algorithm-disclosure-*` in `index.css`)
+  Moves the existing detailed algorithm beneath its Method paragraph and progressively enhances
+  it with one accessible expand/collapse button. The rollout animates its intrinsic grid height,
+  so there is no measured pixel height to become stale after MathJax typesetting, resizing, rapid
+  repeated toggles, or reloads. The state survives reloads within the tab, URL fragments open the
+  panel directly, reduced-motion preferences disable the transition, and the original full section
+  remains available when JavaScript is disabled.
 - **Results carousel** (`slideshow.js` + `slideshow.css`)
   A cyclic, draggable ring shared with PUP 3D-GS and SpeeDe3DGS. It supports arrow buttons,
   navigation dots, keyboard arrows, mouse dragging and touch swipes. Only the active video plays;
