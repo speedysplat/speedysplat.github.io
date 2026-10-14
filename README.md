@@ -135,7 +135,10 @@ terms along.
   it with one accessible expand/collapse button. The rollout animates its intrinsic grid height,
   so there is no measured pixel height to become stale after MathJax typesetting, resizing, rapid
   repeated toggles, or reloads. The state survives reloads within the tab, URL fragments open the
-  panel directly, reduced-motion preferences disable the transition, and the original full section
+  panel directly, and closing keeps the toggle anchored in the viewport so the reader follows the
+  collapsing content upward in the same animation phase. It temporarily bypasses the page's smooth
+  anchor scrolling while tracking, then restores it; manual scrolling cancels that compensation
+  immediately. Reduced-motion preferences disable the transition, and the original full section
   remains available when JavaScript is disabled.
 - **Results carousel** (`slideshow.js` + `slideshow.css`)
   A cyclic, draggable ring shared with PUP 3D-GS and SpeeDe3DGS. It supports arrow buttons,

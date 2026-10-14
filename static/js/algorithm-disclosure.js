@@ -7,7 +7,9 @@
  *
  * CSS grid animates the intrinsic content height. No pixel height is measured or
  * cached, so MathJax reflow, repeated toggles, viewport resizes, and orientation
- * changes cannot leave the panel clipped at a stale size.
+ * changes cannot leave the panel clipped at a stale size. During collapse, scroll
+ * compensation follows the toggle upward so the reader is not stranded in the
+ * section that originally sat below the expanded algorithm.
  */
 (function () {
     "use strict";
@@ -79,6 +81,78 @@
             originalTabindex.set(element, element.getAttribute("tabindex"));
         });
 
+        var scrollFollowFrame = null;
+        var scrollCancelEvents = ["wheel", "touchstart", "pointerdown", "keydown"];
+        var previousInlineScrollBehavior = null;
+
+        function cancelScrollFollow() {
+            if (scrollFollowFrame !== null) {
+                cancelAnimationFrame(scrollFollowFrame);
+                scrollFollowFrame = null;
+            }
+            scrollCancelEvents.forEach(function (type) {
+                window.removeEventListener(type, cancelScrollFollow, true);
+            });
+            if (previousInlineScrollBehavior !== null) {
+                document.documentElement.style.scrollBehavior = previousInlineScrollBehavior;
+                previousInlineScrollBehavior = null;
+            }
+        }
+
+        function cssTimeToMilliseconds(value) {
+            value = value.trim();
+            if (value.endsWith("ms")) return parseFloat(value) || 0;
+            if (value.endsWith("s")) return (parseFloat(value) || 0) * 1000;
+            return 0;
+        }
+
+        function transitionMilliseconds(element) {
+            var style = getComputedStyle(element);
+            var durations = style.transitionDuration.split(",").map(cssTimeToMilliseconds);
+            var delays = style.transitionDelay.split(",").map(cssTimeToMilliseconds);
+            var count = Math.max(durations.length, delays.length);
+            var longest = 0;
+            for (var i = 0; i < count; i++) {
+                longest = Math.max(
+                    longest,
+                    durations[i % durations.length] + delays[i % delays.length]
+                );
+            }
+            return longest;
+        }
+
+        function followButtonDuringCollapse(anchorTop) {
+            cancelScrollFollow();
+            // The page normally smooth-scrolls anchor jumps. Per-frame compensation
+            // must be immediate or those small corrections queue up and play only
+            // after the panel transition, creating a separate second phase.
+            previousInlineScrollBehavior = document.documentElement.style.scrollBehavior;
+            document.documentElement.style.scrollBehavior = "auto";
+            scrollCancelEvents.forEach(function (type) {
+                window.addEventListener(type, cancelScrollFollow, { capture: true, passive: true });
+            });
+
+            var endTime = performance.now() + transitionMilliseconds(panel) + 50;
+
+            function follow(now) {
+                if (button.getAttribute("aria-expanded") === "true") {
+                    cancelScrollFollow();
+                    return;
+                }
+
+                var delta = button.getBoundingClientRect().top - anchorTop;
+                if (Math.abs(delta) > 0.25) window.scrollBy(0, delta);
+
+                if (now < endTime) {
+                    scrollFollowFrame = requestAnimationFrame(follow);
+                } else {
+                    cancelScrollFollow();
+                }
+            }
+
+            scrollFollowFrame = requestAnimationFrame(follow);
+        }
+
         function syncFocusable(open) {
             panel.toggleAttribute("inert", !open);
             // Fallback for browsers without inert support.
@@ -111,14 +185,20 @@
 
         button.addEventListener("click", function () {
             var willOpen = button.getAttribute("aria-expanded") !== "true";
+            var anchorTop = button.getBoundingClientRect().top;
+            cancelScrollFollow();
             setOpen(willOpen, true);
+            if (!willOpen) followButtonDuringCollapse(anchorTop);
             if (!willOpen && hashRequestsOpen() && window.history && history.replaceState) {
                 history.replaceState(null, "", window.location.pathname + window.location.search);
             }
         });
 
         window.addEventListener("hashchange", function () {
-            if (hashRequestsOpen()) setOpen(true, true);
+            if (hashRequestsOpen()) {
+                cancelScrollFollow();
+                setOpen(true, true);
+            }
         });
 
         var openedFromHash = hashRequestsOpen();
